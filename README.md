@@ -17,21 +17,25 @@ To use this project, you need to have the following installed:
    git clone https://github.com/Tran-Minh-Thuc/docker-laravel
    cd docker-laravel
    ```
+
 2. Create a .env file based on the .env.example file and configure the Laravel environment variables:
 
    ```bash
     cp .env.example .env
    ```
+
 3. Update the DB_HOST in your .env file to use mysql as the database host when using Docker:
 
    ```bash
     DB_HOST=mysql
    ```
+
 4. Build and start the Docker containers:
 
    ```bash
     docker-compose up -d
    ```
+
 ## Usage
 
 You can use the following Docker Compose commands for common tasks:
@@ -41,6 +45,32 @@ You can use the following Docker Compose commands for common tasks:
 - Access the Laravel application container: `docker-compose exec app bash`
 - Run Laravel Artisan commands: `docker-compose exec app php artisan <command>`
 
+## Git cmd
+
+1. When pull code:
+
+   ```bash
+    git pull
+   ```
+
+   ```bash
+    composer install
+   ```
+
+1. When push code:
+
+   ```bash
+    git add .
+   ```
+
+   ```bash
+    git commit -m "your commit"
+   ```
+
+   ```bash
+    git push
+   ```
+
 ## Contributing
 
 Feel free to contribute to this project by creating issues or pull requests. We welcome your suggestions and improvements.
@@ -48,6 +78,7 @@ Feel free to contribute to this project by creating issues or pull requests. We 
 ## License
 
 This project is licensed under the MIT License.
-  ```bash
+
+```bash
 Remember to replace `your-username` and `your-laravel-project` with your actual GitHub repository information, and customize the instructions as needed for your specific project.
-  ```
+```
