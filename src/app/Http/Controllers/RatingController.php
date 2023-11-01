@@ -52,7 +52,6 @@ class RatingController extends Controller {
    */
   public function store(Request $request) {
     $critetias_db = Criterias::all()->toArray();
-    return $critetias_db;
     $criterias = new Criterias;
     $par = NULL;
     $weight = 1;
@@ -78,7 +77,7 @@ class RatingController extends Controller {
     $criterias->created_at = date('Y-m-d');
     $criterias->updated_at = date('Y-m-d');
     $criterias->save();
-    return $criterias;
+    return redirect('/admin/criterias');
   }
 
   /**
