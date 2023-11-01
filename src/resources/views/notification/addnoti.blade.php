@@ -10,11 +10,10 @@
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
         />
       </head>
-  <body>
+      <body>
     <div class="thm-mi-thng-bo">
       <div class="foodter">
         <img class="image-56-icon" alt="" src="./public/image-56@2x.png" />
-
         <div class="thng-tin-lin-h-parent">
           <div class="thng-tin-lin">Thông tin liên hệ</div>
           <div class="frame-parent">
@@ -223,22 +222,14 @@
                 <div class="tiu-wrapper">
                   <div class="tiu">Tiêu đề</div>
                 </div>
-                <div class="frame-parent13">
-                  <div class="frame-item"></div>
-                  <div class="frame-inner"></div>
-                  <div class="div">01234468780123446878</div>
-                </div>
+                <input type="text" class="frame-parent13" value="01234468780123446878">
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
                   <div class="tiu">Nội dung</div>
                 </div>
-                <div class="frame-parent15">
-                  <div class="frame-child1"></div>
-                  <div class="nhp-ni-dung-wrapper">
-                    <div class="nhp-ni-dung">Nhập nội dung</div>
-                  </div>
-                </div>
+                <input type="text" class="frame-parent15" value="01234468780123446878">
+
               </div>
             </div>
             <div class="frame-parent16">
@@ -246,18 +237,7 @@
                 <div class="tiu">Ngày tạo</div>
               </div>
               <div class="frame-parent17">
-                <div class="frame-parent18">
-                  <div class="vui-lng-nhp-phngx-wrapper">
-                    <div class="vui-lng-nhp">11/11/2001</div>
-                  </div>
-                  <div class="icround-navigate-next-wrapper">
-                    <img
-                      class="location-on-icon"
-                      alt=""
-                      src="./public/icroundnavigatenext.svg"
-                    />
-                  </div>
-                </div>
+                <input type="text" class="frame-parent18" value="01234468780123446878">
                 <div class="frame-parent19">
                   <div class="vector-wrapper">
                     <img
@@ -285,18 +265,7 @@
               <div class="tiu">Chọn người gửi</div>
             </div>
             <div class="frame-parent17">
-              <div class="frame-parent18">
-                <div class="vui-lng-nhp-phngx-wrapper">
-                  <div class="vui-lng-nhp">1,2,3,4,5,6,,77</div>
-                </div>
-                <div class="icround-navigate-next-wrapper">
-                  <img
-                    class="location-on-icon"
-                    alt=""
-                    src="./public/icroundnavigatenext1.svg"
-                  />
-                </div>
-              </div>
+              <input type="text" class="frame-parent18" value="01234468780123446878">
               <div class="frame-parent19">
                 <div class="vector-wrapper">
                   <img
@@ -323,18 +292,7 @@
               <div class="tiu">Tạo bởi</div>
             </div>
             <div class="frame-parent17">
-              <div class="frame-parent18">
-                <div class="vui-lng-nhp-phngx-wrapper">
-                  <div class="vui-lng-nhp">diwajdAAAdadmindiwajdAAAdadmin</div>
-                </div>
-                <div class="icround-navigate-next-frame">
-                  <img
-                    class="location-on-icon"
-                    alt=""
-                    src="./public/icroundnavigatenext2.svg"
-                  />
-                </div>
-              </div>
+              <input type="text" class="frame-parent18" value="01234468780123446878">
               <div class="frame-parent19">
                 <div class="vector-wrapper">
                   <img
@@ -361,18 +319,7 @@
               <div class="tiu">Loại thông báo</div>
             </div>
             <div class="frame-parent17">
-              <div class="frame-parent18">
-                <div class="vui-lng-nhp-phngx-wrapper">
-                  <div class="vui-lng-nhp">Gửi đến tất cảcả</div>
-                </div>
-                <div class="icround-navigate-next-frame">
-                  <img
-                    class="location-on-icon"
-                    alt=""
-                    src="./public/icroundnavigatenext3.svg"
-                  />
-                </div>
-              </div>
+              <input type="text" class="frame-parent18" value="01234468780123446878">
               <div class="frame-parent19">
                 <div class="vector-wrapper">
                   <img

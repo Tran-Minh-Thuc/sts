@@ -226,22 +226,13 @@
                 <div class="nhp-m-s-wrapper">
                   <div class="nhp-m-s">Nhập mã số</div>
                 </div>
-                <div class="frame-parent13">
-                  <div class="frame-item"></div>
-                  <div class="frame-inner"></div>
-                  <div class="div">01234468780123446878</div>
-                </div>
+                <input type="text" class="frame-parent13" value="01234468780123446878">
               </div>
               <div class="frame-parent12">
                 <div class="nhp-m-s-wrapper">
                   <div class="nhp-m-s">Họ tên</div>
                 </div>
-                <div class="frame-parent15">
-                  <div class="frame-item"></div>
-                  <div class="trn-minh-thc-wrapper">
-                    <div class="trn-minh-thc">Trần Minh Thức</div>
-                  </div>
-                </div>
+                <input type="text" class="frame-parent15" value="01234468780123446878">
               </div>
             </div>
             <div class="frame-parent16">
@@ -249,20 +240,7 @@
                 <div class="nhp-m-s">Được thêm bởi</div>
               </div>
               <div class="frame-parent17">
-                <div class="frame-parent18">
-                  <div class="vui-lng-nhp-phngx-wrapper">
-                    <div class="vui-lng-nhp">
-                      diwajdAAAdadmindiwajdAAAdadmin
-                    </div>
-                  </div>
-                  <div class="icround-navigate-next-wrapper">
-                    <img
-                      class="location-on-icon"
-                      alt=""
-                      src="./public/icroundnavigatenext.svg"
-                    />
-                  </div>
-                </div>
+                <input type="text" class="frame-parent18" value="01234468780123446878">
                 <div class="frame-parent19">
                   <div class="vector-wrapper">
                     <img
@@ -289,18 +267,7 @@
                 <div class="nhp-m-s">Lớp</div>
               </div>
               <div class="frame-parent17">
-                <div class="frame-parent18">
-                  <div class="vui-lng-nhp-phngx-wrapper">
-                    <div class="vui-lng-nhp">DCT1111</div>
-                  </div>
-                  <div class="icround-navigate-next-wrapper">
-                    <img
-                      class="location-on-icon"
-                      alt=""
-                      src="./public/icroundnavigatenext1.svg"
-                    />
-                  </div>
-                </div>
+                <input type="text" class="frame-parent18" value="01234468780123446878">
                 <div class="frame-parent19">
                   <div class="vector-wrapper">
                     <img
@@ -327,18 +294,7 @@
                 <div class="nhp-m-s">Emaill</div>
               </div>
               <div class="frame-parent17">
-                <div class="frame-parent18">
-                  <div class="vui-lng-nhp-phngx-wrapper">
-                    <div class="vui-lng-nhp">tran@123.vn</div>
-                  </div>
-                  <div class="icround-navigate-next-wrapper">
-                    <img
-                      class="location-on-icon"
-                      alt=""
-                      src="./public/icroundnavigatenext2.svg"
-                    />
-                  </div>
-                </div>
+                <input type="text" class="frame-parent18" value="01234468780123446878">
                 <div class="frame-parent19">
                   <div class="vector-wrapper">
                     <img
@@ -365,20 +321,7 @@
                 <div class="nhp-m-s">Mật khẩukhẩu</div>
               </div>
               <div class="frame-parent17">
-                <div class="frame-parent18">
-                  <div class="vui-lng-nhp-phngx-wrapper">
-                    <div class="vui-lng-nhp">
-                      diwajdAAAdadmindiwajdAAAdadmin
-                    </div>
-                  </div>
-                  <div class="icround-navigate-next-wrapper">
-                    <img
-                      class="location-on-icon"
-                      alt=""
-                      src="./public/icroundnavigatenext3.svg"
-                    />
-                  </div>
-                </div>
+                <input type="text" class="frame-parent18" value="01234468780123446878">
                 <div class="frame-parent19">
                   <div class="vector-wrapper">
                     <img
@@ -406,18 +349,7 @@
               <div class="nhp-m-s">Nhập lại</div>
             </div>
             <div class="frame-parent17">
-              <div class="frame-parent18">
-                <div class="vui-lng-nhp-phngx-wrapper">
-                  <div class="vui-lng-nhp">diwajdAAAdadmindiwajdAAAdadmin</div>
-                </div>
-                <div class="icround-navigate-next-wrapper">
-                  <img
-                    class="location-on-icon"
-                    alt=""
-                    src="./public/icroundnavigatenext4.svg"
-                  />
-                </div>
-              </div>
+              <input type="text" class="frame-parent18" value="01234468780123446878">
               <div class="frame-parent19">
                 <div class="vector-wrapper">
                   <img
@@ -444,18 +376,7 @@
               <div class="nhp-m-s">Trạng thái</div>
             </div>
             <div class="frame-parent17">
-              <div class="frame-parent18">
-                <div class="vui-lng-nhp-phngx-wrapper">
-                  <div class="vui-lng-nhp">Đang hoặt động</div>
-                </div>
-                <div class="icround-navigate-next-wrapper">
-                  <img
-                    class="location-on-icon"
-                    alt=""
-                    src="./public/icroundnavigatenext5.svg"
-                  />
-                </div>
-              </div>
+              <input type="text" class="frame-parent18" value="01234468780123446878">
               <div class="frame-parent19">
                 <div class="vector-wrapper">
                   <img
