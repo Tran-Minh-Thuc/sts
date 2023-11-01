@@ -211,11 +211,13 @@
           </div>
         </div>
       </div>
+      <form action="create-criterias" method="post">
+        @csrf
       <div class="frame-parent10">
         <div class="instance-parent">
           <div class="button-muangay-wrapper">
             <div class="button-muangay">
-              <div class="lu-thay-i">Xác nhận</div>
+              <input type="submit" value="Submit" class="lu-thay-i">
             </div>
           </div>
           <div class="group-div">
@@ -224,13 +226,23 @@
                 <div class="tiu-wrapper">
                   <div class="tiu">Tiêu đề</div>
                 </div>
+<<<<<<< HEAD:src/resources/views/field/addfield.blade.php
                 <input type="text" class="frame-parent13" value="truong moi">
+=======
+                <div class="frame-parent13">
+                  <div class="frame-item"></div>
+                  <div class="frame-child1"></div>
+                  <input type="text" class="trng-mi" id="name" name="name" placeholder="trường mới" required>
+                </div>
+>>>>>>> 4cd5b65b393f4673b0bbea13ac16640d4e33242b:src/resources/views/rating/create.blade.php
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
                   <div class="tiu">Thuôc trường</div>
+
                 </div>
                 <div class="frame-parent15">
+<<<<<<< HEAD:src/resources/views/field/addfield.blade.php
                   <input type="text" class="frame-parent16" value="01234468780123446878">
                   <div class="frame-parent17">
                     <div class="vector-wrapper">
@@ -250,14 +262,35 @@
                         <div class="gi-thp-n">Giá cao đến thấp</div>
                       </div>
                     </div>
+=======
+                  <div class="frame-parent16">
+                    <div class="vui-lng-nhp-phngx-wrapper">
+                      {{-- <div class="thng-tin-lin">
+                        Đánh giá về ý thức và kết quả học tập
+                      </div> --}}
+                      <select class="thng-tin-lin" name="parent_criteria_id" id="parent_criteria_id">
+                        @foreach($critetias as $value)
+                        <option value="{{$value['id']}}">{{$value['name']}}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="icround-navigate-next-wrapper">
+                      <img
+                        class="location-on-icon"
+                        alt=""
+                        src="./public/icroundnavigatenext.svg"
+                      />
+                    </div>
+>>>>>>> 4cd5b65b393f4673b0bbea13ac16640d4e33242b:src/resources/views/rating/create.blade.php
                   </div>
                 </div>
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Tạo bởi</div>
+                  <div class="tiu">Điểm tối đa</div>
                 </div>
                 <div class="frame-parent19">
+<<<<<<< HEAD:src/resources/views/field/addfield.blade.php
                   <input type="text" class="frame-parent16" value="01234468780123446878">
                   <div class="frame-parent21">
                     <div class="vector-wrapper">
@@ -277,14 +310,31 @@
                         <div class="gi-thp-n">Giá cao đến thấp</div>
                       </div>
                     </div>
+=======
+                  <div class="frame-parent16">
+                    <div class="vui-lng-nhp-phngx-wrapper">
+                      {{-- <div class="vui-lng-nhp1">
+                        diwajdAAAdadmindiwajdAAAdadmin
+                      </div> --}}
+                      <input type="number" class="vui-lng-nhp1" id="max_score" name="max_score" min="1" max="30" required>
+                    </div>
+                    <div class="icround-navigate-next-wrapper">
+                      <img
+                        class="location-on-icon"
+                        alt=""
+                        src="./public/icroundnavigatenext1.svg"
+                      />
+                    </div>
+>>>>>>> 4cd5b65b393f4673b0bbea13ac16640d4e33242b:src/resources/views/rating/create.blade.php
                   </div>
                 </div>
               </div>
               <div class="frame-parent22">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Chọn người gửi</div>
+                  <div class="tiu">Điểm mạc định</div>
                 </div>
                 <div class="frame-parent19">
+<<<<<<< HEAD:src/resources/views/field/addfield.blade.php
                   <input type="text" class="frame-parent16" value="01234468780123446878">
                   <div class="frame-parent21">
                     <div class="vector-wrapper">
@@ -304,14 +354,29 @@
                         <div class="gi-thp-n">Giá cao đến thấp</div>
                       </div>
                     </div>
+=======
+                  <div class="frame-parent16">
+                    <div class="vui-lng-nhp-phngx-wrapper">
+                      {{-- <div class="vui-lng-nhp1">1,2,3,4,5,6,,77</div> --}}
+                      <input type="number" class="vui-lng-nhp1" id="default_score" name="default_score" min="1" max="30" required>
+                    </div>
+                    <div class="icround-navigate-next-frame">
+                      <img
+                        class="location-on-icon"
+                        alt=""
+                        src="./public/icroundnavigatenext2.svg"
+                      />
+                    </div>
+>>>>>>> 4cd5b65b393f4673b0bbea13ac16640d4e33242b:src/resources/views/rating/create.blade.php
                   </div>
                 </div>
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Tạo bởi</div>
+                  <div class="tiu">Loại điểm</div>
                 </div>
                 <div class="frame-parent19">
+<<<<<<< HEAD:src/resources/views/field/addfield.blade.php
                   <input type="text" class="frame-parent16" value="01234468780123446878">
                   <div class="frame-parent21">
                     <div class="vector-wrapper">
@@ -358,6 +423,25 @@
                         <div class="gi-thp-n">Giá cao đến thấp</div>
                       </div>
                     </div>
+=======
+                  <div class="frame-parent16">
+                    <div class="vui-lng-nhp-phngx-wrapper">
+                      {{-- <div class="vui-lng-nhp1">
+                        diwajdAAAdadmindiwajdAAAdadmin
+                      </div> --}}
+                      <select class="vui-lng-nhp1" name="is_violent" id="is_violent">
+                        <option value="0">Điểm cộng</option>
+                        <option value="1">Điểm trừ</option>
+                      </select>
+                    </div>
+                    <div class="icround-navigate-next-wrapper">
+                      <img
+                        class="location-on-icon"
+                        alt=""
+                        src="./public/icroundnavigatenext3.svg"
+                      />
+                    </div>
+>>>>>>> 4cd5b65b393f4673b0bbea13ac16640d4e33242b:src/resources/views/rating/create.blade.php
                   </div>
                 </div>
               </div>
@@ -368,6 +452,7 @@
           <div class="thm-trng">Thêm trường</div>
         </div>
       </div>
+    </form>
     </div>
   </body>
 </html>
