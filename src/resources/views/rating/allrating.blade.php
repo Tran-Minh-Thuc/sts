@@ -30,7 +30,8 @@
                         <img class="location-on-icon" alt="" src="./public/email.svg" />
 
                         <div class="email-daihocsaigonsgueduvn">
-                            <a class="daihocsaigonsgueduvn" href="mailto:daihocsaigon@sgu.edu.vn" target="_blank">daihocsaigon@sgu.edu.vn</a>
+                            <a class="daihocsaigonsgueduvn" href="mailto:daihocsaigon@sgu.edu.vn"
+                                target="_blank">daihocsaigon@sgu.edu.vn</a>
                         </div>
                     </div>
                     <div class="language-parent">
@@ -163,84 +164,110 @@
                         <div class="trng-thi">trạng thái</div>
                     </div>
                     <div class="frame-parent13">
-                        <div class="frame-parent14">
-                            <div class="instance-wrapper4">
-                                <div class="instance-wrapper5">
-                                    <div class="nn-kinh-t-kch-thch-xu-hn-parent">
-                                        <div class="nn-kinh-t">
-                                            Đánh giá về ý thức và kết quả học tập
-                                        </div>
-                                        <div class="frame-parent15">
-                                            <div class="chnh-sa-parent">
-                                                <div class="chnh-sa">Chỉnh sửa</div>
-                                                <div class="frame-inner"></div>
-                                                <div class="chnh-sa">thêm trường</div>
-                                                <div class="frame-inner"></div>
-                                                <div class="thng-rc">Xóa</div>
+                        @foreach ($pars as $par)
+                            <div class="frame-parent14">
+                                <div class="instance-wrapper4">
+                                    <div class="instance-wrapper5">
+                                        <div class="nn-kinh-t-kch-thch-xu-hn-parent">
+                                            <div class="nn-kinh-t">
+                                                {{ $par['name'] }}
                                             </div>
-                                            <div class="xem-th-parent">
-                                                <div class="chnh-sa">Xem thử</div>
-                                                <div class="frame-child1"></div>
-                                                <div class="chnh-sa">Sửa</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="div">16</div>
-                            <div class="ang-hot-ng">Đang hoặt động</div>
-                        </div>
-                        <div class="frame-parent16">
-                            <div class="instance-wrapper6">
-                                <div class="instance-wrapper7">
-                                    <div class="nn-kinh-t-kch-thch-xu-hn-parent">
-                                        <div class="nn-kinh-t1">Kết quả học tập</div>
-                                        <div class="frame-parent15">
-                                            <div class="chnh-sa-parent">
-                                                <div class="chnh-sa">Chỉnh sửa</div>
-                                                <div class="frame-inner"></div>
-                                                <div class="chnh-sa">thêm trường</div>
-                                                <div class="frame-inner"></div>
-                                                <div class="thng-rc">Xóa</div>
-                                            </div>
-                                            <div class="xem-th-parent">
-                                                <div class="chnh-sa">Xem thử</div>
-                                                <div class="frame-child1"></div>
-                                                <div class="chnh-sa">Sửa</div>
+                                            <div class="frame-parent15">
+                                                <div class="chnh-sa-parent">
+                                                    <div class="chnh-sa">Chỉnh sửa</div>
+                                                    <div class="frame-inner"></div>
+                                                    <div class="chnh-sa">thêm trường</div>
+                                                    <div class="frame-inner"></div>
+                                                    <div class="thng-rc">Xóa</div>
+                                                </div>
+                                                <div class="xem-th-parent">
+                                                    <div class="chnh-sa">Xem thử</div>
+                                                    <div class="frame-child1"></div>
+                                                    <div class="chnh-sa">Sửa</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="div1">16</div>
-                            <div class="ang-hot-ng1">Đang hoặt động</div>
-                        </div>
-                        <div class="frame-parent14">
-                            <div class="instance-wrapper8">
-                                <div class="instance-wrapper5">
-                                    <div class="nn-kinh-t-kch-thch-xu-hn-parent">
-                                        <div class="nn-kinh-t">
-                                            Điểm trung bình học kì từ 3.60 đến 4.00
-                                        </div>
-                                        <div class="frame-parent15">
-                                            <div class="chnh-sa-parent">
-                                                <div class="chnh-sa">Chỉnh sửa</div>
-                                                <div class="frame-child1"></div>
-                                                <div class="sa-nhanh2">thêm trường</div>
-                                                <div class="frame-inner"></div>
-                                                <div class="thng-rc">Xóa</div>
-                                            </div>
-                                            <div class="xem-th-parent">
-                                                <div class="chnh-sa">Xem thử</div>
-                                                <div class="frame-child1"></div>
-                                                <div class="chnh-sa">Sửa</div>
-                                            </div>
-                                        </div>
+                                <div class="div">{{ $par['max_score'] }}</div>
+                                @if ($par['status'] == 1)
+                                    <div class="ang-hot-ng">
+                                        Đang hoặt động
                                     </div>
-                                </div>
+                                @else
+                                    <div class="ang-hot-ng" style="color:red;">
+                                        Ngưng hoặt động
+                                    </div>
+                                @endif
                             </div>
-                            <div class="div">16</div>
-                            <div class="ang-hot-ng">Đang hoặt động</div>
-                        </div>
+                            @foreach ($par_childs as $par_child)
+                                @if ($par_child['parent_criteria_id'] == $par['id'])
+                                    <div class="frame-parent16">
+                                        <div class="instance-wrapper6">
+                                            <div class="instance-wrapper7">
+                                                <div class="nn-kinh-t-kch-thch-xu-hn-parent">
+                                                    <div class="nn-kinh-t1">{{ $par_child['name'] }}</div>
+                                                    <div class="frame-parent15">
+                                                        <div class="chnh-sa-parent">
+                                                            <div class="chnh-sa">Chỉnh sửa</div>
+                                                            <div class="frame-inner"></div>
+                                                            <div class="chnh-sa">thêm trường</div>
+                                                            <div class="frame-inner"></div>
+                                                            <div class="thng-rc">Xóa</div>
+                                                        </div>
+                                                        <div class="xem-th-parent">
+                                                            <div class="chnh-sa">Xem thử</div>
+                                                            <div class="frame-child1"></div>
+                                                            <div class="chnh-sa">Sửa</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="div1">{{$par_child['max_score']}}</div>
+                                        @if($par['status'] == 0 || $par_child['status'] == 0)
+                                        <div class="ang-hot-ng1" style="color:red;">Ngưng hoặt động</div>
+                                        @else
+                                        <div class="ang-hot-ng1">Đang hoặt động</div>
+                                        @endif
+                                    </div>
+                                    @foreach ($childs as $child)
+                                        @if ($child['parent_criteria_id'] == $par_child['id'])
+                                            <div class="frame-parent14">
+                                                <div class="instance-wrapper8">
+                                                    <div class="instance-wrapper5">
+                                                        <div class="nn-kinh-t-kch-thch-xu-hn-parent">
+                                                            <div class="nn-kinh-t">
+                                                                {{ $child['name'] }}
+                                                            </div>
+                                                            <div class="frame-parent15">
+                                                                <div class="chnh-sa-parent">
+                                                                    <div class="chnh-sa">Chỉnh sửa</div>
+                                                                    <div class="frame-child1"></div>
+                                                                    <div class="sa-nhanh2">thêm trường</div>
+                                                                    <div class="frame-inner"></div>
+                                                                    <div class="thng-rc">Xóa</div>
+                                                                </div>
+                                                                <div class="xem-th-parent">
+                                                                    <div class="chnh-sa">Xem thử</div>
+                                                                    <div class="frame-child1"></div>
+                                                                    <div class="chnh-sa">Sửa</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="div">{{$child['max_score']}}</div>
+                                                @if($par['status'] == 0 || $par_child['status'] == 0 || $child['status'] == 0)
+                                                <div class="ang-hot-ng" style="color:red;">Ngưng hoặt động</div>
+                                                @else
+                                                <div class="ang-hot-ng">Đang hoặt động</div>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endforeach
                     </div>
                 </div>

@@ -27,7 +27,18 @@ Route::get('/user', [
   UserController::class,
   'index',
 ]);
+
 Route::get('/admin/criterias', [
   RatingController::class,
   'index',
+]);
+
+Route::get('/admin/create-criterias', [
+  RatingController::class,
+  'create',
+]);
+
+Route::post('/admin/create-criterias', [
+  RatingController::class,
+  'store',
 ]);

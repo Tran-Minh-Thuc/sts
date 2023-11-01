@@ -211,11 +211,13 @@
           </div>
         </div>
       </div>
+      <form action="create-criterias" method="post">
+        @csrf
       <div class="frame-parent10">
         <div class="instance-parent">
           <div class="button-muangay-wrapper">
             <div class="button-muangay">
-              <div class="lu-thay-i">Xác nhận</div>
+              <input type="submit" value="Submit" class="lu-thay-i">
             </div>
           </div>
           <div class="group-div">
@@ -227,19 +229,25 @@
                 <div class="frame-parent13">
                   <div class="frame-item"></div>
                   <div class="frame-child1"></div>
-                  <div class="trng-mi">trường mới</div>
+                  <input type="text" class="trng-mi" id="name" name="name" placeholder="trường mới" required>
                 </div>
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
                   <div class="tiu">Thuôc trường</div>
+
                 </div>
                 <div class="frame-parent15">
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
-                      <div class="thng-tin-lin">
+                      {{-- <div class="thng-tin-lin">
                         Đánh giá về ý thức và kết quả học tập
-                      </div>
+                      </div> --}}
+                      <select class="thng-tin-lin" name="parent_criteria_id" id="parent_criteria_id">
+                        @foreach($critetias as $value)
+                        <option value="{{$value['id']}}">{{$value['name']}}</option>
+                        @endforeach
+                        </select>
                     </div>
                     <div class="icround-navigate-next-wrapper">
                       <img
@@ -249,37 +257,19 @@
                       />
                     </div>
                   </div>
-                  <div class="frame-parent17">
-                    <div class="vector-wrapper">
-                      <img
-                        class="vector-icon"
-                        alt=""
-                        src="./public/vector-18.svg"
-                      />
-                    </div>
-                    <div class="frame-wrapper1">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá thấp đến cao</div>
-                      </div>
-                    </div>
-                    <div class="frame-wrapper2">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá cao đến thấp</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Tạo bởi</div>
+                  <div class="tiu">Điểm tối đa</div>
                 </div>
                 <div class="frame-parent19">
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
-                      <div class="vui-lng-nhp1">
+                      {{-- <div class="vui-lng-nhp1">
                         diwajdAAAdadmindiwajdAAAdadmin
-                      </div>
+                      </div> --}}
+                      <input type="number" class="vui-lng-nhp1" id="max_score" name="max_score" min="1" max="30" required>
                     </div>
                     <div class="icround-navigate-next-wrapper">
                       <img
@@ -289,35 +279,17 @@
                       />
                     </div>
                   </div>
-                  <div class="frame-parent21">
-                    <div class="vector-wrapper">
-                      <img
-                        class="vector-icon"
-                        alt=""
-                        src="./public/vector-181.svg"
-                      />
-                    </div>
-                    <div class="frame-wrapper1">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá thấp đến cao</div>
-                      </div>
-                    </div>
-                    <div class="frame-wrapper2">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá cao đến thấp</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="frame-parent22">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Chọn người gửi</div>
+                  <div class="tiu">Điểm mạc định</div>
                 </div>
                 <div class="frame-parent19">
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
-                      <div class="vui-lng-nhp1">1,2,3,4,5,6,,77</div>
+                      {{-- <div class="vui-lng-nhp1">1,2,3,4,5,6,,77</div> --}}
+                      <input type="number" class="vui-lng-nhp1" id="default_score" name="default_score" min="1" max="30" required>
                     </div>
                     <div class="icround-navigate-next-frame">
                       <img
@@ -327,37 +299,22 @@
                       />
                     </div>
                   </div>
-                  <div class="frame-parent21">
-                    <div class="vector-wrapper">
-                      <img
-                        class="vector-icon"
-                        alt=""
-                        src="./public/vector-182.svg"
-                      />
-                    </div>
-                    <div class="frame-wrapper1">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá thấp đến cao</div>
-                      </div>
-                    </div>
-                    <div class="frame-wrapper2">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá cao đến thấp</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="frame-parent14">
                 <div class="tiu-wrapper">
-                  <div class="tiu">Tạo bởi</div>
+                  <div class="tiu">Loại điểm</div>
                 </div>
                 <div class="frame-parent19">
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
-                      <div class="vui-lng-nhp1">
+                      {{-- <div class="vui-lng-nhp1">
                         diwajdAAAdadmindiwajdAAAdadmin
-                      </div>
+                      </div> --}}
+                      <select class="vui-lng-nhp1" name="is_violent" id="is_violent">
+                        <option value="0">Điểm cộng</option>
+                        <option value="1">Điểm trừ</option>
+                      </select>
                     </div>
                     <div class="icround-navigate-next-wrapper">
                       <img
@@ -365,63 +322,6 @@
                         alt=""
                         src="./public/icroundnavigatenext3.svg"
                       />
-                    </div>
-                  </div>
-                  <div class="frame-parent21">
-                    <div class="vector-wrapper">
-                      <img
-                        class="vector-icon"
-                        alt=""
-                        src="./public/vector-183.svg"
-                      />
-                    </div>
-                    <div class="frame-wrapper1">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá thấp đến cao</div>
-                      </div>
-                    </div>
-                    <div class="frame-wrapper2">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá cao đến thấp</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="frame-parent30">
-                <div class="tiu-wrapper">
-                  <div class="tiu">Ngày tạo</div>
-                </div>
-                <div class="frame-parent19">
-                  <div class="frame-parent16">
-                    <div class="vui-lng-nhp-phngx-wrapper">
-                      <div class="vui-lng-nhp1">11/11/2001</div>
-                    </div>
-                    <div class="icround-navigate-next-frame">
-                      <img
-                        class="location-on-icon"
-                        alt=""
-                        src="./public/icroundnavigatenext4.svg"
-                      />
-                    </div>
-                  </div>
-                  <div class="frame-parent21">
-                    <div class="vector-wrapper">
-                      <img
-                        class="vector-icon"
-                        alt=""
-                        src="./public/vector-184.svg"
-                      />
-                    </div>
-                    <div class="frame-wrapper1">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá thấp đến cao</div>
-                      </div>
-                    </div>
-                    <div class="frame-wrapper2">
-                      <div class="gi-thp-n-cao-wrapper">
-                        <div class="gi-thp-n">Giá cao đến thấp</div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -433,6 +333,7 @@
           <div class="thm-trng">Thêm trường</div>
         </div>
       </div>
+    </form>
     </div>
   </body>
 </html>

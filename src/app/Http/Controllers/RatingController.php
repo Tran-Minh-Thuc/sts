@@ -15,26 +15,21 @@ class RatingController extends Controller {
    */
   public function index() {
     $critetias = Criterias::all()->toArray();
-    $par = [];
-    $chil = [];
-    $par_chil = [];
-    foreach ($critetias as $key => $crit) {
-      if ($crit['parent_criteria_id'] == NULL) {
-        $par[] = $crit;
-        unset($critetias[$key]);
+    $pars = [];
+    $childs = [];
+    $par_childs = [];
+    foreach ($critetias as $value) {
+      if($value['field_level'] == 1){
+        $pars[] = $value;
+      }
+      elseif($value['field_level'] == 2){
+        $par_childs[] = $value;
+      }
+      elseif($value['field_level'] == 3){
+        $childs[] = $value;
       }
     }
-    foreach ($critetias as $key => $crit) {
-      foreach ($critetias as $crit2) {
-        if ($crit['id'] == $crit2['parent_criteria_id']) {
-          $par_chil[] = $crit;
-          unset($critetias[$key]);
-          break;
-        }
-      }
-    }
-    return $par_chil;
-    return view('rating.allrating', compact('critetias'));
+    return view('rating.allrating', compact('pars', 'par_childs', 'childs'));
 
   }
 
@@ -42,12 +37,48 @@ class RatingController extends Controller {
    * Inheric docs.
    */
   public function create() {
+    $critetias_db = Criterias::all()->toArray();
+    $critetias = [];
+    foreach ($critetias_db as $value) {
+      if($value['field_level'] != 3){
+        $critetias[] = $value;
+      }
+    }
+    return view('rating.create', compact('critetias'));
   }
 
   /**
    * Inheric docs.
    */
   public function store(Request $request) {
+    $critetias_db = Criterias::all()->toArray();
+    return $critetias_db;
+    $criterias = new Criterias;
+    $par = NULL;
+    $weight = 1;
+    $level = 1;
+    foreach ($critetias_db as $value) {
+      if($value['id'] == $request->parent_criteria_id){
+        $par = $value;
+        $level = $value['field_level'] + 1;
+      }
+      if($value['parent_criteria_id'] == $request->parent_criteria_id){
+        $weight++;
+      }
+    }    
+    // $criterias->id = @ $request->name;
+    $criterias->name = $request->name;
+    $criterias->parent_criteria_id = $request->parent_criteria_id;
+    $criterias->max_score = $request->max_score;
+    $criterias->default_score = $request->default_score;
+    $criterias->is_violent = $request->is_violent;
+    $criterias->weight = $weight;
+    $criterias->field_level = $level;
+    $criterias->status = 1;
+    $criterias->created_at = date('Y-m-d');
+    $criterias->updated_at = date('Y-m-d');
+    $criterias->save();
+    return $criterias;
   }
 
   /**
