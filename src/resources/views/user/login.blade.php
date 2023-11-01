@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-    <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/login.css" />
-    <link
+<link rel="stylesheet" href="{{ asset('css/global.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+        <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
     />
