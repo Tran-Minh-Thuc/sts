@@ -4,7 +4,7 @@ services:
 
   # Web Server Service
   nginx:
-    container_name: nginx
+    container_name: sts_nginx
     image: nginx:alpine
     ports:
       - "8080:80"
@@ -14,17 +14,18 @@ services:
     depends_on:
       - app
       - db
+    restart: always
 
   #Database Service
   db:
+    container_name : sts_mysql
     image : mysql
-    container_name : mysql
     volumes:
       - ./mysql/data:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: main_db
+      MYSQL_DATABASE: sts
       MYSQL_ROOT_PASSWORD: password
     restart: always
 
@@ -43,7 +44,7 @@ services:
 
   # Application Service
   app:
-    container_name: app
+    container_name: sts_app
     build:
       context: ./php
       dockerfile: Dockerfile
@@ -56,7 +57,7 @@ services:
 
   #phpMyAdmin Service
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: sts_phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
       - "3400:80"
@@ -74,4 +75,3 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: admin6@gmail.com
   #     PGADMIN_DEFAULT_PASSWORD: admin
   #   restart: always
-
