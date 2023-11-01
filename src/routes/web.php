@@ -4,6 +4,7 @@
  * @file
  */
 
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,9 @@ Route::get('/', function () {
 
 Route::get('/user', [
   UserController::class,
+  'index',
+]);
+Route::get('/admin/criterias', [
+  RatingController::class,
   'index',
 ]);
