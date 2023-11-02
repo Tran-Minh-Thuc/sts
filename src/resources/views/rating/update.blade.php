@@ -211,8 +211,9 @@
           </div>
         </div>
       </div>
-      <form action="create-criterias" method="post">
+      <form action="update-criterias/{{$criteria[0]->id}}" method="post">
         @csrf
+        @method('put')
       <div class="frame-parent10">
         <div class="instance-parent">
           <div class="button-muangay-wrapper">
@@ -229,7 +230,7 @@
                 <div class="frame-parent13">
                   <div class="frame-item"></div>
                   <div class="frame-child1"></div>
-                  <input type="text" class="trng-mi" id="name" name="name" placeholder="trường mới" required>
+                  <input type="text" class="trng-mi" id="name" name="name" placeholder="trường mới" value="{{$criteria[0]->name}}" required>
                 </div>
               </div>
               <div class="frame-parent14">
@@ -241,13 +242,18 @@
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
                       <select class="thng-tin-lin" name="parent_criteria_id" id="parent_criteria_id">
+                        @if($parent_criteria != NULL)
+                        <option value="{{$parent_criteria[0]->id}}" selected>{{$parent_criteria[0]->name}}</option>
+                        <option value="NULL" >Không thuộc trường nào</option>
+                        @else
                         <option value="NULL" selected>Không thuộc trường nào</option>
-                        @foreach($critetias as $value)
+                        @endif
+                        @foreach($criterias as $value)
                             @if($value['field_level'] != 3)
                             <option value="{{$value['id']}}">{{$value['name']}}</option>
                             @endif
                         @endforeach
-                        </select>
+                    </select>
                     </div>
                     <div class="icround-navigate-next-wrapper">
                       <img
@@ -269,7 +275,7 @@
                       {{-- <div class="vui-lng-nhp1">
                         diwajdAAAdadmindiwajdAAAdadmin
                       </div> --}}
-                      <input type="number" class="vui-lng-nhp1" id="max_score" name="max_score" min="1" max="30" required>
+                      <input type="number" class="vui-lng-nhp1" id="max_score" name="max_score" min="1" max="30" value="{{$criteria[0]->max_score}}" required>
                     </div>
                     <div class="icround-navigate-next-wrapper">
                       <img
@@ -289,7 +295,7 @@
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
                       {{-- <div class="vui-lng-nhp1">1,2,3,4,5,6,,77</div> --}}
-                      <input type="number" class="vui-lng-nhp1" id="default_score" name="default_score" min="1" max="30" required>
+                      <input type="number" class="vui-lng-nhp1" id="default_score" name="default_score" min="1" max="30" value="{{$criteria[0]->default_score}}" required>
                     </div>
                     <div class="icround-navigate-next-frame">
                       <img
@@ -312,8 +318,43 @@
                         diwajdAAAdadmindiwajdAAAdadmin
                       </div> --}}
                       <select class="vui-lng-nhp1" name="is_violent" id="is_violent">
-                        <option value="0">Điểm cộng</option>
+                        @if($criteria[0]->is_violent == 0)
+                        <option value="0" >Điểm cộng</option>
                         <option value="1">Điểm trừ</option>
+                        @else
+                        <option value="0">Điểm cộng</option>
+                        <option value="1" >Điểm trừ</option>
+                        @endif
+                      </select>
+                    </div>
+                    <div class="icround-navigate-next-wrapper">
+                      <img
+                        class="location-on-icon"
+                        alt=""
+                        src="./public/icroundnavigatenext3.svg"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+                            <div class="frame-parent14">
+                <div class="tiu-wrapper">
+                  <div class="tiu">Trạng thái</div>
+                </div>
+                <div class="frame-parent19">
+                  <div class="frame-parent16">
+                    <div class="vui-lng-nhp-phngx-wrapper">
+                      {{-- <div class="vui-lng-nhp1">
+                        diwajdAAAdadmindiwajdAAAdadmin
+                      </div> --}}
+                      <select class="vui-lng-nhp1" name="status" id="status">
+                        @if($criteria[0]->status == 0)
+                        <option value="1">Đang hoặt động</option>
+                        <option value="0" selected>Ngưng hoặt động</option>
+                        @else
+                        <option value="1" selected>Đang hoặt động</option>
+                        <option value="0">Ngưng hoặt động</option>
+                        @endif
                       </select>
                     </div>
                     <div class="icround-navigate-next-wrapper">

@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('rating.allrating');
-});
-
 Route::get('/user', [
   UserController::class,
   'index',
@@ -41,4 +37,14 @@ Route::get('/admin/create-criterias', [
 Route::post('/admin/create-criterias', [
   RatingController::class,
   'store',
+]);
+
+Route::get('/admin/update-criterias/{id}', [
+  RatingController::class,
+  'edit',
+]);
+
+Route::put('/admin/update-criterias/update-criterias/{id}', [
+  RatingController::class,
+  'update',
 ]);

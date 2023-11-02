@@ -174,7 +174,7 @@
                                             </div>
                                             <div class="frame-parent15">
                                                 <div class="chnh-sa-parent">
-                                                    <div class="chnh-sa">Chỉnh sửa</div>
+                                                    <a href="update-criterias/{{$par['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                     <div class="frame-inner"></div>
                                                     <div class="chnh-sa">thêm trường</div>
                                                     <div class="frame-inner"></div>
@@ -209,7 +209,7 @@
                                                     <div class="nn-kinh-t1">{{ $par_child['name'] }}</div>
                                                     <div class="frame-parent15">
                                                         <div class="chnh-sa-parent">
-                                                            <div class="chnh-sa">Chỉnh sửa</div>
+                                                             <a href="update-criterias/{{$par_child['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                             <div class="frame-inner"></div>
                                                             <div class="chnh-sa">thêm trường</div>
                                                             <div class="frame-inner"></div>
@@ -242,7 +242,7 @@
                                                             </div>
                                                             <div class="frame-parent15">
                                                                 <div class="chnh-sa-parent">
-                                                                    <div class="chnh-sa">Chỉnh sửa</div>
+                                                                     <a href="update-criterias/{{$child['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                                     <div class="frame-child1"></div>
                                                                     <div class="sa-nhanh2">thêm trường</div>
                                                                     <div class="frame-inner"></div>

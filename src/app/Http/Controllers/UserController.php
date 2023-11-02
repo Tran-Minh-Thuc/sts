@@ -14,7 +14,7 @@ class UserController extends Controller {
    * Inheric docs.
    */
   public function index() {
-    return User::all();
+    return view('user.listuser');
   }
 
   /**
