@@ -551,7 +551,7 @@
 .frame-parent16,
 .frame-parent17,
 .frame-parent18 {
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   width: 1119px;
   height: 94px;

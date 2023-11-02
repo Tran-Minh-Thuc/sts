@@ -241,7 +241,11 @@
                   <div class="frame-parent16">
                     <div class="vui-lng-nhp-phngx-wrapper">
                       <select class="thng-tin-lin" name="parent_criteria_id" id="parent_criteria_id">
+                        @if($par)
+                        <option value="{{$par['id']}}">{{$par['name']}}</option>
+                        @else
                         <option value="NULL" selected>Không thuộc trường nào</option>
+                        @endif
                         @foreach($critetias as $value)
                             @if($value['field_level'] != 3)
                             <option value="{{$value['id']}}">{{$value['name']}}</option>

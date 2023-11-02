@@ -3,83 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Course;
+use App\Models\Teachers;
 use Illuminate\Http\Request;
 
-class ClassesController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+/**
+ * Inheric docs.
+ */
+class ClassesController extends Controller {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function index() {
+    $classes = Classes::all()->toArray();
+    return $classes;
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function create() {
+    $teacher = Teachers::all()->toArray();
+    $course = Course::all()->toArray();
+    return 123;
+    // Return view('classes.create', compact('teacher', 'course'));.
+  }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Classes  $classes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Classes $classes)
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function store(Request $request) {
+    $classes = new Classes();
+    $classes->teacher_id = $request->teacher_id;
+    $classes->name = $request->name;
+    $classes->department_name = $request->department_name;
+    $classes->course_id = $request->course_id;
+    $classes->created_at = date('Y-m-d');
+    $classes->updated_at = date('Y-m-d');
+    $classes->save();
+    return redirect('/admin/classes');
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Classes  $classes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Classes $classes)
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function show(Classes $classes) {
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Classes  $classes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Classes $classes)
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function edit($id) {
+    $classes = Classes::find($id);
+    return $classes;
+    // Return view('classes.update', compact('classes'));.
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Classes  $classes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Classes $classes)
-    {
-        //
-    }
+  /**
+   * Inheric docs.
+   */
+  public function update(Request $request, $id) {
+    $classes = Classes::find($id);
+    $classes->teacher_id = $request->teacher_id;
+    $classes->name = $request->name;
+    $classes->department_name = $request->department_name;
+    $classes->course_id = $request->course_id;
+    $classes->updated_at = date('Y-m-d');
+    $classes->save();
+    return redirect('/admin/classes');
+  }
+
+  /**
+   * Inheric docs.
+   */
+  public function destroy(Classes $classes) {
+  }
+
 }

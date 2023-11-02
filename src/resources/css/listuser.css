@@ -444,7 +444,7 @@
 }
 .div,
 .ti-khon-parent {
-  position: absolute;
+  /* position: absolute; */
   display: flex;
 }
 .ti-khon-parent {

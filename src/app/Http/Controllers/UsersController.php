@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Students;
+use App\Models\Teachers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
  * Inheric docs.
  */
-class UserController extends Controller {
+class UsersController extends Controller {
 
   /**
    * Inheric docs.
    */
   public function index() {
-    return view('user.listuser');
+    $students = Students::all()->toArray();
+    $teachers = Teachers::all()->toArray();
+    $all_user = [];
+    $all_user[] = $students;
+    $all_user[] = $teachers;
+    return view('user.listuser', compact('students'));
   }
 
   /**

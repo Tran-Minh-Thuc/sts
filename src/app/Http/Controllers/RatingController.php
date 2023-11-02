@@ -37,7 +37,8 @@ class RatingController extends Controller {
   /**
    * Inheric docs.
    */
-  public function create() {
+  public function create($id = 0) {
+    $par = Criterias::find($id);
     $critetias_db = Criterias::all()->toArray();
     $critetias = [];
     foreach ($critetias_db as $value) {
@@ -45,7 +46,7 @@ class RatingController extends Controller {
         $critetias[] = $value;
       }
     }
-    return view('rating.create', compact('critetias'));
+    return view('rating.create', compact('critetias', 'par'));
   }
 
   /**
@@ -124,7 +125,6 @@ class RatingController extends Controller {
     $critetia->is_violent = $request->is_violent;
     $critetia->field_level = $level;
     $critetia->status = $request->status;
-    $critetia->created_at = date('Y-m-d');
     $critetia->updated_at = date('Y-m-d');
     $critetia->save();
     // Return $criterias;.
@@ -135,7 +135,10 @@ class RatingController extends Controller {
   /**
    * Inheric docs.
    */
-  public function destroy(criterias $criterias) {
+  public function destroy($id) {
+    $critetia = Criterias::find($id);
+    $critetia->delete();
+    return redirect('/admin/criterias');
   }
 
 }

@@ -176,9 +176,7 @@
                                                 <div class="chnh-sa-parent">
                                                     <a href="update-criterias/{{$par['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                     <div class="frame-inner"></div>
-                                                    <div class="chnh-sa">thêm trường</div>
-                                                    <div class="frame-inner"></div>
-                                                    <div class="thng-rc">Xóa</div>
+                                                    <a href="create-criterias/{{$par['id']}}" class="chnh-sa">thêm trường</a>
                                                 </div>
                                                 <div class="xem-th-parent">
                                                     <div class="chnh-sa">Xem thử</div>
@@ -211,9 +209,7 @@
                                                         <div class="chnh-sa-parent">
                                                              <a href="update-criterias/{{$par_child['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                             <div class="frame-inner"></div>
-                                                            <div class="chnh-sa">thêm trường</div>
-                                                            <div class="frame-inner"></div>
-                                                            <div class="thng-rc">Xóa</div>
+                                                            <a href="create-criterias/{{$par_child['id']}}" class="chnh-sa">thêm trường</a>
                                                         </div>
                                                         <div class="xem-th-parent">
                                                             <div class="chnh-sa">Xem thử</div>
@@ -245,9 +241,7 @@
                                                                      <a href="update-criterias/{{$child['id']}}" class="chnh-sa">Chỉnh sửa</a>
                                                                     <div class="frame-child1"></div>
                                                                     <div class="sa-nhanh2">thêm trường</div>
-                                                                    <div class="frame-inner"></div>
-                                                                    <div class="thng-rc">Xóa</div>
-                                                                </div>
+                                                                  </div>
                                                                 <div class="xem-th-parent">
                                                                     <div class="chnh-sa">Xem thử</div>
                                                                     <div class="frame-child1"></div>
