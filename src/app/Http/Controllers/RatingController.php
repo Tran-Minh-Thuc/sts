@@ -137,6 +137,7 @@ class RatingController extends Controller {
    */
   public function destroy($id) {
     $critetia = Criterias::find($id);
+    // return($critetia);
     $critetia->delete();
     return redirect('/admin/criterias');
   }
