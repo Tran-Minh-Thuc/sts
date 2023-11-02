@@ -302,7 +302,7 @@
         </button>
         <div id="form-del-cri" class="button-muangay-wrapper" style="height:50px; top: 790px;display:none;">
             <div class="button-muangay" style="background-color: brown;">
-                <form  action="/admin/delete-accounts/{{$criteria[0]->id}}" method="post" >
+                <form  action="/admin/delete-criterias/{{$criteria[0]->id}}" method="post" >
                     @csrf
                     @method('delete')
                     <button type="submit" value="Submit" class="lu-thay-i">

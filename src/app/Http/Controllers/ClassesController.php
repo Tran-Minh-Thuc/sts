@@ -77,7 +77,10 @@ class ClassesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function destroy(Classes $classes) {
+  public function destroy($id) {
+    $classes = Classes::find($id);
+    $classes->delete();
+    return redirect('/admin/classes');
   }
 
 }
