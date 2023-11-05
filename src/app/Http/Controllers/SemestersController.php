@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
 class SemestersController extends Controller {
   public function index() {
     $semesters = Semesters::all()->toArray();
-    return $semesters;
+    return view('semesters.index');
   }
 
   /**
    * Inheric docs.
    */
   public function create() {
-    return 123;
-    // Return view('classes.create');.
+    // return 123;
+    // return view('classes.create');
   }
 
   /**
