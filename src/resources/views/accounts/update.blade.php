@@ -156,8 +156,9 @@
             </div>
         </div>
         <div class="frame-parent10">
-            <form action="create-semesters" method="post">
+            <form action="update-accounts/{{$account['id']}}" method="post">
                 @csrf
+                @method('put')
                 <div class="instance-parent">
                     <div class="button-muangay-wrapper">
                         <div class="button-muangay">
@@ -167,37 +168,112 @@
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Tên học kì</div>
+                                <div class="nhp-m-s">Tên đăng nhập</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="text" name="name" id="name" class="frame-parent18" placeholder="học kì 1 năm học 2023" required>
+                                <input type="text" name="user_name" id="user_name" class="frame-parent18" value="{{$account['user_name']}}" required>
                             </div>
                         </div>
                     </div>
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Thời gian bắt đầu</div>
+                                <div class="nhp-m-s">Mật khẩu</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="date" name="start_time" class="frame-parent18" value="" required>
+                                <input type="text" name="password" id="password" class="frame-parent18" value="{{$account['password']}}" required>
                             </div>
                         </div>
                     </div>
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Thời gian kết thúc</div>
+                                <div class="nhp-m-s">Quyền</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="date" name="end_time" class="frame-parent18" value="" required>
+                                <select class="thng-tin-lin" name="permission_id" id="permission_id">
+                                    <option value="{{$account['permission_id']}}" selected>{{$account['permission_name']}}</option>
+                                    @foreach($permissions as $permission)
+                                    @if($permission['id'] != $account['permission_id'])
+                                    <option value="{{$permission['id']}}">{{$permission['name']}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-div">
+                        <div class="frame-parent28">
+                            <div class="nhp-m-s-wrapper">
+                                <div class="nhp-m-s">Trạng thái</div>
+                            </div>
+                            <div class="frame-parent17">
+                                <select class="vui-lng-nhp1" name="status" id="status">
+                                    @if($account['status'] == "FALSE")
+                                    <option value="TRUE">Đang hoặt động</option>
+                                    <option value="FALSE" selected>Ngưng hoặt động</option>
+                                    @else
+                                    <option value="TRUE" selected>Đang hoặt động</option>
+                                    <option value="FALSE">Ngưng hoặt động</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-div">
+                        <div class="frame-parent28">
+                            <div class="nhp-m-s-wrapper">
+                                <div class="nhp-m-s">Ngày tạo</div>
+                            </div>
+                            <div class="frame-parent17">
+                                <input type="text" class="frame-parent18" value="{{$account['created_at']}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-div">
+                        <div class="frame-parent28">
+                            <div class="nhp-m-s-wrapper">
+                                <div class="nhp-m-s">Chỉnh sửa gần nhất</div>
+                            </div>
+                            <div class="frame-parent17">
+                                <input type="text" class="frame-parent18" value="{{$account['updated_at']}}" disabled>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+            <button onclick="viewformdelete()" class="button-muangay-wrapper" style="margin-top:300px; height:50px; width:71px">
+                xac nhan xoa
+            </button>
+            <div id="form-del-cri" class="button-muangay-wrapper" style="height:50px; top: 790px;display:none;">
+                <div class="button-muangay" style="background-color: brown;">
+                    <form action="/admin/delete-accounts/{{$account['id']}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" value="Submit" class="lu-thay-i">
+                            xóa
+                        </button>
+                    </form>
+                    <button onclick="viewformdelete()" class="lu-thay-i">
+                        đóng
+                    </button>
+                </div>
+            </div>
+            <div class="to-ngi-dng-mi-wrapper">
+                <div class="to-ngi-dng">tạo người dùng mới</div>
+            </div>
         </div>
     </div>
 </body>
+<script>
+    function viewformdelete() {
+        var x = document.getElementById("form-del-cri");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 
 </html>

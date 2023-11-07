@@ -9,17 +9,20 @@ use Illuminate\Http\Request;
  * Inheric docs.
  */
 class SemestersController extends Controller {
-  public function index() {
+
+  /**
+   * Inheric docs.
+   */
+  public function list() {
     $semesters = Semesters::all()->toArray();
-    return view('semesters.index');
+    return view('semesters.list', compact('semesters'));
   }
 
   /**
    * Inheric docs.
    */
   public function create() {
-    // return 123;
-    // return view('classes.create');
+    return view('semesters.create');
   }
 
   /**
@@ -28,7 +31,8 @@ class SemestersController extends Controller {
   public function store(Request $request) {
     $semesters = new Semesters();
     $semesters->name = $request->name;
-    $semesters->year = $request->year;
+    $semesters->start_time = $request->start_time;
+    $semesters->end_time = $request->end_time;
     $semesters->created_at = date('Y-m-d');
     $semesters->updated_at = date('Y-m-d');
     $semesters->save();
@@ -45,9 +49,8 @@ class SemestersController extends Controller {
    * Inheric docs.
    */
   public function edit($id) {
-    $semesters = Semesters::find($id);
-    return $semesters;
-    // Return view('semesters.update', compact('semesters'));.
+    $semester = Semesters::find($id);
+    return view('semesters.update', compact('semester'));
   }
 
   /**
@@ -56,7 +59,8 @@ class SemestersController extends Controller {
   public function update(Request $request, $id) {
     $semesters = Semesters::find($id);
     $semesters->name = $request->name;
-    $semesters->year = $request->year;
+    $semesters->start_time = $request->start_time;
+    $semesters->end_time = $request->end_time;
     $semesters->updated_at = date('Y-m-d');
     $semesters->save();
     return redirect('/admin/semesters');

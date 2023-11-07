@@ -14,7 +14,7 @@ class RatingController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
+  public function list() {
     $critetias = Criterias::all()->toArray();
     $pars = [];
     $childs = [];
@@ -30,7 +30,7 @@ class RatingController extends Controller {
         $childs[] = $value;
       }
     }
-    return view('rating.allrating', compact('pars', 'par_childs', 'childs'));
+    return view('rating.list', compact('pars', 'par_childs', 'childs'));
 
   }
 

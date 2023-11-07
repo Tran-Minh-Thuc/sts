@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 02, 2023 at 12:42 PM
+-- Generation Time: Nov 07, 2023 at 09:07 AM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.8
 
@@ -123,25 +123,25 @@ INSERT INTO `classes` (`id`, `teacher_id`, `name`, `department_name`, `course_id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `course`
+-- Table structure for table `courses`
 --
 
-CREATE TABLE `course` (
+CREATE TABLE `courses` (
   `id` int NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `begin_year` int DEFAULT NULL,
-  `end_year` int DEFAULT NULL,
+  `start_time` date DEFAULT NULL,
+  `end_time` date  DEFAULT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `course`
+-- Dumping data for table `courses`
 --
 
-INSERT INTO `course` (`id`, `name`, `begin_year`, `end_year`, `created_at`, `updated_at`) VALUES
-(1, 'Khóa 19', 2019, 2023, '2023-10-15', '2023-10-15'),
-(2, 'Khóa 20', 2020, 2024, '2023-10-15', '2023-10-15');
+INSERT INTO `courses` (`id`, `name`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
+(1, 'Khóa 19', '2023-10-15' , '2023-10-15' , '2023-10-15', '2023-10-15'),
+(2, 'Khóa 20', '2023-10-15' , '2023-10-15' , '2023-10-15', '2023-10-15');
 
 -- --------------------------------------------------------
 
@@ -296,9 +296,9 @@ CREATE TABLE `semesters` (
 --
 
 INSERT INTO `semesters` (`id`, `name`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
-(1, 'Học kì 1 năm 2023', '01-09-2023', '01-01-2023', '2023-10-15', '2023-10-15'),
-(2, 'Học kì 2 năm 2023', '01-01-2023', '01-07-2023', '2023-10-15', '2023-10-15'),
-(3, 'Học kì 3 năm 2023', '01-07-2023', '01-09-2023', '2023-10-15', '2023-10-15');
+(1, 'Học kì 1 năm 2023', '2023-02-02', '2023-11-08', '2023-10-15', '2023-11-07'),
+(2, 'Học kì 2 năm 2023', '0000-00-00', '0000-00-00', '2023-10-15', '2023-10-15'),
+(3, 'Học kì 3 năm 2023', '0000-00-00', '0000-00-00', '2023-10-15', '2023-10-15');
 
 -- --------------------------------------------------------
 
@@ -465,9 +465,9 @@ ALTER TABLE `classes`
   ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `course`
+-- Indexes for table `courses`
 --
-ALTER TABLE `course`
+ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -544,9 +544,9 @@ ALTER TABLE `classes`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `course`
+-- AUTO_INCREMENT for table `courses`
 --
-ALTER TABLE `course`
+ALTER TABLE `courses`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -571,7 +571,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `semesters`
 --
 ALTER TABLE `semesters`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -615,7 +615,7 @@ ALTER TABLE `classes`
   ADD CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
   ADD CONSTRAINT `classes_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
   ADD CONSTRAINT `classes_ibfk_4` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
-  ADD CONSTRAINT `classes_ibfk_5` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`);
+  ADD CONSTRAINT `classes_ibfk_5` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `criterias`

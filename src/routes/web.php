@@ -7,15 +7,15 @@
 
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ClassesController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SemestersController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\TranscriptsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 // Criterias.
 Route::get('/admin/criterias', [
   RatingController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-criterias', [
@@ -73,7 +73,7 @@ Route::delete('/admin/delete-criterias/{id}', [
 // Accounts.
 Route::get('/admin/accounts', [
   AccountsController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-accounts', [
@@ -104,7 +104,7 @@ Route::delete('/admin/delete-accounts/{id}', [
 // Users.
 Route::get('/admin/users', [
   UsersController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-users', [
@@ -134,7 +134,7 @@ Route::delete('/admin/delete-users/{id}', [
 // Classes.
 Route::get('/admin/classes', [
   ClassesController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-classes', [
@@ -163,31 +163,31 @@ Route::delete('/admin/delete-classes/{id}', [
 
 
 // Course.
-Route::get('/admin/course', [
+Route::get('/admin/courses', [
   CourseController::class,
-  'index',
+  'list',
 ]);
 
-Route::get('/admin/create-course', [
+Route::get('/admin/create-courses', [
+  CourseController::class,
+  'create',
+]);
+
+Route::post('/admin/create-courses', [
   CourseController::class,
   'store',
 ]);
 
-Route::post('/admin/create-course', [
-  CourseController::class,
-  'store',
-]);
-
-Route::get('/admin/update-course/{id}', [
+Route::get('/admin/update-courses/{id}', [
   CourseController::class,
   'edit',
 ]);
 
-Route::put('/admin/update-course/update-course/{id}', [
+Route::put('/admin/update-courses/update-courses/{id}', [
   CourseController::class,
   'update',
 ]);
-Route::delete('/admin/delete-course/{id}', [
+Route::delete('/admin/delete-courses/{id}', [
   CourseController::class,
   'destroy',
 ]);
@@ -195,7 +195,7 @@ Route::delete('/admin/delete-course/{id}', [
 // Notices.
 Route::get('/admin/notices', [
   NoticesController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-notices', [
@@ -225,7 +225,7 @@ Route::delete('/admin/delete-notices/{id}', [
 // Permissions.
 Route::get('/admin/permissions', [
   PermissionsController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-permissions', [
@@ -255,12 +255,12 @@ Route::delete('/admin/delete-permissions/{id}', [
 // Semesters.
 Route::get('/admin/semesters', [
   SemestersController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-semesters', [
   SemestersController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-semesters', [
@@ -285,7 +285,7 @@ Route::delete('/admin/delete-semesters/{id}', [
 // Studentss.
 Route::get('/admin/students', [
   StudentsController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-students', [
@@ -315,7 +315,7 @@ Route::delete('/admin/delete-students/{id}', [
 // Teachers.
 Route::get('/admin/teachers', [
   TeachersController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-teachers', [
@@ -345,7 +345,7 @@ Route::delete('/admin/delete-teachers/{id}', [
 // Transcripts.
 Route::get('/admin/transcripts', [
   TranscriptsController::class,
-  'index',
+  'list',
 ]);
 
 Route::get('/admin/create-transcripts', [

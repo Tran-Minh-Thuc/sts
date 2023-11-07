@@ -156,7 +156,7 @@
             </div>
         </div>
         <div class="frame-parent10">
-            <form action="create-semesters" method="post">
+            <form action="create-accounts" method="post">
                 @csrf
                 <div class="instance-parent">
                     <div class="button-muangay-wrapper">
@@ -167,30 +167,47 @@
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Tên học kì</div>
+                                <div class="nhp-m-s">Tên đăng nhập</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="text" name="name" id="name" class="frame-parent18" placeholder="học kì 1 năm học 2023" required>
+                                <input type="text" name="user_name" id="user_name" class="frame-parent18" value="" required>
                             </div>
                         </div>
                     </div>
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Thời gian bắt đầu</div>
+                                <div class="nhp-m-s">Mật khẩu</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="date" name="start_time" class="frame-parent18" value="" required>
+                                <input type="text" name="password" id="password" class="frame-parent18" value="" required>
                             </div>
                         </div>
                     </div>
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Thời gian kết thúc</div>
+                                <div class="nhp-m-s">Quyền</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="date" name="end_time" class="frame-parent18" value="" required>
+                                <select class="thng-tin-lin" name="permission_id" id="permission_id">
+                                    @foreach($permissions as $permission)
+                                    <option value="{{$permission['id']}}">{{$permission['name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-div">
+                        <div class="frame-parent28">
+                            <div class="nhp-m-s-wrapper">
+                                <div class="nhp-m-s">Trạng thái</div>
+                            </div>
+                            <div class="frame-parent17">
+                                <select class="vui-lng-nhp1" name="status" id="status">
+                                    <option value="TRUE" selected>Đang hoặt động</option>
+                                    <option value="FALSE" >Ngưng hoặt động</option>
+                                </select>
                             </div>
                         </div>
                     </div>

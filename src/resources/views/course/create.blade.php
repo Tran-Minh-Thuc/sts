@@ -156,7 +156,7 @@
             </div>
         </div>
         <div class="frame-parent10">
-            <form action="create-semesters" method="post">
+            <form action="create-courses" method="post">
                 @csrf
                 <div class="instance-parent">
                     <div class="button-muangay-wrapper">
@@ -167,10 +167,10 @@
                     <div class="group-div">
                         <div class="frame-parent28">
                             <div class="nhp-m-s-wrapper">
-                                <div class="nhp-m-s">Tên học kì</div>
+                                <div class="nhp-m-s">Tên khóa</div>
                             </div>
                             <div class="frame-parent17">
-                                <input type="text" name="name" id="name" class="frame-parent18" placeholder="học kì 1 năm học 2023" required>
+                                <input type="text" name="name" id="name" class="frame-parent18" placeholder="Khóa 19" required>
                             </div>
                         </div>
                     </div>
