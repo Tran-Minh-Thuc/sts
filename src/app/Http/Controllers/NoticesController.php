@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notices;
 use App\Models\Semesters;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
@@ -14,9 +15,14 @@ class NoticesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
-    $notices = Notices::all()->toArray();
-    return $notices;
+  public function list() {
+    $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id;');
+    $notices = [];
+    foreach ($notices_db as $notice) {
+      $notices[] = (array) $notice;
+    }
+
+    return view('notices.list', compact('notices'));
   }
 
   /**
@@ -24,8 +30,7 @@ class NoticesController extends Controller {
    */
   public function create() {
     $semesters = Semesters::all()->toArray();
-    return 123;
-    // Return view('notices.create', compact('semesters'));.
+    return view('notices.create', compact('semesters'));
   }
 
   /**
@@ -36,8 +41,7 @@ class NoticesController extends Controller {
     $notices->semester_id = $request->semester_id;
     $notices->begin_time = $request->begin_time;
     $notices->end_time = $request->end_time;
-    $notices->begin_register_time = $request->begin_register_time;
-    $notices->end_register_time = $request->end_register_time;
+    $notices->image = (string) base64_encode(file_get_contents($request->image));
     $notices->location = $request->location;
     $notices->note = $request->note;
     $notices->name = $request->name;
@@ -51,16 +55,17 @@ class NoticesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function show(Notices $notices) {
+  public function uploadfile($file) {
   }
 
   /**
    * Inheric docs.
    */
   public function edit($id) {
-    $notices = Notices::find($id);
-    return $notices;
-    // Return view('notices.update', compact('notices'));.
+    $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id WHERE notices.id = ?;', [$id]);
+    $semesters = Semesters::all()->toArray();
+    $notice = (array) $notices_db[0];
+    return view('notices.update', compact('notice', 'semesters'));
   }
 
   /**
@@ -71,8 +76,9 @@ class NoticesController extends Controller {
     $notices->semester_id = $request->semester_id;
     $notices->begin_time = $request->begin_time;
     $notices->end_time = $request->end_time;
-    $notices->begin_register_time = $request->begin_register_time;
-    $notices->end_register_time = $request->end_register_time;
+    if ($request->image) {
+      $notices->image = (string) base64_encode(file_get_contents($request->image));
+    }
     $notices->location = $request->location;
     $notices->note = $request->note;
     $notices->name = $request->name;

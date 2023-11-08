@@ -6,6 +6,7 @@ use App\Models\Classes;
 use App\Models\Course;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
@@ -15,19 +16,22 @@ class ClassesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
-    $classes = Classes::all()->toArray();
-    return $classes;
+  public function list() {
+    $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id;');
+    $classes = [];
+    foreach ($classes_db as $class) {
+      $classes[] = (array) $class;
+    }
+    return view('classes.list', compact('classes'));
   }
 
   /**
    * Inheric docs.
    */
   public function create() {
-    $teacher = Teachers::all()->toArray();
-    $course = Course::all()->toArray();
-    return 123;
-    // Return view('classes.create', compact('teacher', 'course'));.
+    $teachers = Teachers::all()->toArray();
+    $courses = Course::all()->toArray();
+    return view('classes.create', compact('teachers', 'courses'));
   }
 
   /**
@@ -55,9 +59,11 @@ class ClassesController extends Controller {
    * Inheric docs.
    */
   public function edit($id) {
-    $classes = Classes::find($id);
-    return $classes;
-    // Return view('classes.update', compact('classes'));.
+    $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, teachers.teacher_code AS teacher_code, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id WHERE classes.id = ?;', [$id]);
+    $class = (array) $classes_db[0];
+    $teachers = Teachers::all()->toArray();
+    $courses = Course::all()->toArray();
+    return view('classes.update', compact('class', 'teachers', 'courses'));
   }
 
   /**

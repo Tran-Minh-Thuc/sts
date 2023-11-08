@@ -15,7 +15,7 @@ class UsersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
+  public function list() {
     $students = Students::all()->toArray();
     $teachers = Teachers::all()->toArray();
     $all_user = [];
@@ -28,6 +28,7 @@ class UsersController extends Controller {
    * Inheric docs.
    */
   public function create() {
+    return view('user.create');
   }
 
   /**

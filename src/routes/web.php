@@ -139,7 +139,7 @@ Route::get('/admin/classes', [
 
 Route::get('/admin/create-classes', [
   ClassesController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-classes', [
@@ -200,7 +200,7 @@ Route::get('/admin/notices', [
 
 Route::get('/admin/create-notices', [
   NoticesController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-notices', [
@@ -230,7 +230,7 @@ Route::get('/admin/permissions', [
 
 Route::get('/admin/create-permissions', [
   PermissionsController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-permissions', [

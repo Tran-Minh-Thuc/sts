@@ -13,17 +13,16 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
+  public function list() {
     $permissions = Permissions::all()->toArray();
-    return $permissions;
+    return view('permissions.list', compact('permissions'));
   }
 
   /**
    * Inheric docs.
    */
   public function create() {
-    return 123;
-    // Return view('classes.create');.
+    return view('permissions.create');
   }
 
   /**
@@ -48,9 +47,8 @@ class PermissionsController extends Controller {
    * Inheric docs.
    */
   public function edit($id) {
-    $permissions = Permissions::find($id);
-    return $permissions;
-    // Return view('permissions.update', compact('permissions'));.
+    $permission = Permissions::find($id);
+    return view('permissions.update', compact('permission'));
   }
 
   /**
