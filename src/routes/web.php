@@ -290,7 +290,7 @@ Route::get('/admin/students', [
 
 Route::get('/admin/create-students', [
   StudentsController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-students', [

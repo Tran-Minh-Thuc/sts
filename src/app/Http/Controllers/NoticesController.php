@@ -41,7 +41,7 @@ class NoticesController extends Controller {
     $notices->semester_id = $request->semester_id;
     $notices->begin_time = $request->begin_time;
     $notices->end_time = $request->end_time;
-    $notices->image = (string) base64_encode(file_get_contents($request->image));
+    $notices->image = !empty($request->image) ? (string) base64_encode(file_get_contents($request->image)) : NULL;
     $notices->location = $request->location;
     $notices->note = $request->note;
     $notices->name = $request->name;
