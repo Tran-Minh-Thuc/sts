@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Semesters;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 /**
@@ -13,8 +14,17 @@ class SemestersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $semesters = Semesters::all()->toArray();
+  public function list(Request $request) {
+    $semesters = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $semesters_search_db = DB::select('SELECT semesters.* FROM semesters WHERE semesters.name LIKE ?;', [$search_box]);
+      foreach ($semesters_search_db as $course) {
+        $semesters[] = (array) $course;
+      }
+    } else {
+      $semesters = Semesters::all()->toArray();
+    }
     return view('semesters.list', compact('semesters'));
   }
 

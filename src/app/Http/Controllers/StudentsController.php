@@ -16,9 +16,15 @@ class StudentsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $students_db = DB::select('SELECT students.*, classes.name AS class_name FROM students LEFT JOIN classes ON students.class_id = classes.id;');
+  public function list(Request $request) {
     $students = [];
+    $students_db = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $students_db = DB::select('SELECT students.*, classes.name AS class_name FROM students LEFT JOIN classes ON students.class_id = classes.id WHERE students.full_name LIKE ?;', [$search_box]);
+    }else{
+      $students_db = DB::select('SELECT students.*, classes.name AS class_name FROM students LEFT JOIN classes ON students.class_id = classes.id;');
+    }
     foreach ($students_db as $student) {
       $students[] = (array) $student;
     };

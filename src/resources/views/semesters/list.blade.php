@@ -158,32 +158,13 @@
         <div class="frame-parent10">
             <div class="frame-wrapper1">
                 <div class="frame-parent11">
-                    <div class="frame-parent12">
-                        <div class="frame-wrapper2">
-                            <div class="quynquyn-parent">
-                                <div class="thng-tin-lin">QuyềnQuyền</div>
-                                <img class="location-on-icon" alt="" src="./public/keyboard-arrow-down.svg" />
-                            </div>
+                    <form action="">
+                        <div class="frame-parent12">
+                                    <input class="thng-tin-lin" type="search" name="name" placeholder="Tìm theo tên">
+                                    <button class="thng-tin-lin"> tìm kiếm</button>
+                                    <div class="tng-3">Tổng : 3 mục</div>
                         </div>
-                        <div class="p-dng-wrapper">
-                            <div class="thng-tin-lin">Áp dụng</div>
-                        </div>
-                    </div>
-                    <div class="frame-parent13">
-                        <div class="tm-theo-m-s-parent">
-                            <div class="tm-theo-m">Tìm theo Mã số</div>
-                            <img class="location-on-icon" alt="" src="./public/keyboard-arrow-down1.svg" />
-                        </div>
-                        <div class="frame-parent14">
-                            <div class="tm-kim-theo-tn-wrapper">
-                                <div class="tm-kim-theo">Tìm kiếm theo tên</div>
-                            </div>
-                            <div class="search-wrapper">
-                                <img class="search-icon" alt="" src="./public/search.svg" />
-                            </div>
-                        </div>
-                        <div class="tng-3">Tổng : 3 mục</div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="frame-parent15">

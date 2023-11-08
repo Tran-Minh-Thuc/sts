@@ -16,9 +16,15 @@ class ClassesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id;');
+  public function list(Request $request) {
     $classes = [];
+    $classes_db = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id WHERE classes.name LIKE ?;', [$search_box]);
+    }else{
+      $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id;');
+    }
     foreach ($classes_db as $class) {
       $classes[] = (array) $class;
     }

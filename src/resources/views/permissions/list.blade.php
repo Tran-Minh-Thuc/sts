@@ -30,7 +30,8 @@
                         <img class="location-on-icon" alt="" src="./public/email.svg" />
 
                         <div class="email-daihocsaigonsgueduvn">
-                            <a class="daihocsaigonsgueduvn" href="mailto:daihocsaigon@sgu.edu.vn" target="_blank">daihocsaigon@sgu.edu.vn</a>
+                            <a class="daihocsaigonsgueduvn" href="mailto:daihocsaigon@sgu.edu.vn"
+                                target="_blank">daihocsaigon@sgu.edu.vn</a>
                         </div>
                     </div>
                     <div class="language-parent">
@@ -158,32 +159,13 @@
         <div class="frame-parent10">
             <div class="frame-wrapper1">
                 <div class="frame-parent11">
-                    <div class="frame-parent12">
-                        <div class="frame-wrapper2">
-                            <div class="quynquyn-parent">
-                                <div class="thng-tin-lin">QuyềnQuyền</div>
-                                <img class="location-on-icon" alt="" src="./public/keyboard-arrow-down.svg" />
-                            </div>
+                    <form action="">
+                        <div class="frame-parent12">
+                            <input class="thng-tin-lin" type="search" name="name" placeholder="Tìm theo tên">
+                            <button class="thng-tin-lin"> tìm kiếm</button>
+                            <div class="tng-3">Tổng : 3 mục</div>
                         </div>
-                        <div class="p-dng-wrapper">
-                            <div class="thng-tin-lin">Áp dụng</div>
-                        </div>
-                    </div>
-                    <div class="frame-parent13">
-                        <div class="tm-theo-m-s-parent">
-                            <div class="tm-theo-m">Tìm theo Mã số</div>
-                            <img class="location-on-icon" alt="" src="./public/keyboard-arrow-down1.svg" />
-                        </div>
-                        <div class="frame-parent14">
-                            <div class="tm-kim-theo-tn-wrapper">
-                                <div class="tm-kim-theo">Tìm kiếm theo tên</div>
-                            </div>
-                            <div class="search-wrapper">
-                                <img class="search-icon" alt="" src="./public/search.svg" />
-                            </div>
-                        </div>
-                        <div class="tng-3">Tổng : 3 mục</div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="frame-parent15">
@@ -194,26 +176,26 @@
                     <div class="email"></div>
                     <div class="quyn"></div>
                 </div>
-                @foreach($permissions as $key => $permission)
-                @if($key % 2 == 0)
-                <div class="frame-parent16">
-                    <div class="trn-minh-thc">
-                        <div class="chnh-sa-parent">
-                            <a href="update-permissions/{{$permission['id']}}" class="chnh-sa">Chỉnh sửa</a>
+                @foreach ($permissions as $key => $permission)
+                    @if ($key % 2 == 0)
+                        <div class="frame-parent16">
+                            <div class="trn-minh-thc">
+                                <div class="chnh-sa-parent">
+                                    <a href="update-permissions/{{ $permission['id'] }}" class="chnh-sa">Chỉnh sửa</a>
+                                </div>
+                            </div>
+                            <div class="trn-minh-thc">{{ $permission['name'] }}</div>
                         </div>
-                    </div>
-                    <div class="trn-minh-thc">{{$permission['name']}}</div>
-                </div>
-                @else
-                <div class="frame-parent18">
-                    <div class="parent">
-                        <div class="chnh-sa-parent">
-                            <a href="update-permissions/{{$permission['id']}}" class="chnh-sa">Chỉnh sửa</a>
+                    @else
+                        <div class="frame-parent18">
+                            <div class="parent">
+                                <div class="chnh-sa-parent">
+                                    <a href="update-permissions/{{ $permission['id'] }}" class="chnh-sa">Chỉnh sửa</a>
+                                </div>
+                            </div>
+                            <div class="trn-minh-thc">{{ $permission['name'] }}</div>
                         </div>
-                    </div>
-                    <div class="trn-minh-thc">{{$permission['name']}}</div>
-                </div>
-                @endif
+                    @endif
                 @endforeach
             </div>
         </div>

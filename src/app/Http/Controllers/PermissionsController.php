@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permissions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
@@ -13,8 +14,17 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $permissions = Permissions::all()->toArray();
+  public function list(Request $request) {
+    $permissions = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $permissions_search_db = DB::select('SELECT permissions.* FROM permissions WHERE permissions.name LIKE ?;', [$search_box]);
+      foreach ($permissions_search_db as $course) {
+        $permissions[] = (array) $course;
+      }
+    }else{
+      $permissions = Permissions::all()->toArray();
+    }
     return view('permissions.list', compact('permissions'));
   }
 

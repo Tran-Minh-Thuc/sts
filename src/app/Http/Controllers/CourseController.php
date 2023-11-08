@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
  */
-class CourseController extends Controller {
+class CourseController extends Controller
+{
 
   /**
    * Inheric docs.
    */
-  public function index() {
+  public function index()
+  {
     $course = Course::all()->toArray();
     return $course;
   }
@@ -21,22 +24,34 @@ class CourseController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $courses = Course::all()->toArray();
+  public function list(Request $request)
+  {
+    $courses = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $courses_search_db = DB::select('SELECT courses.* FROM courses WHERE courses.name LIKE ?;', [$search_box]);
+      foreach ($courses_search_db as $course) {
+        $courses[] = (array) $course;
+      }
+    } else {
+      $courses = Course::all()->toArray();
+    }
     return view('course.list', compact('courses'));
   }
 
   /**
    * Inheric docs.
    */
-  public function create() {
+  public function create()
+  {
     return view('course/create');
   }
 
   /**
    * Inheric docs.
    */
-  public function store(Request $request) {
+  public function store(Request $request)
+  {
     $course = new Course();
     $course->name = $request->name;
     $course->start_time = $request->start_time;
@@ -50,13 +65,15 @@ class CourseController extends Controller {
   /**
    * Inheric docs.
    */
-  public function show(Course $course) {
+  public function show(Course $course)
+  {
   }
 
   /**
    * Inheric docs.
    */
-  public function edit($id) {
+  public function edit($id)
+  {
     $course = Course::find($id);
     return view('course.update', compact('course'));
   }
@@ -64,7 +81,8 @@ class CourseController extends Controller {
   /**
    * Inheric docs.
    */
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
     $course = Course::find($id);
     $course->name = $request->name;
     $course->start_time = $request->start_time;
@@ -77,10 +95,10 @@ class CourseController extends Controller {
   /**
    * Inheric docs.
    */
-  public function destroy($id) {
+  public function destroy($id)
+  {
     $course = Course::find($id);
     $course->delete();
     return redirect('/admin/courses');
   }
-
 }

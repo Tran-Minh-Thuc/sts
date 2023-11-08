@@ -170,33 +170,36 @@
             <div class="frame-parent15">
                 <div class="frame-item"></div>
                 <div class="ti-khon-parent">
-                    <div class="ti-khon">Hoạt động</div>
-                    <div class="h-v-tn">Tên khóa</div>
-                    <div class="email">Năm bắt đầu</div>
-                    <div class="quyn">Năm kết thúc</div>
+                    <div class="ti-khon">Hoặt động</div>
+                    <div class="ti-khon">Học kì</div>
+                    <div class="h-v-tn">Mã học sinh</div>
+                    <div class="email">Tổng điểm</div>
+                    <div class="quyn">Đánh giá</div>
                 </div>
-                @foreach($courses as $key => $course)
+                @foreach($transcripts as $key => $transcript)
                 @if($key % 2 == 0)
                 <div class="frame-parent16">
                     <div class="trn-minh-thc">
                         <div class="chnh-sa-parent">
-                            <a href="update-courses/{{$course['id']}}" class="chnh-sa">Chỉnh sửa</a>
+                            <a href="detail-transcripts/{{$transcript['id']}}" class="chnh-sa">Chi tiết</a>
                         </div>
                     </div>
-                    <div class="trn-minh-thc">{{$course['name']}}</div>
-                    <div class="tranminhthugmailcom">{{$course['start_time']}}</div>
-                    <div class="tranminhthugmailcom">{{$course['end_time']}}</div>
+                    <div class="trn-minh-thc">{{$transcript['semester_name']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['student_code']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['total_score']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['evaluate']}}</div>
                 </div>
                 @else
                 <div class="frame-parent18">
                     <div class="parent">
                         <div class="chnh-sa-parent">
-                            <a href="update-courses/{{$course['id']}}" class="chnh-sa">Chỉnh sửa</a>
+                            <a href="detail-transcripts/{{$transcript['id']}}" class="chnh-sa">Chỉnh sửa</a>
                         </div>
                     </div>
-                    <div class="trn-minh-thc">{{$course['name']}}</div>
-                    <div class="tranminhthugmailcom">{{$course['start_time']}}</div>
-                    <div class="tranminhthugmailcom">{{$course['end_time']}}</div>
+                    <div class="trn-minh-thc">{{$transcript['semester_name']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['student_code']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['total_score']}}</div>
+                    <div class="tranminhthugmailcom">{{$transcript['evaluate']}}</div>
                 </div>
                 @endif
                 @endforeach

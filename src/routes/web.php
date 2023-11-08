@@ -320,7 +320,7 @@ Route::get('/admin/teachers', [
 
 Route::get('/admin/create-teachers', [
   TeachersController::class,
-  'store',
+  'create',
 ]);
 
 Route::post('/admin/create-teachers', [
@@ -361,6 +361,11 @@ Route::post('/admin/create-transcripts', [
 Route::get('/admin/update-transcripts/{id}', [
   TranscriptsController::class,
   'edit',
+]);
+
+Route::get('/admin/detail-transcripts/{id}', [
+  TranscriptsController::class,
+  'show',
 ]);
 
 Route::put('/admin/update-transcripts/update-transcripts/{id}', [

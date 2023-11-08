@@ -303,7 +303,7 @@ INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `provinces` (
   `id` int NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transcripts;
 use App\Models\Students;
+use Illuminate\Support\Facades\DB;
 use App\Models\Semesters;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,19 @@ class TranscriptsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function index() {
-    $transcripts = Transcripts::all()->toArray();
-    return $transcripts;
+  public function list(Request $request) {
+    $transcripts = [];
+    $transcripts_db = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $transcripts_db = DB::select('SELECT transcripts.*, semesters.name AS semester_name, students.student_code AS student_code FROM transcripts LEFT JOIN semesters ON transcripts.semester_id = semesters.id LEFT JOIN students ON transcripts.student_id = students.id WHERE students.student_code LIKE ?;', [$search_box]);
+    }else{
+      $transcripts_db = DB::select('SELECT transcripts.*, semesters.name AS semester_name, students.student_code AS student_code FROM transcripts LEFT JOIN semesters ON transcripts.semester_id = semesters.id LEFT JOIN students ON transcripts.student_id = students.id;');
+    }
+    foreach ($transcripts_db as $transcript) {
+      $transcripts[] = (array) $transcript;
+    }
+    return view('transcripts.list', compact('transcripts'));
   }
 
   /**
@@ -49,7 +60,10 @@ class TranscriptsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function show(Transcripts $transcripts) {
+  public function show($id) {
+    $transcripts_db = DB::select('SELECT transcripts.*, semesters.name AS semester_name, students.student_code AS student_code FROM transcripts LEFT JOIN semesters ON transcripts.semester_id = semesters.id LEFT JOIN students ON transcripts.student_id = students.id WHERE transcripts.id = ?;',[$id]);
+    $transcripts_detail_db = DB::select('SELECT transcript_detail.*, criterias.name AS criterias_name FROM transcript_detail LEFT JOIN criterias ON transcript_detail.criteria_id = criterias.id  WHERE transcript_detail.transcript_id = ?;', [$id]);
+    return view('transcripts.detail', compact(''));
   }
 
   /**

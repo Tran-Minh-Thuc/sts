@@ -15,9 +15,15 @@ class NoticesController extends Controller {
   /**
    * Inheric docs.
    */
-  public function list() {
-    $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id;');
+  public function list(Request $request) {
     $notices = [];
+    $notices_db = [];
+    if ($request->name != NULL) {
+      $search_box = "%" . $request->name . "%";
+      $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id WHERE notices.name LIKE ?;', [$search_box]);
+    }else{
+      $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id;');
+    }
     foreach ($notices_db as $notice) {
       $notices[] = (array) $notice;
     }
