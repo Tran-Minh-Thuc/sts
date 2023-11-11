@@ -1,156 +1,101 @@
-<!-- <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-
-        <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/addfield.css') }}" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
-        />
-      </head>
-      <body>
-
-      <div class="trang-nh-gi-im-rn-luyn">
-    <div class="frame">
-        <div class="foodter">
-            @include('layouts.foodter')
-        </div>
-        <div class="header">
-            @include('layouts.header')
-        </div>
-            @include('layouts.menu')
-            @yield('content')
-</div>      -->
-
 <!DOCTYPE html>
-<html>
+<html class="loading" lang="en" data-textdirection="ltr">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-
-  <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" />
+  <title>Trường Đại học Sài Gòn</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/ico/favicon.ico') }}">
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+  <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/vendors.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/app-lite.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/core/menu/menu-types/vertical-menu.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/core/colors/palette-gradient.css') }}" />
 </head>
 
-<body>
-  <div class="frame">
-    <div class="foodter">
-      <img class="image-56-icon" alt="" src="./public/image-56@2x.png" />
-
-      <div class="thng-tin-lin-h-parent">
-        <div class="thng-tin-lin">Thông tin liên hệ</div>
-        <div class="frame-parent">
-          <div class="location-on-parent">
-            <img class="location-on-icon" alt="" src="./public/location-on.svg" />
-
-            <div class="email-daihocsaigonsgueduvn">
-              Địa chỉ: 273 Đ. An D. Vương, Phường 3, Quận 5, Thành phố Hồ Chí
-              Minh 700000, Việt Nam
-            </div>
-          </div>
-          <div class="email-parent">
-            <img class="location-on-icon" alt="" src="./public/email.svg" />
-
-            <div class="email-daihocsaigonsgueduvn">
-              <a class="daihocsaigonsgueduvn" href="mailto:daihocsaigon@sgu.edu.vn" target="_blank">daihocsaigon@sgu.edu.vn</a>
-            </div>
-          </div>
-          <div class="language-parent">
-            <img class="location-on-icon" alt="" src="./public/language.svg" />
-
-            <div class="email-daihocsaigonsgueduvn">
-              Website: https://www.sgu.edu.vn/
-            </div>
-          </div>
-          <div class="language-parent">
-            <img class="location-on-icon" alt="" src="./public/phone.svg" />
-
-            <div class="email-daihocsaigonsgueduvn">
-              Hotline: (84-28) 38.354409 - 38.352309
-            </div>
-          </div>
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
+  <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+    <div class="navbar-wrapper">
+      <div class="navbar-container content">
+        <div class="collapse navbar-collapse show" id="navbar-mobile">
+          <ul class="nav navbar-nav mr-auto float-left">
+            <li class="nav-item d-block d-md-none"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
+            <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
+            <li class="nav-item dropdown navbar-search"><a class="nav-link dropdown-toggle hide" data-toggle="dropdown" href="#"><i class="ficon ft-search"></i></a>
+              <ul class="dropdown-menu">
+                <li class="arrow_box">
+                  <form>
+                    <div class="input-group search-box">
+                      <div class="position-relative has-icon-right full-width">
+                        <input class="form-control" id="search" type="text" placeholder="Search here...">
+                        <div class="form-control-position navbar-search-close"><i class="ft-x"> </i></div>
+                      </div>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav float-right">
+            <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language"></span></a>
+              <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                <div class="arrow_box"><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> Chinese</a><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-ru"></i> Russian</a><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-es"></i> Spanish</a></div>
+              </div>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav float-right">
+            <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-mail"> </i></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="arrow_box_right"><a class="dropdown-item" href="#"><i class="ft-book"></i> Read Mail</a><a class="dropdown-item" href="#"><i class="ft-bookmark"></i> Read Later</a><a class="dropdown-item" href="#"><i class="ft-check-square"></i> Mark all Read </a></div>
+              </div>
+            </li>
+            <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"> <span class="avatar avatar-online"><img src="{{ asset('images/portrait/small/avatar-s-19.png') }}" alt="avatar"><i></i></span></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="arrow_box_right"><a class="dropdown-item" href="#"><span class="avatar avatar-online"><img src="theme-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><span class="user-name text-bold-700 ml-1">John Doe</span></span></a>
+                  <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a><a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a><a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
+                  <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="ft-power"></i> Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="header">
-      <div class="frame-group">
-        <div class="frame-wrapper">
-          <div></div>
-        </div>
-        <div class="trng-i-hc-si-gn-parent">
-          <b class="trng-i-hc">TRƯỜNG ĐẠI HỌC SÀI GÒN</b>
-          <b class="trng-i-hc1">SINCE 2007</b>
-        </div>
-      </div>
-      <div class="image-55-wrapper">
-        <img class="image-55-icon" alt="" src="./public/image-55@2x.png" />
-      </div>
+  </nav>
+  <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav flex-row">
+        <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Chameleon admin logo" src="{{ asset('images/logo/logo.png') }}" />
+            <h3 class="brand-text">Đại học Sài Gòn</h3>
+          </a></li>
+        <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
+      </ul>
     </div>
-    <div class="trang-nh-gi-im-rn-luyn-inner">
-      <div class="frame-container">
-        <div class="rectangle-parent">
-          <img class="frame-child" alt="" src="./public/rectangle-4554@2x.png" />
+    <div class="main-menu-content">
+      <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+        <li class=" nav-item"><a href="#"><i class="ft-home"></i><span class="menu-title" data-i18n="">Trang Chủ</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="">Hồ Sơ Cá Nhân</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-graduation-cap"></i><span class="menu-title" data-i18n="">Sinh Viên</span></a>
+        </li>
+        <li class="active"><a href="#"><i class="la la-certificate"></i><span class="menu-title" data-i18n="">Tất cả đánh giá</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-headphones"></i><span class="menu-title" data-i18n="">Thông tin hỗ trợ</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Tin tức</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Thông Báo</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="navigation-background"></div>
+  </div>
+  @yield('content')
+  <!--content -->
+  <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <div class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Lê Đức Thành - Trần Minh Thức <a class="text-bold-800 grey darken-2" href="#" target="_blank"></a></span>
+    </div>
+  </footer>
+</body>
 
-          <div class="admin-minh-thc-wrapper">
-            <div class="admin-minh-thc">Admin Minh Thức</div>
-          </div>
-        </div>
-        <div class="instance-wrapper">
-          <div class="frame-div">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng">Người dùng</div>
-            </div>
-            <img class="location-on-icon" alt="" src="./public/expand-more.svg" />
-          </div>
-        </div>
-        <div class="instance-wrapper">
-          <div class="frame-div">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng">Các đánh giá</div>
-            </div>
-            <img class="location-on-icon" alt="" src="./public/expand-more1.svg" />
-          </div>
-        </div>
-        <div class="instance-frame">
-          <div class="frame-parent2">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng2">Tất cả đánh giá</div>
-            </div>
-            <img class="expand-more-icon2" alt="" src="./public/expand-more2.svg" />
-          </div>
-        </div>
-        <div class="instance-wrapper">
-          <div class="frame-div">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng">Thông tin hỗ trợ</div>
-            </div>
-            <img class="location-on-icon" alt="" src="./public/expand-more3.svg" />
-          </div>
-        </div>
-        <div class="instance-wrapper">
-          <div class="frame-div">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng">Tin tức</div>
-            </div>
-            <img class="location-on-icon" alt="" src="./public/expand-more4.svg" />
-          </div>
-        </div>
-        <div class="instance-wrapper">
-          <div class="frame-div">
-            <div class="danh-sch-ng-vin-wrapper">
-              <div class="danh-sch-ng">Thông báo</div>
-            </div>
-            <img class="location-on-icon" alt="" src="./public/expand-more5.svg" />
-          </div>
-        </div>
-        <div class="frame-parent6">
-          <div class="danh-sch-ng-vin-wrapper">
-            <div class="danh-sch-ng2">Tất cả người dùng</div>
-          </div>
-          <img class="expand-more-icon2" alt="" src="./public/expand-more6.svg" />
-        </div>
-      </div>
-    </div>
-    @yield('content')
+</html>
