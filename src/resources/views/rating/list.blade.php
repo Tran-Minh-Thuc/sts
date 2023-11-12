@@ -56,43 +56,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                @foreach ($par_childs as $par_child)
-                                                @if ($par_child['parent_criteria_id'] == $par['id'])
-                                                <tr>
-                                                    <td style="padding-left: 50px;" class="danger">{{ $par_childs['name'] }}</td>
-                                                    <td>{{ $par_childs['max_score'] }}</td>
-                                                    @if ($par_childs['status'] == 1)
-                                                    <td>Đang hoạt động</td>
-                                                    @else
-                                                    <td>Tạm ngưng</td>
-                                                    @endif
-                                                    <td>
-                                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                            <button type="button" class="btn btn-info">Chỉnh Sửa</button>
-                                                            <button type="button" class="btn btn-warning">Thêm</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @foreach ($childs as $child)
-                                                @if ($child['parent_criteria_id'] == $par_child['id'])
-                                                <tr>
-                                                    <td style="padding-left: 100px;" class="warning">{{ $childs['name'] }}</td>
-                                                    <td>{{ $childs['max_score'] }}</td>
-                                                    @if ($childs['status'] == 1)
-                                                    <td>Đang hoạt động</td>
-                                                    @else
-                                                    <td>Tạm ngưng</td>
-                                                    @endif
-                                                    <td>
-                                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                            <button type="button" class="btn btn-info">Chỉnh Sửa</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @endif
-                                                @endforeach
-                                                @endif
-                                                @endforeach
+
                                                 @endforeach
                                             </tbody>
                                         </table>

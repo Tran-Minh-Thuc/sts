@@ -35,6 +35,11 @@ Route::get('/admin/criterias', [
   'list',
 ]);
 
+Route::get('/admin/login', [
+  UsersController::class,
+  'login',
+]);
+
 Route::get('/admin/create-criterias', [
   RatingController::class,
   'create',

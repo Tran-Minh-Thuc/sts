@@ -1,107 +1,71 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+<html lang="en">
 
-<link rel="stylesheet" href="{{ asset('css/global.css') }}">
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
-        <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
-    />
-  </head>
-  <body>
-    <div class="ng-nhp">
-      <div class="ng-nhp-inner">
-        <div class="frame-wrapper">
-          <div class="frame-container">
-            <div class="frame-parent">
-              <div class="frame-group">
-                <div class="frame-div">
-                  <div class="ng-nhp-parent">
-                    <div class="ng-nhp1">đăng nhập</div>
-                    <div class="frame-parent1">
-                      <div class="frame-wrapper1">
-                        <div class="m-s-sinh-vinging-vin-wrapper">
-                          <div class="m-s-sinh">Mã số sinh viên/giảng viên</div>
-                        </div>
-                      </div>
-                      <div class="frame-wrapper1">
-                        <div class="mt-khu-wrapper">
-                          <div class="mt-khu">Mật khẩu</div>
-                        </div>
-                        <div class="akar-iconseye-closed-wrapper">
-                          <img
-                            class="akar-iconseye-closed"
-                            alt=""
-                            src="./public/akariconseyeclosed.svg"
-                          />
-                        </div>
-                        <div class="instance-child"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="qun-mt-khu-wrapper">
-                    <div class="mt-khu">Quên mật khẩu</div>
-                  </div>
-                </div>
-                <div class="button">
-                  <div class="ng-nhp2">Đăng nhập</div>
-                </div>
-              </div>
-              <div class="frame-parent3">
-                <div class="frame-parent4">
-                  <div class="instance-parent">
-                    <div class="vector-wrapper">
-                      <img
-                        class="instance-item"
-                        alt=""
-                        src="./public/vector-156.svg"
-                      />
-                    </div>
-                    <div class="hoc-tip-tc-bng-wrapper">
-                      <div class="hoc-tip-tc">Hoặc tiếp tục bằng</div>
-                    </div>
-                    <div class="vector-wrapper">
-                      <img
-                        class="instance-item"
-                        alt=""
-                        src="./public/vector-1561.svg"
-                      />
-                    </div>
-                  </div>
-                  <div class="frame-parent5">
-                    <img
-                      class="frame-child"
-                      alt=""
-                      src="./public/frame-38601@2x.png"
-                    />
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Trường Đại học Sài Gòn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/ico/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ asset('css/util.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+  <meta name="robots" content="noindex, follow">
+</head>
 
-                    <img
-                      class="frame-child"
-                      alt=""
-                      src="./public/frame-38600@2x.png"
-                    />
-
-                    <img
-                      class="frame-child"
-                      alt=""
-                      src="./public/frame-38599@2x.png"
-                    />
-                  </div>
-                </div>
-                <div class="bn-cha-c-ti-khon-parent">
-                  <div class="mt-khu">Bạn chưa có tài khoản ?</div>
-                  <div class="ng-k">Đăng kí</div>
-                </div>
-              </div>
-            </div>
-          </div>
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt" data-tilt="" style="transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
+          <img src="{{ asset('images/img-01.webp') }}" alt="IMG">
         </div>
+        <form class="login100-form validate-form" name="login" method="get" action="{{ url('/admin/login') }}">
+          <span class="login100-form-title">
+            Admin Login
+          </span>
+          <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+            <input class="input100" type="text" name="username" placeholder="Tên người dùng">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" name="password" placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <!-- @if($resultLogin == 0)
+          <div class="wrap-input100 validate-input">
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true">Vui lòng nhập lại</i>
+            </span>
+          </div>
+          @endif -->
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit">
+              Login
+            </button>
+          </div>
+          <div class="text-center p-t-12">
+            <span class="txt1">
+              Forgot
+            </span>
+            <a class="txt2" href="#">
+              Username / Password?
+            </a>
+          </div>
+          <div class="text-center p-t-136">
+            <a class="txt2" href="#">
+              Create your Account
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div>
+        </form>
       </div>
-      <div class="ng-nhp-child"></div>
-      <div class="yu-cu-cp">yêu cầu cấp tài khoản</div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
