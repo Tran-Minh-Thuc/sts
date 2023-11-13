@@ -15,23 +15,58 @@ class RatingController extends Controller {
    * Inheric docs.
    */
   public function list() {
-    $critetias = Criterias::all()->toArray();
-    $pars = [];
-    $childs = [];
-    $par_childs = [];
-    foreach ($critetias as $value) {
-      if ($value['field_level'] == 1) {
-        $pars[] = $value;
-      }
-      elseif ($value['field_level'] == 2) {
-        $par_childs[] = $value;
-      }
-      elseif ($value['field_level'] == 3) {
-        $childs[] = $value;
-      }
-    }
-    return view('rating.list', compact('pars', 'par_childs', 'childs'));
+    return view('rating.list');
+  }
 
+  /**
+   * Inheric docs.
+   */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('criterias')
+          ->where('name', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('criterias')->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>' . $row->name . '</td>
+                    <td>' . $row->max_score . '</td>
+                    @if (' . $row->status . ' == 1)
+                    <td>Đang hoạt động</td>
+                    @else
+                    <td>Tạm ngưng</td>
+                    @endif
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-criterias/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <a type="button" href="/admin/create-criterias/' . $row->id . '" class="btn btn-warning">Thêm</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
   }
 
   /**
@@ -129,17 +164,13 @@ class RatingController extends Controller {
     $critetia->save();
     // Return $criterias;.
     return redirect('/admin/criterias');
-
   }
 
   /**
    * Inheric docs.
    */
   public function destroy($id) {
-    $critetia = Criterias::find($id);
-    // return($critetia);
-    $critetia->delete();
-    return redirect('/admin/criterias');
+    dd(123);
   }
 
 }

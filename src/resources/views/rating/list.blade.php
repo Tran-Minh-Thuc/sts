@@ -1,5 +1,6 @@
 @extends('layouts.layouts')
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
@@ -15,6 +16,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <div class="form-group">
+                                    <a type="button" href="create-criterias" class="btn mb-1 btn-primary btn-lg btn-block">Thêm một trường mới</a>
+                                </div>
                                 <input class="form-control" id="search" type="text" placeholder="Tìm kiếm ở đây ... ">
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             </div>
@@ -32,25 +36,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($pars as $par)
-                                                <tr>
-                                                    <td>{{ $par['name'] }}</td>
-                                                    <td>{{ $par['max_score'] }}</td>
-                                                    @if ($par['status'] == 1)
-                                                    <td>Đang hoạt động</td>
-                                                    @else
-                                                    <td>Tạm ngưng</td>
-                                                    @endif
-                                                    <td>
-                                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                            <button type="button" class="btn btn-info">Chỉnh Sửa</button>
-                                                            <button type="button" class="btn btn-warning">Thêm</button>
-                                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -61,9 +46,42 @@
                 </div>
             </section>
         </div>
-        <div class="form-group">
-            <button type="button" class="btn mb-1 btn-primary btn-lg btn-block">Thêm một trường mới</button>
-        </div>
+
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        fetch_customers_data();
+        function fetch_customers_data(query = '') {
+            $.ajax({
+                url:"{{ route('action_criterias') }}",
+                method:"GET",
+                data:{query:query},
+                dataType:'json',
+                success:function(data){
+                    $('tbody').html(data.table_data);
+                }
+            })
+        }
+        function del_data(id) {
+            $.ajax({
+                url:"/admin/delete-criterias/" + id,
+                method:"DELETE",
+                data:{query:id},
+                dataType:'json',
+                success:function(data){
+                    $('#' + id).remove();
+                }
+            })
+        }
+        $(document).on('click', '#delete', function() {
+            var id = $(this).val();
+            del_data(id);
+        });
+        $(document).on('keyup', '#search', function() {
+            var query = $(this).val();
+            fetch_customers_data(query);
+        });
+    });
+</script>
 @endsection

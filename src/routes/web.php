@@ -35,6 +35,11 @@ Route::get('/admin/criterias', [
   'list',
 ]);
 
+Route::get('/admin/action-criterias', [
+  RatingController::class,
+  'action',
+])->name('action_criterias');
+
 Route::get('/admin/login', [
   UsersController::class,
   'login',
@@ -73,7 +78,7 @@ Route::put('/admin/update-criterias/update-criterias/{id}', [
 Route::delete('/admin/delete-criterias/{id}', [
   RatingController::class,
   'destroy',
-]);
+])->name('delete_criterias');
 
 // Accounts.
 Route::get('/admin/accounts', [
