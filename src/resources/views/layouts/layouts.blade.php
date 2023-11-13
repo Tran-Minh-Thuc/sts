@@ -96,6 +96,7 @@
     <div class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Lê Đức Thành - Trần Minh Thức <a class="text-bold-800 grey darken-2" href="#" target="_blank"></a></span>
     </div>
   </footer>
+  <script src="{{ asset('js/core/app-lite.js') }}" type="text/javascript"></script>
 </body>
 
 </html>
