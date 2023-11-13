@@ -36,15 +36,17 @@ class RatingController extends Controller {
       $total_row = $data->count();
       if ($total_row > 0) {
         foreach ($data as $row) {
+          if ($row->status == 1) {
+            $status = "Đang hoạt động";
+          }
+          else {
+            $status = "Tạm ngưng";
+          }
           $output .= '
                 <tr id="' . $row->id . '">
                     <td>' . $row->name . '</td>
                     <td>' . $row->max_score . '</td>
-                    @if (' . $row->status . ' == 1)
-                    <td>Đang hoạt động</td>
-                    @else
-                    <td>Tạm ngưng</td>
-                    @endif
+                    <td>'.$status.'</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a type="button" href="/admin/update-criterias/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
@@ -129,10 +131,10 @@ class RatingController extends Controller {
    */
   public function edit($id) {
     $criterias = Criterias::all()->toArray();
-    $criteria = DB::select('select * from criterias where id = ?', [$id]);
+    $criteria = (array) DB::select('select * from criterias where id = ?', [$id])[0];
     $parent_criteria = NULL;
-    if ($criteria[0]->parent_criteria_id != NULL) {
-      $parent_criteria = DB::select('select * from criterias where id = ?', [$criteria[0]->parent_criteria_id]);
+    if ($criteria['parent_criteria_id'] != NULL) {
+      $parent_criteria = (array) DB::select('select * from criterias where id = ?', [$criteria['parent_criteria_id']])[0];
     }
     return view('rating.update', compact('criteria', 'criterias', 'parent_criteria'));
   }
@@ -170,7 +172,9 @@ class RatingController extends Controller {
    * Inheric docs.
    */
   public function destroy($id) {
-    dd(123);
+    $criterias = Criterias::find($id);
+    $criterias->delete();
+    return response()->json(['success'=>'record had been delete !']);
   }
 
 }

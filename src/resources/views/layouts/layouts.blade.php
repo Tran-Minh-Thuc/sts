@@ -74,17 +74,23 @@
       <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
         <li class=" nav-item"><a href="#"><i class="ft-home"></i><span class="menu-title" data-i18n="">Trang Chủ</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="">Hồ Sơ Cá Nhân</span></a>
+        <li class=" nav-item"><a href="accounts"><i class="la la-user"></i><span class="menu-title" data-i18n="">Tài khoản</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-graduation-cap"></i><span class="menu-title" data-i18n="">Sinh Viên</span></a>
+        <li class=" nav-item"><a href="students"><i class="la la-graduation-cap"></i><span class="menu-title" data-i18n="">Sinh Viên</span></a>
         </li>
-        <li class="active"><a href="#"><i class="la la-certificate"></i><span class="menu-title" data-i18n="">Tất cả đánh giá</span></a>
+        <li class="active"><a href="teachers"><i class="la la-certificate"></i><span class="menu-title" data-i18n="">Giảng viên</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-headphones"></i><span class="menu-title" data-i18n="">Thông tin hỗ trợ</span></a>
+        <li class=" nav-item"><a href="classes"><i class="la la-headphones"></i><span class="menu-title" data-i18n="">Lớp học</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Tin tức</span></a>
+        <li class=" nav-item"><a href="notices"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Thông báo</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Thông Báo</span></a>
+        <li class=" nav-item"><a href="courses"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Khóa học</span></a>
+        </li>
+        <li class=" nav-item"><a href="permissions"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Quyền</span></a>
+        </li>
+        <li class=" nav-item"><a href="semesters"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Học kì</span></a>
+        </li>
+        <li class=" nav-item"><a href="transcripts"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Đánh giá</span></a>
         </li>
       </ul>
     </div>

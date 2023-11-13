@@ -64,15 +64,18 @@
             })
         }
         function del_data(id) {
-            $.ajax({
-                url:"/admin/delete-criterias/" + id,
-                method:"DELETE",
-                data:{query:id},
-                dataType:'json',
-                success:function(data){
-                    $('#' + id).remove();
-                }
+            if(confirm('Are you sure you want to delete?')){
+                $.ajax({
+                    url:"/admin/delete-criterias/" + id,
+                    method:"GET",
+                    data:{query:id},
+                    dataType:'json',
+                    success:function(response){
+                        $('#' + id).remove();
+                        alert('Deleted');
+                    }
             })
+            }
         }
         $(document).on('click', '#delete', function() {
             var id = $(this).val();

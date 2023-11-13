@@ -21,6 +21,7 @@
               <div class="card-content">
                 <div class="card-body">
                   <form class="form" action="create-criterias" method="post">
+                    @csrf
                     <div class="form-body">
                       <div class="form-group">
                         <label for="donationinput1" class="sr-only">Tiêu đề</label>
@@ -30,7 +31,7 @@
                         <label for="donationinput2" class="sr-only">Thuộc trường</label>
                         <fieldset class="form-group">
                           <select class="form-control" id="parent_criteria_id" name="parent_criteria_id">
-                            <option>Thuộc Trường</option>
+                            <option value="{{$par['id']}}" selected>{{$par['name']}}</option>
                             @foreach($critetias as $value)
                             @if($value['field_level'] != 3)
                             <option value="{{$value['id']}}">{{$value['name']}}</option>
