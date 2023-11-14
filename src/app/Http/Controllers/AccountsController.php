@@ -10,14 +10,12 @@ use Illuminate\Support\Facades\DB;
 /**
  * Inheric docs.
  */
-class AccountsController extends Controller
-{
+class AccountsController extends Controller {
 
   /**
    * Inheric docs.
    */
-  public function list(Request $request)
-  {
+  public function list(Request $request) {
     // $accounts = [];
     // $accounts_db = [];
     // if ($request->name != NULL) {
@@ -33,7 +31,7 @@ class AccountsController extends Controller
     return view('accounts.list');
   }
 
-    /**
+  /**
    * Inheric docs.
    */
   public function action(Request $request) {
@@ -60,8 +58,8 @@ class AccountsController extends Controller
           $output .= '
                 <tr id="' . $row->id . '">
                     <td>' . $row->user_name . '</td>
-                    <td>'. $row->password .'</td>
-                    <td>'. $status .'</td>
+                    <td>' . $row->password . '</td>
+                    <td>' . $status . '</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a type="button" href="/admin/update-accounts/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
@@ -88,8 +86,7 @@ class AccountsController extends Controller
   /**
    * Inheric docs.
    */
-  public function create()
-  {
+  public function create() {
     $permissions = Permissions::all()->toArray();
     return view('accounts.create', compact('permissions'));
   }
@@ -97,8 +94,7 @@ class AccountsController extends Controller
   /**
    * Inheric docs.
    */
-  public function store(Request $request)
-  {
+  public function store(Request $request) {
     $account = new Accounts();
     $account->user_name = $request->user_name;
     $account->password = $request->password;
@@ -113,15 +109,13 @@ class AccountsController extends Controller
   /**
    * Inheric docs.
    */
-  public function show(Accounts $accounts)
-  {
+  public function show(Accounts $accounts) {
   }
 
   /**
    * Inheric docs.
    */
-  public function edit($id)
-  {
+  public function edit($id) {
     $permissions = Permissions::all()->toArray();
     $account_db = DB::select('SELECT accounts.*, permissions.name AS permission_name FROM accounts LEFT JOIN permissions ON accounts.permission_id = permissions.id WHERE accounts.id = ?;', [$id]);
     $account = (array) $account_db[0];
@@ -131,8 +125,7 @@ class AccountsController extends Controller
   /**
    * Inheric docs.
    */
-  public function update(Request $request, $id)
-  {
+  public function update(Request $request, $id) {
     $account = Accounts::find($id);
     $account->user_name = $request->user_name;
     $account->password = $request->password;
@@ -146,11 +139,11 @@ class AccountsController extends Controller
   /**
    * Inheric docs.
    */
-  public function destroy($id)
-  {
+  public function destroy($id) {
     $account = Accounts::find($id);
     // return($critetia);
     $account->delete();
-    return response()->json(['success'=>'record had been delete !']);
+    return response()->json(['success' => 'record had been delete !']);
   }
+
 }

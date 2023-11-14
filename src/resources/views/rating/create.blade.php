@@ -31,7 +31,9 @@
                         <label for="donationinput2" class="sr-only">Thuộc trường</label>
                         <fieldset class="form-group">
                           <select class="form-control" id="parent_criteria_id" name="parent_criteria_id">
+                            @if($par != NULL)
                             <option value="{{$par['id']}}" selected>{{$par['name']}}</option>
+                            @endif
                             @foreach($critetias as $value)
                             @if($value['field_level'] != 3)
                             <option value="{{$value['id']}}">{{$value['name']}}</option>

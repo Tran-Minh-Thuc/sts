@@ -22,10 +22,58 @@ class PermissionsController extends Controller {
       foreach ($permissions_search_db as $course) {
         $permissions[] = (array) $course;
       }
-    }else{
+    }
+    else {
       $permissions = Permissions::all()->toArray();
     }
     return view('permissions.list', compact('permissions'));
+  }
+
+  /**
+   * Inheric docs.
+   */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('permissions')
+          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('permissions')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>' . $row->name . '</td>
+                    <td>' . $row->created_at . '</td>
+                    <td>' . $row->updated_at . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-permissions/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
   }
 
   /**
@@ -78,7 +126,7 @@ class PermissionsController extends Controller {
   public function destroy($id) {
     $permissions = Permissions::find($id);
     $permissions->delete();
-    return redirect('/admin/permissions');
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

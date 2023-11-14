@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Semesters;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
@@ -22,10 +22,58 @@ class SemestersController extends Controller {
       foreach ($semesters_search_db as $course) {
         $semesters[] = (array) $course;
       }
-    } else {
+    }
+    else {
       $semesters = Semesters::all()->toArray();
     }
     return view('semesters.list', compact('semesters'));
+  }
+
+  /**
+   * Inheric docs.
+   */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('semesters')
+          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('semesters')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>' . $row->name . '</td>
+                    <td>' . $row->start_time . '</td>
+                    <td>' . $row->end_time . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-semesters/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
   }
 
   /**
@@ -82,7 +130,7 @@ class SemestersController extends Controller {
   public function destroy($id) {
     $semesters = Semesters::find($id);
     $semesters->delete();
-    return redirect('/admin/semesters');
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

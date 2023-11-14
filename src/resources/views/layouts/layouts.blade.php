@@ -78,11 +78,14 @@
         </li>
         <li class=" nav-item"><a href="students"><i class="la la-graduation-cap"></i><span class="menu-title" data-i18n="">Sinh Viên</span></a>
         </li>
-        <li class="active"><a href="teachers"><i class="la la-certificate"></i><span class="menu-title" data-i18n="">Giảng viên</span></a>
+        <!-- active -->
+        <li class=" nav-item"><a href="teachers"><i class="la la-certificate"></i><span class="menu-title" data-i18n="">Giảng viên</span></a>
         </li>
         <li class=" nav-item"><a href="classes"><i class="la la-headphones"></i><span class="menu-title" data-i18n="">Lớp học</span></a>
         </li>
         <li class=" nav-item"><a href="notices"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Thông báo</span></a>
+        </li>
+        <li class=" nav-item"><a href="criterias"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Trường đánh giá</span></a>
         </li>
         <li class=" nav-item"><a href="courses"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Khóa học</span></a>
         </li>

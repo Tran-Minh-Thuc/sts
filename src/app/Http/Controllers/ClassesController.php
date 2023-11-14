@@ -22,13 +22,68 @@ class ClassesController extends Controller {
     if ($request->name != NULL) {
       $search_box = "%" . $request->name . "%";
       $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id WHERE classes.name LIKE ?;', [$search_box]);
-    }else{
+    }
+    else {
       $classes_db = DB::select('SELECT classes.*, teachers.full_name AS teacher_name, courses.name AS course_name FROM classes LEFT JOIN teachers ON classes.teacher_id = teachers.id LEFT JOIN courses ON classes.course_id = courses.id;');
     }
     foreach ($classes_db as $class) {
       $classes[] = (array) $class;
     }
     return view('classes.list', compact('classes'));
+  }
+
+  /**
+   * Inheric docs.
+   */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('classes')
+          ->join('teachers', 'teachers.id', '=', 'classes.teacher_id')
+          ->join('courses', 'courses.id', '=', 'classes.course_id')
+          ->select('classes.*', 'teachers.full_name', 'courses.name as course_name')
+          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('classes')
+          ->join('teachers', 'teachers.id', '=', 'classes.teacher_id')
+          ->join('courses', 'courses.id', '=', 'classes.course_id')
+          ->select('classes.*', 'teachers.full_name', 'courses.name as course_name')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>' . $row->name . '</td>
+                    <td>' . $row->full_name . '</td>
+                    <td>' . $row->department_name . '</td>
+                    <td>' . $row->course_name . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-classes/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
   }
 
   /**
@@ -92,7 +147,7 @@ class ClassesController extends Controller {
   public function destroy($id) {
     $classes = Classes::find($id);
     $classes->delete();
-    return redirect('/admin/classes');
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

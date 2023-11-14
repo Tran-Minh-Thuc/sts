@@ -152,6 +152,11 @@ Route::get('/admin/classes', [
   'list',
 ]);
 
+Route::get('/admin/action-classes', [
+  ClassesController::class,
+  'action',
+])->name('action_classes');
+
 Route::get('/admin/create-classes', [
   ClassesController::class,
   'create',
@@ -171,7 +176,7 @@ Route::put('/admin/update-classes/update-classes/{id}', [
   ClassesController::class,
   'update',
 ]);
-Route::delete('/admin/delete-classes/{id}', [
+Route::get('/admin/delete-classes/{id}', [
   ClassesController::class,
   'destroy',
 ]);
@@ -182,6 +187,11 @@ Route::get('/admin/courses', [
   CourseController::class,
   'list',
 ]);
+
+Route::get('/admin/action-courses', [
+  CourseController::class,
+  'action',
+])->name('action_courses');
 
 Route::get('/admin/create-courses', [
   CourseController::class,
@@ -202,7 +212,7 @@ Route::put('/admin/update-courses/update-courses/{id}', [
   CourseController::class,
   'update',
 ]);
-Route::delete('/admin/delete-courses/{id}', [
+Route::get('/admin/delete-courses/{id}', [
   CourseController::class,
   'destroy',
 ]);
@@ -232,7 +242,7 @@ Route::put('/admin/update-notices/update-notices/{id}', [
   NoticesController::class,
   'update',
 ]);
-Route::delete('/admin/delete-notices/{id}', [
+Route::get('/admin/delete-notices/{id}', [
   NoticesController::class,
   'destroy',
 ]);
@@ -242,6 +252,11 @@ Route::get('/admin/permissions', [
   PermissionsController::class,
   'list',
 ]);
+
+Route::get('/admin/action-permissions', [
+  PermissionsController::class,
+  'action',
+])->name('action_permissions');
 
 Route::get('/admin/create-permissions', [
   PermissionsController::class,
@@ -262,7 +277,7 @@ Route::put('/admin/update-permissions/update-permissions/{id}', [
   PermissionsController::class,
   'update',
 ]);
-Route::delete('/admin/delete-permissions/{id}', [
+Route::get('/admin/delete-permissions/{id}', [
   PermissionsController::class,
   'destroy',
 ]);
@@ -272,6 +287,11 @@ Route::get('/admin/semesters', [
   SemestersController::class,
   'list',
 ]);
+
+Route::get('/admin/action-semesters', [
+  SemestersController::class,
+  'action',
+])->name('action_semesters');
 
 Route::get('/admin/create-semesters', [
   SemestersController::class,
@@ -292,7 +312,7 @@ Route::put('/admin/update-semesters/update-semesters/{id}', [
   SemestersController::class,
   'update',
 ]);
-Route::delete('/admin/delete-semesters/{id}', [
+Route::get('/admin/delete-semesters/{id}', [
   SemestersController::class,
   'destroy',
 ]);
