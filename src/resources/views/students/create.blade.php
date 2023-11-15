@@ -60,8 +60,14 @@
                                                 <input type="date" id="donationinput3" class="form-control"  placeholder="Ngày sinh" name="date_of_birth">
                                             </div>
                                             <div class="form-group">
-                                                <label for="donationinput4" class="sr-only">Nơi sinh</label>
-                                                <input type="text" id="donationinput4" class="form-control"  placeholder="Nơi sinh" name="place_of_birth">
+                                                <label for="donationinput7" class="sr-only">Giới tính</label>
+                                                <fieldset class="form-group">
+                                                    <select class="form-control" id="basicSelect" name="place_of_birth">
+                                                        @foreach($provinces as $province)
+                                                       <option value="{{$province['name']}}">{{$province['name']}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </fieldset>
                                             </div>
                                             <div class="form-group">
                                                 <label for="donationinput3" class="sr-only">Số điện thoại</label>

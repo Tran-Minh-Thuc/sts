@@ -358,6 +358,11 @@ Route::get('/admin/teachers', [
   'list',
 ]);
 
+Route::get('/admin/action-teachers', [
+  TeachersController::class,
+  'action',
+])->name('action_teachers');
+
 Route::get('/admin/create-teachers', [
   TeachersController::class,
   'create',
@@ -377,7 +382,7 @@ Route::put('/admin/update-teachers/update-teachers/{id}', [
   TeachersController::class,
   'update',
 ]);
-Route::delete('/admin/delete-teachers/{id}', [
+Route::get('/admin/delete-teachers/{id}', [
   TeachersController::class,
   'destroy',
 ]);
@@ -387,6 +392,11 @@ Route::get('/admin/transcripts', [
   TranscriptsController::class,
   'list',
 ]);
+
+Route::get('/admin/action-transcripts', [
+  TranscriptsController::class,
+  'action',
+])->name('action_transcripts');
 
 Route::get('/admin/create-transcripts', [
   TranscriptsController::class,
@@ -412,7 +422,7 @@ Route::put('/admin/update-transcripts/update-transcripts/{id}', [
   TranscriptsController::class,
   'update',
 ]);
-Route::delete('/admin/delete-transcripts/{id}', [
+Route::get('/admin/delete-transcripts/{id}', [
   TranscriptsController::class,
   'destroy',
 ]);

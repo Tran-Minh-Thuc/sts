@@ -30,6 +30,61 @@ class TeachersController extends Controller {
     return view('teachers.list', compact('teachers'));
   }
 
+    /**
+   * Inheric docs.
+   */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('teachers')
+          ->where('full_name', 'LIKE', '%' . $query . '%')
+          ->orWhere('teacher_code', 'LIKE', '%' . $query . '%')
+          ->orWhere('email', 'LIKE', '%' . $query . '%')
+          ->orWhere('phone_number', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('teachers')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>
+                    <span class="avatar avatar-online"><img src="data:image/png;base64,' . $row->image . '" alt="avatar"></span>
+                    ' . $row->full_name . '
+                    </td>
+                    <td>' . $row->teacher_code . '</td>
+                    <td>' . $row->email . '</td>
+                    <td>' . $row->phone_number . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-teachers/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
+  }
+
+
   /**
    * Inheric docs.
    */
@@ -102,7 +157,7 @@ class TeachersController extends Controller {
   public function destroy($id) {
     $teachers = Teachers::find($id);
     $teachers->delete();
-    return redirect('/admin/teachers');
+    return response()->json(['success' => 'record had been delete !']); 
   }
 
 }
