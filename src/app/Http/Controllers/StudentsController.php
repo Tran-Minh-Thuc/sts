@@ -22,7 +22,8 @@ class StudentsController extends Controller {
     if ($request->name != NULL) {
       $search_box = "%" . $request->name . "%";
       $students_db = DB::select('SELECT students.*, classes.name AS class_name FROM students LEFT JOIN classes ON students.class_id = classes.id WHERE students.full_name LIKE ?;', [$search_box]);
-    }else{
+    }
+    else {
       $students_db = DB::select('SELECT students.*, classes.name AS class_name FROM students LEFT JOIN classes ON students.class_id = classes.id;');
     }
     foreach ($students_db as $student) {
@@ -34,9 +35,64 @@ class StudentsController extends Controller {
   /**
    * Inheric docs.
    */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('students')
+          ->where('full_name', 'LIKE', '%' . $query . '%')
+          ->orWhere('student_code', 'LIKE', '%' . $query . '%')
+          ->orWhere('email', 'LIKE', '%' . $query . '%')
+          ->orWhere('phone_number', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('students')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>
+                    <span class="avatar avatar-online"><img src="data:image/png;base64,' . $row->image . '" alt="avatar"></span>
+                    ' . $row->full_name . '
+                    </td>
+                    <td>' . $row->student_code . '</td>
+                    <td>' . $row->email . '</td>
+                    <td>' . $row->phone_number . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-students/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
+  }
+
+  /**
+   * Inheric docs.
+   */
   public function create() {
-    return 123;
-    // Return view('classes.create');.
+    $provinces = Provinces::all();
+    $classes = Classes::all();
+    return view('students.create', compact('provinces', 'classes'));
   }
 
   /**
@@ -48,6 +104,7 @@ class StudentsController extends Controller {
     $students->account_id = $request->account_id;
     $students->class_id = $request->class_id;
     $students->full_name = $request->full_name;
+    $students->image = !empty($request->image) ? (string) base64_encode(file_get_contents($request->image)) : NULL;
     $students->sex = $request->sex;
     $students->date_of_birth = $request->date_of_birth;
     $students->place_of_birth = $request->place_of_birth;
@@ -105,7 +162,7 @@ class StudentsController extends Controller {
   public function destroy($id) {
     $students = Students::find($id);
     $students->delete();
-    return redirect('/admin/students');
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

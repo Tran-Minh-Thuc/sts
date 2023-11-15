@@ -38,7 +38,7 @@ class SemestersController extends Controller {
       $output = '';
       if ($query != '') {
         $data = DB::table('semesters')
-          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->where('name', 'LIKE', '%' . $query . '%')
           ->get();
       }
       else {

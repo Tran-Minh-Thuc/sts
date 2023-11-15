@@ -36,7 +36,7 @@
                             <option value="{{$parent_criteria['id']}}" selected>{{$parent_criteria['name']}}</option>
                             <option value="0" >Không thuộc trường nào ( trường chủ đạo )</option>
                             @else
-                            <option value="{{$parent_criteria['id']}}" >{{$parent_criteria['name']}}</option>
+                            <!-- <option value="{{$parent_criteria['id']}}" >{{$parent_criteria['name']}}</option> -->
                             <option value="0" selected>Không thuộc trường nào ( trường chủ đạo )</option>
                             @endif
                             @foreach($criterias as $value)

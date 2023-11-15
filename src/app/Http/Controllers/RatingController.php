@@ -46,7 +46,7 @@ class RatingController extends Controller {
                 <tr id="' . $row->id . '">
                     <td>' . $row->name . '</td>
                     <td>' . $row->max_score . '</td>
-                    <td>'.$status.'</td>
+                    <td>' . $status . '</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a type="button" href="/admin/update-criterias/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
@@ -174,7 +174,7 @@ class RatingController extends Controller {
   public function destroy($id) {
     $criterias = Criterias::find($id);
     $criterias->delete();
-    return response()->json(['success'=>'record had been delete !']);
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

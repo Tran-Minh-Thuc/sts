@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teachers;
 use App\Models\Provinces;
+use App\Models\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 /**
  * Inheric docs.
  */
 class TeachersController extends Controller {
 
-/**
+  /**
    * Inheric docs.
    */
   public function list(Request $request) {
@@ -24,10 +23,11 @@ class TeachersController extends Controller {
       foreach ($teachers_search_db as $course) {
         $teachers[] = (array) $course;
       }
-    } else {
+    }
+    else {
       $teachers = Teachers::all()->toArray();
     }
-    return view('teachers.list',compact('teachers'));
+    return view('teachers.list', compact('teachers'));
   }
 
   /**
@@ -35,7 +35,7 @@ class TeachersController extends Controller {
    */
   public function create() {
     $provinces = Provinces::all();
-    return view('teachers.create',compact('provinces'));
+    return view('teachers.create', compact('provinces'));
   }
 
   /**
@@ -71,7 +71,7 @@ class TeachersController extends Controller {
   public function edit($id) {
     $teacher = Teachers::find($id);
     $provinces = Provinces::all();
-    return view('teachers.update', compact('teacher','provinces'));
+    return view('teachers.update', compact('teacher', 'provinces'));
   }
 
   /**
@@ -83,7 +83,7 @@ class TeachersController extends Controller {
     $teachers->account_id = $request->account_id;
     $teachers->full_name = $request->full_name;
     $teachers->sex = $request->sex;
-    if($request->image){
+    if ($request->image) {
       $teachers->image = (string) base64_encode(file_get_contents($request->image));
     }
     $teachers->date_of_birth = $request->date_of_birth;

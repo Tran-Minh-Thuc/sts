@@ -38,7 +38,7 @@ class PermissionsController extends Controller {
       $output = '';
       if ($query != '') {
         $data = DB::table('permissions')
-          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->where('name', 'LIKE', '%' . $query . '%')
           ->get();
       }
       else {

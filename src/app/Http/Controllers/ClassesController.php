@@ -44,7 +44,7 @@ class ClassesController extends Controller {
           ->join('teachers', 'teachers.id', '=', 'classes.teacher_id')
           ->join('courses', 'courses.id', '=', 'classes.course_id')
           ->select('classes.*', 'teachers.full_name', 'courses.name as course_name')
-          ->where('user_name', 'LIKE', '%' . $query . '%')
+          ->where('name', 'LIKE', '%' . $query . '%')
           ->get();
       }
       else {

@@ -323,6 +323,11 @@ Route::get('/admin/students', [
   'list',
 ]);
 
+Route::get('/admin/action-students', [
+  StudentsController::class,
+  'action',
+])->name('action_students');
+
 Route::get('/admin/create-students', [
   StudentsController::class,
   'create',
@@ -342,7 +347,7 @@ Route::put('/admin/update-students/update-students/{id}', [
   StudentsController::class,
   'update',
 ]);
-Route::delete('/admin/delete-students/{id}', [
+Route::get('/admin/delete-students/{id}', [
   StudentsController::class,
   'destroy',
 ]);
