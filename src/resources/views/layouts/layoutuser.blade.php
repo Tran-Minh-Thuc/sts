@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-v5.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style_user.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style_tab.css') }}" />
 </head>
 
 <body>
