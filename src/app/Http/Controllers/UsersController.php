@@ -51,6 +51,16 @@ class UsersController extends Controller
     return view('user.login', ['resultLogin' => $resultLogin]);
   }
 
+  public function rattingscore(Request $request)
+  {
+    return view('user.rattingscore');
+  }
+
+  public function news(Request $request)
+  {
+    return view('user.news');
+  }
+
   /**
    * Inheric docs.
    */
