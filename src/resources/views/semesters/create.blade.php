@@ -28,6 +28,16 @@
                                                 <input type="text" id="donationinput1" class="form-control" placeholder="Tên học kì" name="name">
                                             </div>
                                             <div class="form-group">
+                                                <label for="donationinput2" class="sr-only">Thuộc trường</label>
+                                                <fieldset class="form-group">
+                                                  <select class="form-control" id="last_semester" name="last_semester">
+                                                    @foreach($semesters as $semester)
+                                                    <option value="{{$semester['id']}}" selected>{{$semester['name']}}</option>
+                                                    @endforeach
+                                                  </select>
+                                                </fieldset>
+                                              </div>
+                                            <div class="form-group">
                                                 <label for="donationinput3" class="sr-only">Thời gian bắt đầu</label>
                                                 <input type="date" id="donationinput3" class="form-control" placeholder="Thời gian bắt đầu" name="start_time">
                                             </div>

@@ -113,7 +113,8 @@ class TranscriptsController extends Controller
     $transcripts->semester_id = $request->semester_id;
     $transcripts->student_id = $request->student_id;
     $transcripts->evaluate = $request->evaluate;
-    $transcripts->total_score = $request->total_score;
+    $transcripts->total_self_score = $request->total_self_score;
+    $transcripts->total_class_score = $request->total_class_score;
     $transcripts->created_at = date('Y-m-d');
     $transcripts->updated_at = date('Y-m-d');
     $transcripts->save();
@@ -126,9 +127,9 @@ class TranscriptsController extends Controller
   public function show($id)
   { 
     $transcripts = [];
-    $transcripts_detail_db = DB::table('transcript_detail')
-    ->join('criterias', 'criterias.id', '=', 'transcript_detail.criteria_id')
-    ->select('transcript_detail.*',  'criterias.name as criteria_name')
+    $transcripts_detail_db = DB::table('transcript_details')
+    ->join('criterias', 'criterias.id', '=', 'transcript_details.criteria_id')
+    ->select('transcript_details.*',  'criterias.name as criteria_name')
     ->where('transcript_id', '=', $id)
     ->get();
     $student_info = (array) DB::table('transcripts')
@@ -167,7 +168,8 @@ class TranscriptsController extends Controller
     $transcripts->semester_id = $request->semester_id;
     $transcripts->student_id = $request->student_id;
     $transcripts->evaluate = $request->evaluate;
-    $transcripts->total_score = $request->total_score;
+    $transcripts->total_class_score = $request->total_class_score;
+    $transcripts->total_self_score = $request->total_self_score;
     $transcripts->updated_at = date('Y-m-d');
     $transcripts->save();
     return redirect('/admin/transcripts');

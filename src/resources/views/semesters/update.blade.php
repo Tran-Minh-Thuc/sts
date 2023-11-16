@@ -29,6 +29,19 @@
                                                 <input type="text" id="donationinput1" class="form-control" placeholder="Tên khóa" name="name" value="{{$semester['name']}}">
                                             </div>
                                             <div class="form-group">
+                                                <label for="donationinput2" class="sr-only">Thuộc trường</label>
+                                                <fieldset class="form-group">
+                                                  <select class="form-control" id="last_semester" name="last_semester">
+                                                    <option value="{{$par_semester['id']}}" selected>{{$par_semester['name']}}</option>
+                                                    @foreach($semesters as $value)
+                                                    @if($value['id'] != $par_semester['id'])
+                                                    <option value="{{$value['id']}}">{{$value['name']}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                  </select>
+                                                </fieldset>
+                                              </div>    
+                                            <div class="form-group">
                                                 <label for="donationinput3" class="sr-only">Thời gian bắt đầu</label>
                                                 <input type="date" id="donationinput3" class="form-control" placeholder="Thời gian bắt đầu" name="start_time" value="{{$semester['start_time']}}">
                                             </div>
@@ -36,6 +49,7 @@
                                                 <label for="donationinput3" class="sr-only">Thời gian kết thúc</label>
                                                 <input type="date" id="donationinput3" class="form-control" placeholder="Thời gian kết thúc" name="end_time" value="{{$semester['end_time']}}">
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="donationinput3" class="sr-only">Ngày tạo</label>
                                                 <input type="text" id="donationinput3" class="form-control" placeholder="Ngày tạo" name="created_at" readonly value="{{$semester['created_at']}}">
