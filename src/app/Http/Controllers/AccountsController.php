@@ -16,7 +16,12 @@ class AccountsController extends Controller {
    * Inheric docs.
    */
   public function list(Request $request) {
-    return view('accounts.list');
+    if (session("permission") == 1) {
+      return view('accounts.list');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -76,7 +81,12 @@ class AccountsController extends Controller {
    */
   public function create() {
     $permissions = Permissions::all()->toArray();
-    return view('accounts.create', compact('permissions'));
+    if (session("permission") == 1) {
+      return view('accounts.create', compact('permissions'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -107,7 +117,12 @@ class AccountsController extends Controller {
     $permissions = Permissions::all()->toArray();
     $account_db = DB::select('SELECT accounts.*, permissions.name AS permission_name FROM accounts LEFT JOIN permissions ON accounts.permission_id = permissions.id WHERE accounts.id = ?;', [$id]);
     $account = (array) $account_db[0];
-    return view('accounts.update', compact('account', 'permissions'));
+    if (session("permission") == 1) {
+      return view('accounts.update', compact('account', 'permissions'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

@@ -26,14 +26,14 @@
                     <div class="navbar-nav ms-auto mx-xl-auto p-0">
                         <a href="index.html" class="nav-item nav-link active text-secondary">Home</a>
                         <a href="about.html" class="nav-item nav-link">Thông báo</a>
-                        <a href="service.html" class="nav-item nav-link">Đánh giá điểm rèn luyện</a>
+                        <a href="rattingscore" class="nav-item nav-link">Đánh giá điểm rèn luyện</a>
                         <a href="project.html" class="nav-item nav-link">Lịch sử đánh giá</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>
                             <div class="dropdown-menu rounded">
                                 <a href="blog.html" class="dropdown-item">Xem thông tin</a>
                                 <a href="team.html" class="dropdown-item">Đổi mật khẩu</a>
-                                <a href="testimonial.html" class="dropdown-item">Đăng Xuất</a>
+                                <a href="/logout" class="dropdown-item">Đăng Xuất</a>
                             </div>
                         </div>
                     </div>

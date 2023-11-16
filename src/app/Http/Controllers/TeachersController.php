@@ -28,7 +28,12 @@ class TeachersController extends Controller {
     else {
       $teachers = Teachers::all()->toArray();
     }
-    return view('teachers.list', compact('teachers'));
+    if (session("permission") == 1) {
+      return view('teachers.list', compact('teachers'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -90,7 +95,12 @@ class TeachersController extends Controller {
    */
   public function create() {
     $provinces = Provinces::all();
-    return view('teachers.create', compact('provinces'));
+    if (session("permission") == 1) {
+      return view('teachers.create', compact('provinces'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -140,7 +150,12 @@ class TeachersController extends Controller {
   public function edit($id) {
     $teacher = Teachers::find($id);
     $provinces = Provinces::all();
-    return view('teachers.update', compact('teacher', 'provinces'));
+    if (session("permission") == 1) {
+      return view('teachers.update', compact('teacher', 'provinces'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

@@ -15,7 +15,12 @@ class RatingController extends Controller {
    * Inheric docs.
    */
   public function list() {
-    return view('rating.list');
+    if (session("permission") == 1) {
+      return view('rating.list');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -83,7 +88,12 @@ class RatingController extends Controller {
         $critetias[] = $value;
       }
     }
-    return view('rating.create', compact('critetias', 'par'));
+    if (session("permission") == 1) {
+      return view('rating.create', compact('critetias', 'par'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -136,7 +146,12 @@ class RatingController extends Controller {
     if ($criteria['parent_criteria_id'] != NULL) {
       $parent_criteria = (array) DB::select('select * from criterias where id = ?', [$criteria['parent_criteria_id']])[0];
     }
-    return view('rating.update', compact('criteria', 'criterias', 'parent_criteria'));
+    if (session("permission") == 1) {
+      return view('rating.update', compact('criteria', 'criterias', 'parent_criteria'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

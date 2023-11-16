@@ -26,7 +26,12 @@ class SemestersController extends Controller {
     else {
       $semesters = Semesters::all()->toArray();
     }
-    return view('semesters.list', compact('semesters'));
+    if (session("permission") == 1) {
+      return view('semesters.list', compact('semesters'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -80,7 +85,12 @@ class SemestersController extends Controller {
    * Inheric docs.
    */
   public function create() {
-    return view('semesters.create');
+    if (session("permission") == 1) {
+      return view('semesters.create');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -108,7 +118,12 @@ class SemestersController extends Controller {
    */
   public function edit($id) {
     $semester = Semesters::find($id);
-    return view('semesters.update', compact('semester'));
+    if (session("permission") == 1) {
+      return view('semesters.update', compact('semester'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

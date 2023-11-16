@@ -34,7 +34,12 @@ class CourseController extends Controller {
     else {
       $courses = Course::all()->toArray();
     }
-    return view('course.list', compact('courses'));
+    if (session("permission") == 1) {
+      return view('course.list', compact('courses'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -88,7 +93,12 @@ class CourseController extends Controller {
    * Inheric docs.
    */
   public function create() {
-    return view('course/create');
+    if (session("permission") == 1) {
+      return view('course/create');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -116,7 +126,12 @@ class CourseController extends Controller {
    */
   public function edit($id) {
     $course = Course::find($id);
-    return view('course.update', compact('course'));
+    if (session("permission") == 1) {
+      return view('course.update', compact('course'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

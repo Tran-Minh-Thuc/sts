@@ -30,7 +30,12 @@ class StudentsController extends Controller {
     foreach ($students_db as $student) {
       $students[] = (array) $student;
     };
-    return view('students.list', compact('students'));
+    if (session("permission") == 1) {
+      return view('students.list', compact('students'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -93,7 +98,12 @@ class StudentsController extends Controller {
   public function create() {
     $provinces = Provinces::all();
     $classes = Classes::all();
-    return view('students.create', compact('provinces', 'classes'));
+    if (session("permission") == 1) {
+      return view('students.create', compact('provinces', 'classes'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -145,7 +155,12 @@ class StudentsController extends Controller {
     $student = (array) $students_db[0];
     $classes = Classes::all();
     $provinces = Provinces::all();
-    return view('students.update', compact('student', 'classes', 'provinces'));
+    if (session("permission") == 1) {
+      return view('students.update', compact('student', 'classes', 'provinces'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

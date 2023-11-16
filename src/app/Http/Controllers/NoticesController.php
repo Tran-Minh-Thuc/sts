@@ -27,8 +27,12 @@ class NoticesController extends Controller {
     foreach ($notices_db as $notice) {
       $notices[] = (array) $notice;
     }
-
-    return view('notices.list', compact('notices'));
+    if (session("permission") == 1) {
+      return view('notices.list', compact('notices'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -36,7 +40,12 @@ class NoticesController extends Controller {
    */
   public function create() {
     $semesters = Semesters::all()->toArray();
-    return view('notices.create', compact('semesters'));
+    if (session("permission") == 1) {
+      return view('notices.create', compact('semesters'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -71,7 +80,12 @@ class NoticesController extends Controller {
     $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id WHERE notices.id = ?;', [$id]);
     $semesters = Semesters::all()->toArray();
     $notice = (array) $notices_db[0];
-    return view('notices.update', compact('notice', 'semesters'));
+    if (session("permission") == 1) {
+      return view('notices.update', compact('notice', 'semesters'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

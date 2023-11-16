@@ -30,7 +30,12 @@ class TranscriptsController extends Controller
     foreach ($transcripts_db as $transcript) {
       $transcripts[] = (array) $transcript;
     }
-    return view('transcripts.list', compact('transcripts'));
+    if (session("permission") == 1) {
+      return view('transcripts.list', compact('transcripts'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -134,7 +139,12 @@ class TranscriptsController extends Controller
     foreach ($transcripts_detail_db as $row) {
       $transcripts[] = (array) $row;
     }
-    return view('transcripts.detail', compact('transcripts', 'student_info'));
+    if (session("permission") == 1) {
+      return view('transcripts.detail', compact('transcripts', 'student_info'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
 

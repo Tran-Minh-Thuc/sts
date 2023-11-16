@@ -26,7 +26,12 @@ class PermissionsController extends Controller {
     else {
       $permissions = Permissions::all()->toArray();
     }
-    return view('permissions.list', compact('permissions'));
+    if (session("permission") == 1) {
+      return view('permissions.list', compact('permissions'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -80,7 +85,12 @@ class PermissionsController extends Controller {
    * Inheric docs.
    */
   public function create() {
-    return view('permissions.create');
+    if (session("permission") == 1) {
+      return view('permissions.create');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -106,7 +116,12 @@ class PermissionsController extends Controller {
    */
   public function edit($id) {
     $permission = Permissions::find($id);
-    return view('permissions.update', compact('permission'));
+    if (session("permission") == 1) {
+      return view('permissions.update', compact('permission'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

@@ -45,6 +45,11 @@ Route::get('/login', [
   'login',
 ]);
 
+Route::get('/logout', [
+  UsersController::class,
+  'userLogout',
+]);
+
 
 Route::post('/user', [
   UsersController::class,

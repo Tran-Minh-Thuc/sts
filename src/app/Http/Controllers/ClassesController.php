@@ -29,7 +29,12 @@ class ClassesController extends Controller {
     foreach ($classes_db as $class) {
       $classes[] = (array) $class;
     }
-    return view('classes.list', compact('classes'));
+    if (session("permission") == 1) {
+      return view('classes.list', compact('classes'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -92,7 +97,12 @@ class ClassesController extends Controller {
   public function create() {
     $teachers = Teachers::all()->toArray();
     $courses = Course::all()->toArray();
-    return view('classes.create', compact('teachers', 'courses'));
+    if (session("permission") == 1) {
+      return view('classes.create', compact('teachers', 'courses'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
@@ -124,7 +134,12 @@ class ClassesController extends Controller {
     $class = (array) $classes_db[0];
     $teachers = Teachers::all()->toArray();
     $courses = Course::all()->toArray();
-    return view('classes.update', compact('class', 'teachers', 'courses'));
+    if (session("permission") == 1) {
+      return view('classes.update', compact('class', 'teachers', 'courses'));
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**

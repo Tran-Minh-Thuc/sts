@@ -55,6 +55,12 @@ class UsersController extends Controller {
    * Inheric docs.
    */
   public function login() {
+    if (session('user_info') && session('permission') == 1){
+      return redirect('admin/criterias');
+    }
+    if (session('user_info') && session('permission') != 1){
+      return redirect('user/news');
+    }
     $error = "";
     return view('user.login', compact('error'));
   }
@@ -63,6 +69,7 @@ class UsersController extends Controller {
    * Inheric docs.
    */
   public function userLogin(Request $request) {
+
     session()->forget(['errors']);
     $data = $request->input();
     if (empty($data['user_name'])) {
@@ -94,6 +101,7 @@ class UsersController extends Controller {
           ->where('account_id', '=', $acount_db[0]->id)
           ->get();
         $request->session()->put('user_info', $user_db[0]);
+        $request->session()->put('permission', $acount_db[0]->permission_id);
         return redirect('admin/criterias');
       }
       elseif ($acount_db[0]->permission_id == 2) {
@@ -101,23 +109,42 @@ class UsersController extends Controller {
           ->where('account_id', '=', $acount_db[0]->id)
           ->get();
         $request->session()->put('user_info', $user_db[0]);
+        $request->session()->put('permission', $acount_db[0]->permission_id);
         return redirect('user/news');
       }
     }
+  }
+
+    /**
+   * Inheric docs.
+   */
+  public function userLogout(Request $request) {
+    $request->session()->flush();
+    return redirect('login');
   }
 
   /**
    * Inheric docs.
    */
   public function rattingscore(Request $request) {
-    return view('user.rattingscore');
+    if (session('user_info')) {
+      return view('user.rattingscore');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
    * Inheric docs.
    */
   public function news(Request $request) {
-    return view('user.news');
+    if (session('user_info')) {
+      return view('user.news');
+    }
+    else {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
   }
 
   /**
