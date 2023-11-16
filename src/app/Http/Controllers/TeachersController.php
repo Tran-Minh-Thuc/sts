@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
 use App\Models\Provinces;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class TeachersController extends Controller {
     return view('teachers.list', compact('teachers'));
   }
 
-    /**
+  /**
    * Inheric docs.
    */
   public function action(Request $request) {
@@ -84,7 +85,6 @@ class TeachersController extends Controller {
     }
   }
 
-
   /**
    * Inheric docs.
    */
@@ -111,6 +111,20 @@ class TeachersController extends Controller {
     $teachers->created_at = date('Y-m-d');
     $teachers->updated_at = date('Y-m-d');
     $teachers->save();
+    if ($teachers->save()) {
+      $account = new Accounts();
+      $account->user_name = $request->teacher_code;
+      $account->password = str_replace(['\'', '"', ',', ';', '<', '-'], '', $request->date_of_birth);
+      $account->permission_id = 2;
+      $account->status = TRUE;
+      $account->created_at = date('Y-m-d');
+      $account->updated_at = date('Y-m-d');
+      $account->save();
+      $teachers->account_id = $account->id;
+      $teachers->save();
+
+      echo "<script>alert(\"Thêm tài khoản cho giảng viên ( {{$request->full_name}} ) thành công !\")</script>";
+    }
     return redirect('/admin/teachers');
   }
 
@@ -157,7 +171,7 @@ class TeachersController extends Controller {
   public function destroy($id) {
     $teachers = Teachers::find($id);
     $teachers->delete();
-    return response()->json(['success' => 'record had been delete !']); 
+    return response()->json(['success' => 'record had been delete !']);
   }
 
 }

@@ -40,9 +40,15 @@ Route::get('/admin/action-criterias', [
   'action',
 ])->name('action_criterias');
 
-Route::get('/admin/login', [
+Route::get('/login', [
   UsersController::class,
   'login',
+]);
+
+
+Route::post('/user', [
+  UsersController::class,
+  'userLogin',
 ]);
 
 Route::get('/user/rattingscore', [

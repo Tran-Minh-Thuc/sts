@@ -16,18 +16,6 @@ class AccountsController extends Controller {
    * Inheric docs.
    */
   public function list(Request $request) {
-    // $accounts = [];
-    // $accounts_db = [];
-    // if ($request->name != NULL) {
-    //   $search_box = "%" . $request->name . "%";
-    //   $accounts_db = DB::select('SELECT accounts.*, permissions.name AS permission_name FROM accounts LEFT JOIN permissions ON accounts.permission_id = permissions.id WHERE permissions.name LIKE ?;', [$search_box]);
-    // }else{
-    //   $accounts_db = DB::select('SELECT accounts.*, permissions.name AS permission_name FROM accounts LEFT JOIN permissions ON accounts.permission_id = permissions.id;');
-    // }
-    //   foreach ($accounts_db as $account) {
-    //     $accounts[] = (array) $account;
-    //   }
-    // return view('accounts.list', compact('accounts'));
     return view('accounts.list');
   }
 

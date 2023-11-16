@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
 use App\Models\Classes;
 use App\Models\Provinces;
 use App\Models\Students;
@@ -114,6 +115,19 @@ class StudentsController extends Controller {
     $students->created_at = date('Y-m-d');
     $students->updated_at = date('Y-m-d');
     $students->save();
+    if ($students->save()) {
+      $account = new Accounts();
+      $account->user_name = $request->student_code;
+      $account->password = str_replace(['\'', '"', ',', ';', '<', '-'], '', $request->date_of_birth);
+      $account->permission_id = 3;
+      $account->status = TRUE;
+      $account->created_at = date('Y-m-d');
+      $account->updated_at = date('Y-m-d');
+      $account->save();
+      $students->account_id = $account->id;
+      $students->save();
+      echo "<script>alert(\"Thêm tài khoản cho sinh viên ( {{$request->full_name}} ) thành công !\")</script>";
+    }
     return redirect('/admin/students');
   }
 
@@ -153,6 +167,7 @@ class StudentsController extends Controller {
     $students->email = $request->email;
     $students->updated_at = date('Y-m-d');
     $students->save();
+
     return redirect('/admin/students');
   }
 
