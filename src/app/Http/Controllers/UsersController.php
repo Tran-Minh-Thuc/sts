@@ -55,10 +55,10 @@ class UsersController extends Controller {
    * Inheric docs.
    */
   public function login() {
-    if (session('user_info') && session('permission') == 1){
+    if (session('user_info') && session('permission') == 1) {
       return redirect('admin/criterias');
     }
-    if (session('user_info') && session('permission') != 1){
+    if (session('user_info') && session('permission') != 1) {
       return redirect('user/news');
     }
     $error = "";
@@ -112,10 +112,18 @@ class UsersController extends Controller {
         $request->session()->put('permission', $acount_db[0]->permission_id);
         return redirect('user/news');
       }
+      else {
+        $user_db = DB::table('students')
+          ->where('account_id', '=', $acount_db[0]->id)
+          ->get();
+        $request->session()->put('user_info', $user_db[0]);
+        $request->session()->put('permission', $acount_db[0]->permission_id);
+        return redirect('user/news');
+      }
     }
   }
 
-    /**
+  /**
    * Inheric docs.
    */
   public function userLogout(Request $request) {

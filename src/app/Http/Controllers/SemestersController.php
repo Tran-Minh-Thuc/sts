@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Semesters;
-use App\Models\Students;
-use App\Models\Transcripts;
-use App\Models\Criterias;
 use App\Models\Transcript_details;
+use App\Models\Transcripts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -115,30 +113,30 @@ class SemestersController extends Controller {
     $semesters->created_at = date('Y-m-d');
     $semesters->updated_at = date('Y-m-d');
     $semesters->save();
-    if($semesters->save()){
+    if ($semesters->save()) {
       $students = DB::table('students')->get();
       foreach ($students as $student) {
-      $transcripts = new Transcripts();
-      $transcripts->semester_id = $semesters->id;
-      $transcripts->student_id = $student->id;
-      $transcripts->evaluate = NULL;
-      $transcripts->total_self_score = 0;
-      $transcripts->total_class_score = 0;
-      $transcripts->created_at = date('Y-m-d');
-      $transcripts->updated_at = date('Y-m-d');
-      $transcripts->save();
-      if($transcripts->save()){
-        $criterias = DB::table('criterias')->get();
-        foreach ($criterias as $criteria){
-          $transcript_detail = new Transcript_details();
-          $transcript_detail->criteria_id = $criteria->id;
-          $transcript_detail->transcript_id  = $transcripts->id;
-          $transcript_detail->self_score = 0;
-          $transcript_detail->class_score = 0;
-          $transcript_detail->save();
+        $transcripts = new Transcripts();
+        $transcripts->semester_id = $request->last_semester;
+        $transcripts->student_id = $student->id;
+        $transcripts->evaluate = NULL;
+        $transcripts->total_self_score = 0;
+        $transcripts->total_class_score = 0;
+        $transcripts->created_at = date('Y-m-d');
+        $transcripts->updated_at = date('Y-m-d');
+        $transcripts->save();
+        if ($transcripts->save()) {
+          $criterias = DB::table('criterias')->get();
+          foreach ($criterias as $criteria) {
+            $transcript_detail = new Transcript_details();
+            $transcript_detail->criteria_id = $criteria->id;
+            $transcript_detail->transcript_id = $transcripts->id;
+            $transcript_detail->self_score = 0;
+            $transcript_detail->class_score = 0;
+            $transcript_detail->save();
+          }
         }
       }
-    }
     }
     return redirect('/admin/semesters');
   }
@@ -159,8 +157,8 @@ class SemestersController extends Controller {
       $semesters[] = (array) $value;
     }
     $semester = Semesters::find($id);
-      $par_semester = (array) DB::table('semesters')->where('id','=',$semester['last_semester'])->get()[0];
-    
+    $par_semester = (array) DB::table('semesters')->where('id', '=', $semester['last_semester'])->get()[0];
+
     if (session("permission") == 1) {
       return view('semesters.update', compact('semester', 'semesters', 'par_semester'));
     }
@@ -193,13 +191,13 @@ class SemestersController extends Controller {
     $transcripts = Transcripts::where('semester_id', $id);
     $transcripts_db = DB::table('transcripts')->where('semester_id', '=', $id)->get();
 
-    foreach($transcripts_db as $transcript){
+    foreach ($transcripts_db as $transcript) {
       $transcript_details = Transcript_details::where('transcript_id', $transcript->id);
       $transcript_details->delete();
-      }
-      $transcripts->delete();
-      $semesters->delete();
-    
+    }
+    $transcripts->delete();
+    $semesters->delete();
+
     return response()->json(['success' => 'record had been delete !']);
   }
 
