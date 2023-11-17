@@ -163,7 +163,7 @@ class RatingController extends Controller {
     // $par = NULL;
     $level = 1;
     foreach ($critetias_db as $value) {
-      if ($value['id'] == $request->parent_criteria_id) {
+      if ($value['id'] == $request->parent_criteria_id && $request->parent_criteria_id != NULL) {
         // $par = $value;
         $level = $value['field_level'] + 1;
       }

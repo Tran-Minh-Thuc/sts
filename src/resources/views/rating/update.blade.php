@@ -34,9 +34,9 @@
                                                     <select class="form-control" id="parent_criteria_id" name="parent_criteria_id">
                                                         @if($parent_criteria)
                                                         <option value="{{$parent_criteria['id']}}" selected>{{$parent_criteria['name']}}</option>
-                                                        <option value="0">Không thuộc trường nào ( trường chủ đạo )</option>
+                                                        <option value="">Không thuộc trường nào ( trường chủ đạo )</option>
                                                         @else
-                                                        <option value="0" selected>Không thuộc trường nào ( trường chủ đạo )</option>
+                                                        <option value="" selected>Không thuộc trường nào ( trường chủ đạo )</option>
                                                         @endif
                                                         @foreach($criterias as $value)
                                                         @if($value['field_level'] != 3)
