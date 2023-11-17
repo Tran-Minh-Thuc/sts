@@ -28,6 +28,24 @@
         </div>
     </div>
 </div>
+<style>
+    /* Style for active tab */
+    .active-tab {
+        background-color: #fff;
+    }
+
+    /* Style for tab content */
+    .tab-content {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 0 0 5px 5px;
+    }
+
+    /* Hide inactive tab content */
+    .tab-content:not(.active-content) {
+        display: none;
+    }
+</style>
 <div id="tab1" class="row tab-content active-content">
     <div class="col-12">
         <div class="card">
