@@ -107,3 +107,24 @@
 
 })(jQuery);
 
+function openTab(tabId) {
+    // Hide all tab contents
+    var tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(function (tabContent) {
+        tabContent.classList.remove('active-content');
+    });
+
+    // Deactivate all tabs
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function (tab) {
+        tab.classList.remove('active-tab');
+    });
+
+    // Show the selected tab content
+    document.getElementById(tabId).classList.add('active-content');
+
+    // Activate the selected tab
+    var activeTab = document.querySelector('.tab[data-tab="' + tabId + '"]');
+    activeTab.classList.add('active-tab');
+}
+
