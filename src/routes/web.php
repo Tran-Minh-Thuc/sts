@@ -61,6 +61,11 @@ Route::get('/user/rattingscore', [
   'rattingscore',
 ]);
 
+Route::put('/user/update-user-ratting/{id}', [
+  UsersController::class,
+  'updateUserRatings',
+]);
+
 Route::get('/user/news', [
   UsersController::class,
   'news',

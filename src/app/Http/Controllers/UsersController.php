@@ -4,22 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Students;
 use App\Models\Teachers;
-use Carbon\Carbon;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Inheric docs.
  */
-class UsersController extends Controller
-{
+class UsersController extends Controller {
 
   /**
    * Inheric docs.
    */
-  public function list()
-  {
+  public function list() {
     $students = Students::all()->toArray();
     $teachers = Teachers::all()->toArray();
     $all_user = [];
@@ -31,35 +29,14 @@ class UsersController extends Controller
   /**
    * Inheric docs.
    */
-  public function create()
-  {
+  public function create() {
     return view('user.create');
   }
 
   /**
    * Inheric docs.
    */
-  // Public function login(Request $request) {
-  //     $resultLogin = -1;
-  //     $username = $request->input('username');
-  //     $password = $request->input('password');
-  //     $arrLogin = DB::select('select * from accounts where user_name = ?', [$username]);
-  //     if ($arrLogin && $arrLogin[0]->password == $password) {
-  //       session(['user_id' => $arrLogin[0]->id, 'username' => $arrLogin[0]->user_name]);
-  //       $resultLogin = 1;
-  //       return redirect('admin/create-criterias');
-  //     }
-  //     else {
-  //       $resultLogin = 0;
-  //     }
-  //     return view('user.login', ['resultLogin' => $resultLogin]);
-  //   }.
-
-  /**
-   * Inheric docs.
-   */
-  public function login()
-  {
+  public function login() {
     if (session('user_info') && session('permission') == 1) {
       return redirect('admin/criterias');
     }
@@ -73,8 +50,7 @@ class UsersController extends Controller
   /**
    * Inheric docs.
    */
-  public function userLogin(Request $request)
-  {
+  public function userLogin(Request $request) {
 
     session()->forget(['errors']);
     $data = $request->input();
@@ -95,26 +71,30 @@ class UsersController extends Controller
       $errors = "<div class=\"container-login100-form-btn\"><span style=\"color: #bc27c3fa;  font-style: italic; margin-top: -25px; margin-bottom: -25px;\" class=\"txt1\">Tài khoản không chính xác</span></div>";
       $request->session()->put('errors', $errors);
       return redirect('login');
-    } elseif ($acount_db->count() == 1) {
+    }
+    elseif ($acount_db->count() == 1) {
       if ($acount_db[0]->password != $data['password']) {
         $errors = "<div class=\"container-login100-form-btn\"><span style=\"color: #bc27c3fa;  font-style: italic; margin-top: -25px; margin-bottom: -25px;\" class=\"txt1\">Mật khẩu không chính xác</span></div>";
         $request->session()->put('errors', $errors);
         return redirect('login');
-      } elseif ($acount_db[0]->permission_id == 1) {
+      }
+      elseif ($acount_db[0]->permission_id == 1) {
         $user_db = DB::table('teachers')
           ->where('account_id', '=', $acount_db[0]->id)
           ->get();
         $request->session()->put('user_info', $user_db[0]);
         $request->session()->put('permission', $acount_db[0]->permission_id);
         return redirect('admin/criterias');
-      } elseif ($acount_db[0]->permission_id == 2) {
+      }
+      elseif ($acount_db[0]->permission_id == 2) {
         $user_db = DB::table('teachers')
           ->where('account_id', '=', $acount_db[0]->id)
           ->get();
         $request->session()->put('user_info', $user_db[0]);
         $request->session()->put('permission', $acount_db[0]->permission_id);
         return redirect('user/news');
-      } else {
+      }
+      else {
         $user_db = DB::table('students')
           ->where('account_id', '=', $acount_db[0]->id)
           ->get();
@@ -128,8 +108,7 @@ class UsersController extends Controller
   /**
    * Inheric docs.
    */
-  public function userLogout(Request $request)
-  {
+  public function userLogout(Request $request) {
     $request->session()->flush();
     return redirect('login');
   }
@@ -137,8 +116,7 @@ class UsersController extends Controller
   /**
    * Inheric docs.
    */
-  public function rattingscore(Request $request)
-  {
+  public function rattingscore(Request $request) {
     $msg = '';
     if (!session('user_info')) {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
@@ -163,9 +141,10 @@ class UsersController extends Controller
       $trans_detail = DB::table('transcript_details')
         ->join('criterias', 'criterias.id', '=', 'transcript_details.criteria_id')
         ->where('transcript_id', '=', $trans->id)
-        ->select('transcript_details.*', 'criterias.*')
+        ->select('transcript_details.*', 'criterias.name as name', 'criterias.max_score as max_score', 'criterias.id as criteria_db_id', 'criterias.field_level as field_level', 'criterias.parent_criteria_id as parent_criteria_id')
         ->get();
-    } else {
+    }
+    else {
       $trans_detail = [];
     }
     if (empty($trans_detail)) {
@@ -175,29 +154,29 @@ class UsersController extends Controller
     $parents = [];
     $child_parents = [];
     $childs = [];
-    foreach ($trans_detail as $td){
-      if($td->field_level == 1) {
+    foreach ($trans_detail as $td) {
+      if ($td->field_level == 1) {
         $parents[] = $td;
       }
       elseif ($td->field_level == 2) {
         $child_parents[] = $td;
       }
-      else{
+      else {
         $childs[] = $td;
       }
     }
     $parent_rows = count($parents);
-    return view('user.rattingscore', compact('parents','child_parents','childs','msg','parent_rows'));
+    return view('user.rattingscore', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
   }
 
   /**
    * Inheric docs.
    */
-  public function news(Request $request)
-  {
+  public function news(Request $request) {
     if (session('user_info')) {
       return view('user.news');
-    } else {
+    }
+    else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -205,35 +184,44 @@ class UsersController extends Controller
   /**
    * Inheric docs.
    */
-  public function store(Request $request)
-  {
+  public function updateUserRatings(Request $request, $id) {
+    $jsonData = request()->all();
+    unset($jsonData['_token']);
+    unset($jsonData['_method']);
+    $result = [];
+    foreach ($jsonData as $key => $value) {
+      preg_match('/(\d+)$/', $key, $matches);
+      $id = $matches[0];
+      $result[$id] = [
+        "class_score" => $jsonData["class_score_" . $id],
+        "self_score" => $jsonData["self_score_" . $id],
+      ];
+    }
+    return $result;
   }
 
   /**
    * Inheric docs.
    */
-  public function show(User $user)
-  {
+  public function show(User $user) {
   }
 
   /**
    * Inheric docs.
    */
-  public function edit(User $user)
-  {
+  public function edit(User $user) {
   }
 
   /**
    * Inheric docs.
    */
-  public function update(Request $request, User $user)
-  {
+  public function update(Request $request, User $user) {
   }
 
   /**
    * Inheric docs.
    */
-  public function destroy(User $user)
-  {
+  public function destroy(User $user) {
   }
+
 }
