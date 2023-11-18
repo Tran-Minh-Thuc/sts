@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use App\Models\Transcript_details;
 use App\Models\Teachers;
 use App\Models\User;
 use Carbon\Carbon;
@@ -197,7 +198,24 @@ class UsersController extends Controller {
         "self_score" => $jsonData["self_score_" . $id],
       ];
     }
-    return $result;
+    $check = 0;
+    foreach ($result as $key => $value) {
+      $trans_detail = Transcript_details::find($key);
+      $trans_detail->class_score = $value['class_score'];
+      $trans_detail->self_score = $value['self_score'];
+      $trans_detail->updated_at = date('Y-m-d');
+      $trans_detail->save();
+      if($trans_detail->save()){
+        $check = 1;
+      }
+      else{
+        $check = 0;
+        break;
+      }
+    }
+    if($check == 1){
+      return redirect('/user/news');
+    }
   }
 
   /**
