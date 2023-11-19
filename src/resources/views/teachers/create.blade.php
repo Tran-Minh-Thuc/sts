@@ -141,11 +141,9 @@
                 return;
             }
 
-            // Nếu tất cả các kiểm tra qua, bạn có thể tiếp tục submit form.
             $('form').unbind('submit').submit();
         });
 
-        // Hàm kiểm tra email hợp lệ
         function isValidEmail(email) {
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
