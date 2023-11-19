@@ -27,7 +27,11 @@
                     <div class="navbar-nav ms-auto mx-xl-auto p-0">
                         <a href="index.html" class="nav-item nav-link active text-secondary">Home</a>
                         <a href="about.html" class="nav-item nav-link">Thông báo</a>
+                        @if(session('permission') == 2)
+                        <a href="ratting-class" class="nav-item nav-link">Danh sách lớp</a>
+                        @else
                         <a href="rattingscore" class="nav-item nav-link">Đánh giá điểm rèn luyện</a>
+                        @endif
                         <a href="project.html" class="nav-item nav-link">Lịch sử đánh giá</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>

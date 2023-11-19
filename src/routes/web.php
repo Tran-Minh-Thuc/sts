@@ -41,6 +41,11 @@ Route::get('/admin/action-criterias', [
   'action',
 ])->name('action_criterias');
 
+Route::get('/admin/action-ratting-class', [
+  UsersController::class,
+  'action',
+])->name('action_ratting_class');
+
 Route::get('/login', [
   UsersController::class,
   'login',
@@ -60,6 +65,11 @@ Route::post('/user', [
 Route::get('/user/rattingscore', [
   UsersController::class,
   'rattingscore',
+]);
+
+Route::get('/user/ratting-class', [
+  UsersController::class,
+  'rattingClass',
 ]);
 
 Route::put('/user/update-user-ratting/{id}', [

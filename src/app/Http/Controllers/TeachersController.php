@@ -170,7 +170,7 @@ class TeachersController extends Controller
   {
     $teachers = Teachers::find($id);
     $teachers->teacher_code = $request->teacher_code;
-    $teachers->account_id = $request->account_id;
+    // $teachers->account_id = $request->account_id;
     $teachers->full_name = $request->full_name;
     $teachers->sex = $request->sex;
     if ($request->image) {
