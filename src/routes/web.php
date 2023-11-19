@@ -6,6 +6,7 @@
  */
 
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\NoticesController;
@@ -451,4 +452,14 @@ Route::put('/admin/update-transcripts/update-transcripts/{id}', [
 Route::get('/admin/delete-transcripts/{id}', [
   TranscriptsController::class,
   'destroy',
+]);
+
+Route::get('/admin/action', [
+  ActionController::class,
+  'index',
+]);
+
+Route::post('/admin/import-excel', [
+  ActionController::class,
+  'importExcel',
 ]);
