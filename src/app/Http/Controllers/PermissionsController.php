@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\DB;
 /**
  * Inheric docs.
  */
-class PermissionsController extends Controller {
+class PermissionsController extends Controller
+{
 
   /**
    * Inheric docs.
    */
-  public function list(Request $request) {
+  public function list(Request $request)
+  {
     $permissions = [];
     if ($request->name != NULL) {
       $search_box = "%" . $request->name . "%";
@@ -22,14 +24,12 @@ class PermissionsController extends Controller {
       foreach ($permissions_search_db as $course) {
         $permissions[] = (array) $course;
       }
-    }
-    else {
+    } else {
       $permissions = Permissions::all()->toArray();
     }
     if (session("permission") == 1) {
       return view('permissions.list', compact('permissions'));
-    }
-    else {
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -37,7 +37,8 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function action(Request $request) {
+  public function action(Request $request)
+  {
     if ($request->ajax()) {
       $query = $request->get('query');
       $output = '';
@@ -45,8 +46,7 @@ class PermissionsController extends Controller {
         $data = DB::table('permissions')
           ->where('name', 'LIKE', '%' . $query . '%')
           ->get();
-      }
-      else {
+      } else {
         $data = DB::table('permissions')
           ->get();
       }
@@ -66,8 +66,7 @@ class PermissionsController extends Controller {
                     </td>
                 </tr>';
         }
-      }
-      else {
+      } else {
         $output = '
         <tr>
             <td align="center" colspan="5">No Data Found</td>
@@ -84,11 +83,11 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function create() {
+  public function create()
+  {
     if (session("permission") == 1) {
       return view('permissions.create');
-    }
-    else {
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -96,7 +95,8 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function store(Request $request) {
+  public function store(Request $request)
+  {
     $permissions = new Permissions();
     $permissions->name = $request->name;
     $permissions->created_at = date('Y-m-d');
@@ -108,18 +108,19 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function show(Permissions $permissions) {
+  public function show(Permissions $permissions)
+  {
   }
 
   /**
    * Inheric docs.
    */
-  public function edit($id) {
+  public function edit($id)
+  {
     $permission = Permissions::find($id);
     if (session("permission") == 1) {
       return view('permissions.update', compact('permission'));
-    }
-    else {
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -127,7 +128,8 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
     $permissions = Permissions::find($id);
     $permissions->name = $request->name;
     $permissions->updated_at = date('Y-m-d');
@@ -138,10 +140,10 @@ class PermissionsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function destroy($id) {
+  public function destroy($id)
+  {
     $permissions = Permissions::find($id);
     $permissions->delete();
     return response()->json(['success' => 'record had been delete !']);
   }
-
 }

@@ -160,18 +160,17 @@ class RatingController extends Controller {
   public function update(Request $request, $id) {
     $critetias_db = Criterias::all()->toArray();
     $critetia = Criterias::find($id);
-
     // $par = NULL;
     $level = 1;
     foreach ($critetias_db as $value) {
-      if ($value['id'] == $request->parent_criteria_id) {
+      if ($value['id'] == $request->parent_criteria_id && $request->parent_criteria_id != NULL) {
         // $par = $value;
         $level = $value['field_level'] + 1;
       }
     }
     // $criterias->id = @ $request->name;
     $critetia->name = $request->name;
-    $critetia->parent_criteria_id = 1;
+    $critetia->parent_criteria_id = $request->parent_criteria_id;
     $critetia->max_score = $request->max_score;
     $critetia->default_score = $request->default_score;
     $critetia->is_violent = $request->is_violent;

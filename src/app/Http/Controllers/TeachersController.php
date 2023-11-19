@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\DB;
 /**
  * Inheric docs.
  */
-class TeachersController extends Controller {
+class TeachersController extends Controller
+{
 
   /**
    * Inheric docs.
    */
-  public function list(Request $request) {
+  public function list(Request $request)
+  {
     $teachers = [];
     if ($request->name != NULL) {
       $search_box = "%" . $request->name . "%";
@@ -24,14 +26,12 @@ class TeachersController extends Controller {
       foreach ($teachers_search_db as $course) {
         $teachers[] = (array) $course;
       }
-    }
-    else {
+    } else {
       $teachers = Teachers::all()->toArray();
     }
     if (session("permission") == 1) {
       return view('teachers.list', compact('teachers'));
-    }
-    else {
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -39,7 +39,8 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function action(Request $request) {
+  public function action(Request $request)
+  {
     if ($request->ajax()) {
       $query = $request->get('query');
       $output = '';
@@ -50,8 +51,7 @@ class TeachersController extends Controller {
           ->orWhere('email', 'LIKE', '%' . $query . '%')
           ->orWhere('phone_number', 'LIKE', '%' . $query . '%')
           ->get();
-      }
-      else {
+      } else {
         $data = DB::table('teachers')
           ->get();
       }
@@ -75,8 +75,7 @@ class TeachersController extends Controller {
                     </td>
                 </tr>';
         }
-      }
-      else {
+      } else {
         $output = '
         <tr>
             <td align="center" colspan="5">No Data Found</td>
@@ -93,12 +92,16 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function create() {
+  public function create()
+  {
     $provinces = Provinces::all();
+    $teachers = Teachers::all()->toArray();
+    // echo '<pre>';
+    // print_r($teachers);
+    // exit;
     if (session("permission") == 1) {
-      return view('teachers.create', compact('provinces'));
-    }
-    else {
+      return view('teachers.create', compact('provinces', 'teachers'));
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -106,7 +109,8 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function store(Request $request) {
+  public function store(Request $request)
+  {
     $teachers = new Teachers();
     $teachers->teacher_code = $request->teacher_code;
     $teachers->account_id = $request->account_id;
@@ -141,19 +145,20 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function show(Teachers $teachers) {
+  public function show(Teachers $teachers)
+  {
   }
 
   /**
    * Inheric docs.
    */
-  public function edit($id) {
+  public function edit($id)
+  {
     $teacher = Teachers::find($id);
     $provinces = Provinces::all();
     if (session("permission") == 1) {
       return view('teachers.update', compact('teacher', 'provinces'));
-    }
-    else {
+    } else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
   }
@@ -161,7 +166,8 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
     $teachers = Teachers::find($id);
     $teachers->teacher_code = $request->teacher_code;
     $teachers->account_id = $request->account_id;
@@ -183,10 +189,10 @@ class TeachersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function destroy($id) {
+  public function destroy($id)
+  {
     $teachers = Teachers::find($id);
     $teachers->delete();
     return response()->json(['success' => 'record had been delete !']);
   }
-
 }
