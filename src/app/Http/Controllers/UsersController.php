@@ -51,13 +51,8 @@ class UsersController extends Controller {
   /**
    * Inheric docs.
    */
-<<<<<<< HEAD
   public function userLogin(Request $request)
   {
-=======
-  public function userLogin(Request $request) {
-
->>>>>>> fbb6c117011aec8dd2f83a1509ddd751fcc6e728
     session()->forget(['errors']);
     $data = $request->input();
     if (empty($data['user_name'])) {
@@ -165,21 +160,12 @@ class UsersController extends Controller {
         $parents[] = $td;
       } elseif ($td->field_level == 2) {
         $child_parents[] = $td;
-<<<<<<< HEAD
       } else {
-=======
-      }
-      else {
->>>>>>> fbb6c117011aec8dd2f83a1509ddd751fcc6e728
         $childs[] = $td;
       }
     }
     $parent_rows = count($parents);
-<<<<<<< HEAD
-    return view('user.rattingscore', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows'));
-=======
     return view('user.rattingscore', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
->>>>>>> fbb6c117011aec8dd2f83a1509ddd751fcc6e728
   }
 
   /**

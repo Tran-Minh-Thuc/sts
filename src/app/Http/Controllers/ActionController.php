@@ -24,15 +24,15 @@ class ActionController extends Controller
     public function index()
     {
         if (!session('user_info')) {
-          return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+            return "You can not access this page ! <a href=\"..\login\">re-login</a>";
         }
         $semesters = DB::table('semesters')->get();
         foreach ($semesters as $semester) {
-          $start_time = Carbon::parse($semester->start_time);
-          $end_time = Carbon::parse($semester->end_time);
-            if ($start_time < Carbon::now() && $end_time > Carbon::now()){
-                $semester_ex = DB::table('semesters')->where('id','=', $semester->last_semester)->get();
-                return view('fileaction.index', compact('semester_ex','semester'));
+            $start_time = Carbon::parse($semester->start_time);
+            $end_time = Carbon::parse($semester->end_time);
+            if ($start_time < Carbon::now() && $end_time > Carbon::now()) {
+                $semester_ex = DB::table('semesters')->where('id', '=', $semester->last_semester)->get();
+                return view('fileaction.index', compact('semester_ex', 'semester'));
             }
         }
     }
@@ -68,126 +68,120 @@ class ActionController extends Controller
         // Convert to JSON
         $json_result = $json_data;
         foreach ($json_result as $row) {
-            if(!$row['stt']){
-                break;
-            }
-            $student = DB::table('students')->where('student_code', '=', $row['ma_sv'])->select('id')->get();
-            if($student != []){
-                $student_id = $student[0]->id;
-                $transcript = DB::table('transcripts')
-                ->where('student_id', '=', $student_id)
-                ->where('semester_id', '=', $request->semester_id)
-                ->get()[0];
-                $transcript_details = DB::table('transcript_details')
-                ->join('criterias', 'criterias.id', '=', 'transcript_details.criteria_id')
-                ->where('transcript_id', '=', $transcript->id)
-                ->select('transcript_details.*', 'criterias.max_score')->get();                
-                if($row['Đtbhk']){
-                    if((float) $row['Đtbhk'] >= 3.6 && (float) $row['Đtbhk'] <= 4.00){
-                        foreach($transcript_details as $td){
-                            if ($td->criteria_id == 36){
-                                $update_trans = Transcript_details::find($td->id);
-                                $update_trans->self_score = $td->max_score;
-                                $update_trans->class_score = $td->max_score;
-                                $update_trans->note = "Hệ thống đã đánh giá";
-                                $update_trans->save();
-                                foreach($transcript_details as $td2){
-                                    if ($td2->criteria_id == 8){
-                                        $update_tran = Transcript_details::find($td2->id);
-                                        $update_tran->self_score = $td->max_score;
-                                        $update_tran->class_score = $td->max_score;
-                                        $update_tran->note = "Hệ thống đã đánh giá";
-                                        $update_tran->save();
+            if ($row['stt']) {
+                $student = DB::table('students')->where('student_code', '=', $row['ma_sv'])->select('id')->get();
+                if ($student != []) {
+                    $student_id = $student[0]->id;
+                    $transcript = DB::table('transcripts')
+                        ->where('student_id', '=', $student_id)
+                        ->where('semester_id', '=', $request->semester_id)
+                        ->get()[0];
+                    $transcript_details = DB::table('transcript_details')
+                        ->join('criterias', 'criterias.id', '=', 'transcript_details.criteria_id')
+                        ->where('transcript_id', '=', $transcript->id)
+                        ->select('transcript_details.*', 'criterias.max_score')->get();
+                    if ($row['Đtbhk']) {
+                        if ((float) $row['Đtbhk'] >= 3.6 && (float) $row['Đtbhk'] <= 4.00) {
+                            foreach ($transcript_details as $td) {
+                                if ($td->criteria_id == 36) {
+                                    $update_trans = Transcript_details::find($td->id);
+                                    $update_trans->self_score = $td->max_score;
+                                    $update_trans->class_score = $td->max_score;
+                                    $update_trans->note = "Hệ thống đã đánh giá";
+                                    $update_trans->save();
+                                    foreach ($transcript_details as $td2) {
+                                        if ($td2->criteria_id == 8) {
+                                            $update_tran = Transcript_details::find($td2->id);
+                                            $update_tran->self_score = $td->max_score;
+                                            $update_tran->class_score = $td->max_score;
+                                            $update_tran->note = "Hệ thống đã đánh giá";
+                                            $update_tran->save();
+                                        }
                                     }
                                 }
                             }
-                        }
-                    }
-                    elseif((float) $row['Đtbhk'] >= 3.20 && (float) $row['Đtbhk'] <= 3.59){
-                        foreach($transcript_details as $td){
-                            if ($td->criteria_id == 37){
-                                $update_trans = Transcript_details::find($td->id);
-                                $update_trans->self_score = $td->max_score;
-                                $update_trans->class_score = $td->max_score;
-                                $update_trans->note = "Hệ thống đã đánh giá";
-                                $update_trans->save();
-                                foreach($transcript_details as $td2){
-                                    if ($td2->criteria_id == 8){
-                                        $update_tran = Transcript_details::find($td2->id);
-                                        $update_tran->self_score = $td->max_score;
-                                        $update_tran->class_score = $td->max_score;
-                                        $update_tran->note = "Hệ thống đã đánh giá";
+                        } elseif ((float) $row['Đtbhk'] >= 3.20 && (float) $row['Đtbhk'] <= 3.59) {
+                            foreach ($transcript_details as $td) {
+                                if ($td->criteria_id == 37) {
+                                    $update_trans = Transcript_details::find($td->id);
+                                    $update_trans->self_score = $td->max_score;
+                                    $update_trans->class_score = $td->max_score;
+                                    $update_trans->note = "Hệ thống đã đánh giá";
+                                    $update_trans->save();
+                                    foreach ($transcript_details as $td2) {
+                                        if ($td2->criteria_id == 8) {
+                                            $update_tran = Transcript_details::find($td2->id);
+                                            $update_tran->self_score = $td->max_score;
+                                            $update_tran->class_score = $td->max_score;
+                                            $update_tran->note = "Hệ thống đã đánh giá";
 
-                                        $update_tran->save();
+                                            $update_tran->save();
+                                        }
+                                    }
+                                }
+                            }
+                        } elseif ((float) $row['Đtbhk'] >= 2.50 && (float) $row['Đtbhk'] <= 3.19) {
+                            foreach ($transcript_details as $td) {
+                                if ($td->criteria_id == 38) {
+                                    $update_trans = Transcript_details::find($td->id);
+                                    $update_trans->self_score = $td->max_score;
+                                    $update_trans->class_score = $td->max_score;
+                                    $update_trans->note = "Hệ thống đã đánh giá";
+                                    $update_trans->save();
+                                    foreach ($transcript_details as $td2) {
+                                        if ($td2->criteria_id == 8) {
+                                            $update_tran = Transcript_details::find($td2->id);
+                                            $update_tran->self_score = $td->max_score;
+                                            $update_tran->class_score = $td->max_score;
+                                            $update_tran->note = "Hệ thống đã đánh giá";
+                                            $update_tran->save();
+                                        }
+                                    }
+                                }
+                            }
+                        } elseif ((float) $row['Đtbhk'] >= 2.00 && (float) $row['Đtbhk'] <= 2.49) {
+                            foreach ($transcript_details as $td) {
+                                if ($td->criteria_id == 39) {
+                                    $update_trans = Transcript_details::find($td->id);
+                                    $update_trans->self_score = $td->max_score;
+                                    $update_trans->class_score = $td->max_score;
+                                    $update_trans->note = "Hệ thống đã đánh giá";
+                                    $update_trans->save();
+                                    foreach ($transcript_details as $td2) {
+                                        if ($td2->criteria_id == 8) {
+                                            $update_tran = Transcript_details::find($td2->id);
+                                            $update_tran->self_score = $td->max_score;
+                                            $update_tran->class_score = $td->max_score;
+                                            $update_tran->note = "Hệ thống đã đánh giá";
+                                            $update_tran->save();
+                                        }
+                                    }
+                                }
+                            }
+                        } elseif ((float) $row['Đtbhk'] < 2.00) {
+                            foreach ($transcript_details as $td) {
+                                if ($td->criteria_id == 40) {
+                                    $update_trans = Transcript_details::find($td->id);
+                                    $update_trans->self_score = $td->max_score;
+                                    $update_trans->class_score = $td->max_score;
+                                    $update_trans->note = "Hệ thống đã đánh giá";
+                                    $update_trans->save();
+                                    foreach ($transcript_details as $td2) {
+                                        if ($td2->criteria_id == 8) {
+                                            $update_tran = Transcript_details::find($td2->id);
+                                            $update_tran->self_score = $td->max_score;
+                                            $update_tran->class_score = $td->max_score;
+                                            $update_tran->note = "Hệ thống đã đánh giá";
+                                            $update_tran->save();
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    elseif((float) $row['Đtbhk'] >= 2.50 && (float) $row['Đtbhk'] <= 3.19){
-                        foreach($transcript_details as $td){
-                            if ($td->criteria_id == 38){
-                                $update_trans = Transcript_details::find($td->id);
-                                $update_trans->self_score = $td->max_score;
-                                $update_trans->class_score = $td->max_score;
-                                $update_trans->note = "Hệ thống đã đánh giá";
-                                $update_trans->save();
-                                foreach($transcript_details as $td2){
-                                    if ($td2->criteria_id == 8){
-                                        $update_tran = Transcript_details::find($td2->id);
-                                        $update_tran->self_score = $td->max_score;
-                                        $update_tran->class_score = $td->max_score;
-                                        $update_tran->note = "Hệ thống đã đánh giá";
-                                        $update_tran->save();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    elseif((float) $row['Đtbhk'] >= 2.00 && (float) $row['Đtbhk'] <= 2.49){
-                        foreach($transcript_details as $td){
-                            if ($td->criteria_id == 39){
-                                $update_trans = Transcript_details::find($td->id);
-                                $update_trans->self_score = $td->max_score;
-                                $update_trans->class_score = $td->max_score;
-                                $update_trans->note = "Hệ thống đã đánh giá";
-                                $update_trans->save();
-                                foreach($transcript_details as $td2){
-                                    if ($td2->criteria_id == 8){
-                                        $update_tran = Transcript_details::find($td2->id);
-                                        $update_tran->self_score = $td->max_score;
-                                        $update_tran->class_score = $td->max_score;
-                                        $update_tran->note = "Hệ thống đã đánh giá";
-                                        $update_tran->save();
-                                    }
-                                }
-                            }
-                        }
-                    }                    
-                    elseif((float) $row['Đtbhk'] < 2.00){
-                        foreach($transcript_details as $td){
-                            if ($td->criteria_id == 40){
-                                $update_trans = Transcript_details::find($td->id);
-                                $update_trans->self_score = $td->max_score;
-                                $update_trans->class_score = $td->max_score;
-                                $update_trans->note = "Hệ thống đã đánh giá";
-                                $update_trans->save();
-                                foreach($transcript_details as $td2){
-                                    if ($td2->criteria_id == 8){
-                                        $update_tran = Transcript_details::find($td2->id);
-                                        $update_tran->self_score = $td->max_score;
-                                        $update_tran->class_score = $td->max_score;
-                                        $update_tran->note = "Hệ thống đã đánh giá";
-                                        $update_tran->save();
-                                    }
-                                }
-                            }
-                        }
-                    }
+                } else {
+                    return $row['ma_sv'];
                 }
-            }
-            else {
-                return $row['ma_sv'];
             }
         }
         return redirect()->back()->with('success', 'Excel file imported successfully!');
