@@ -373,9 +373,11 @@ class UsersController extends Controller {
           <td style="padding-top: 25px">' . $row->student_code . '</td>
           <td style="padding-top: 25px">' . $row->total_self_score . '</td>
           <td style="padding-top: 25px">' . $row->total_class_score . '</td>
-          <td style="padding-top: 25px">' . $row->total_score . '</td>
-          <td><button type="button" value="transcript_' . $row->id . '" id="detail"  class="form-control border-0 py-3">Xem chi tiết</button></td>
-      </tr>';
+          <td><input id="' . $row->id . '" type="number" class="form-control border-0 py-3" name="total_score" value="' . $row->total_score . '" placeholder="0"></td>
+          <td max-width: 200px">
+              <button style="margin-right:10px; float:left; max-width: 100px" type="button" value="transcript_' . $row->id . '" id="detail"  class="form-control border-0 py-3">Xem chi tiết</button>
+              <button onclick="saveChange(' . $row->id . ', ' . $numId . ')" style="background-color: #003ecc47;float:left; max-width: 70px" type="button" id="detail"  class="form-control border-0 py-3">Lưu</button></td>
+          </tr>';
           }
         }
         else {
@@ -532,7 +534,67 @@ class UsersController extends Controller {
   /**
    * Inheric docs.
    */
-  public function update(Request $request, User $user) {
+  public function updateTrans(Request $request) {
+    if ($request->ajax()) {
+      $id = $request->get('id');
+      $value = $request->get('value');
+      $numId = $request->get('classId');
+      $transcript = Transcripts::find($id);
+      $transcript->total_score = (int) $value;
+      $transcript->save();
+      $output = '';
+      $header = '';
+      $title = '';
+      $data = DB::table('transcripts')
+        ->join('students', 'transcripts.student_id', '=', 'students.id')
+        ->select('transcripts.*', 'students.full_name', 'students.student_code')
+        ->where('students.class_id', '=', $numId)
+        ->get();
+      ;
+      $class_name = DB::table('classes')
+        ->join('teachers', 'classes.teacher_id', '=', 'teachers.id')
+        ->select('classes.*', 'teachers.full_name', 'teachers.teacher_code')
+        ->where('classes.id', '=', $numId)->get()[0]->name;
+      $title = "Danh sách sinh viên lớp " . $class_name;
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        $header = '
+        <tr>
+        <th>Họ và tên</th>
+        <th>Mã sinh viên</th>
+        <th>Tự đánh giá</th>
+        <th>Lớp đánh giá</th>
+        <th>Điểm tổng kết</th>
+        <th>Hành động</th>
+        </tr>';
+        foreach ($data as $key => $row) {
+          $output .= '
+          <tr>
+          <td style="padding-top: 25px">' . $row->full_name . '</td>
+          <td style="padding-top: 25px">' . $row->student_code . '</td>
+          <td style="padding-top: 25px">' . $row->total_self_score . '</td>
+          <td style="padding-top: 25px">' . $row->total_class_score . '</td>
+          <td><input id="' . $row->id . '" type="number" class="form-control border-0 py-3" name="total_score" value="' . $row->total_score . '" placeholder="0"></td>
+          <td max-width: 200px">
+              <button style="margin-right:10px; float:left; max-width: 100px" type="button" value="transcript_' . $row->id . '" id="detail"  class="form-control border-0 py-3">Xem chi tiết</button>
+              <button onclick="saveChange(' . $row->id . ', ' . $numId . ')" style="background-color: #003ecc47;float:left; max-width: 70px" type="button" id="detail"  class="form-control border-0 py-3">Lưu</button></td>
+          </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+        'header' => $header,
+        'title' => $title,
+      ];
+      echo json_encode($data);
+    }
   }
 
   /**

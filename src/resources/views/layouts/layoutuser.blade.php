@@ -26,9 +26,12 @@
                 <div class="collapse navbar-collapse bg-transparent" id="navbarCollapse">
                     <div class="navbar-nav ms-auto mx-xl-auto p-0">
                         <a href="index.html" class="nav-item nav-link active text-secondary">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Thông báo</a>
+                        <a href="news" class="nav-item nav-link">Thông báo</a>
                         @if(session('permission') == 2)
                         <a href="ratting-class" class="nav-item nav-link">Danh sách lớp</a>
+                        @elseif (session('permission') == 4)
+                        <a href="rattingscore" class="nav-item nav-link">Đánh giá điểm rèn luyện</a>
+                        <a href="ratting-student" class="nav-item nav-link">Đánh giá lớp</a>
                         @else
                         <a href="rattingscore" class="nav-item nav-link">Đánh giá điểm rèn luyện</a>
                         @endif

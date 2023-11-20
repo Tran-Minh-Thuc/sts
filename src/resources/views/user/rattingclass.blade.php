@@ -49,6 +49,21 @@
                 fetch_customers_data(query, id);
             });
         });
+        function saveChange(id, classId){
+            value = document.getElementById(id).value;
+            $.ajax({
+                    url:"/teacher-update-trans",
+                    method:"GET",
+                    data:{value:value,id:id, classId:classId},
+                    dataType:'json',
+                    success:function(data){
+                        // alert(data.table_data)
+                        $('tbody').html(data.table_data);
+                        $('thead').html(data.header);
+                        $('#title').html(data.title);
+                    }
+                })
+        }
     </script>
     @endif
 

@@ -218,6 +218,10 @@ Route::get('/admin/delete-classes/{id}', [
   'destroy',
 ]);
 
+Route::get('/teacher-update-trans', [
+  UsersController::class,
+  'updateTrans',
+]);
 
 // Course.
 Route::get('/admin/courses', [
