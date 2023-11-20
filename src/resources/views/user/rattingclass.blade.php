@@ -10,7 +10,7 @@
                 <div class="card">
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                     <div style="padding-top: 25px;" class="text-center mx-auto pb-5  " style="max-width: 600px;   ">
-                        <h4>Danh sách lớp</h4>
+                        <h4 id="title">Danh sách lớp</h4>
                     </div>
                     <div class="card-content collapse show" id="menu1">
                         <div class="card-body">
@@ -39,6 +39,7 @@
                     success:function(data){
                         $('tbody').html(data.table_data);
                         $('thead').html(data.header);
+                        $('#title').html(data.title);
                     }
                 })
             }

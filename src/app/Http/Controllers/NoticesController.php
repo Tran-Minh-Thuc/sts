@@ -21,7 +21,8 @@ class NoticesController extends Controller {
     if ($request->name != NULL) {
       $search_box = "%" . $request->name . "%";
       $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id WHERE notices.name LIKE ?;', [$search_box]);
-    }else{
+    }
+    else {
       $notices_db = DB::select('SELECT notices.*, semesters.name AS semester_name FROM notices LEFT JOIN semesters ON notices.semester_id = semesters.id;');
     }
     foreach ($notices_db as $notice) {
@@ -52,6 +53,9 @@ class NoticesController extends Controller {
    * Inheric docs.
    */
   public function store(Request $request) {
+    $request->validate([
+      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+    ]);
     $notices = new Notices();
     $notices->semester_id = $request->semester_id;
     $notices->begin_time = $request->begin_time;
@@ -92,6 +96,9 @@ class NoticesController extends Controller {
    * Inheric docs.
    */
   public function update(Request $request, $id) {
+    $request->validate([
+      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+    ]);
     $notices = Notices::find($id);
     $notices->semester_id = $request->semester_id;
     $notices->begin_time = $request->begin_time;

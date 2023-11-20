@@ -110,6 +110,9 @@ class StudentsController extends Controller {
    * Inheric docs.
    */
   public function store(Request $request) {
+    $request->validate([
+      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+    ]);
     $students = new Students();
     $students->student_code = $request->student_code;
     $students->account_id = $request->account_id;
@@ -167,6 +170,9 @@ class StudentsController extends Controller {
    * Inheric docs.
    */
   public function update(Request $request, $id) {
+    $request->validate([
+      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+    ]);
     $students = Students::find($id);
     $students->student_code = $request->student_code;
     $students->class_id = $request->class_id;

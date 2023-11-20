@@ -1,5 +1,9 @@
 @extends('layouts.layouts')
 @section('content')
+
+@if (session('status'))
+     <?php echo session('status')?>
+@endif
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
