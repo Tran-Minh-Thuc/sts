@@ -122,7 +122,12 @@ Route::put('/admin/update-criterias/update-criterias/{id}', [
   'update',
 ]);
 
-Route::get('/user/update-permissions/{id}', [
+Route::put('/user/update-user-ratting/update-user-ratting/{id}', [
+  UsersController::class,
+  'updateUserRatings2',
+]);
+
+Route::get('/user/update-user-ratting/{id}', [
   UsersController::class,
   'updateRattingStudent',
 ]);

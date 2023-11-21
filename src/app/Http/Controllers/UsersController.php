@@ -648,7 +648,7 @@ class UsersController extends Controller {
           <td style="padding-top: 25px">' . $row->total_class_score . '</td>
           <td style="padding-top: 25px">' . $row->total_score . '</td>
           <td max-width: 200px">
-              <button type="button" value="' . $row->id . '" id="detail" onclick="location.href=\'update-permissions/' . $row->id . '\';"  class="form-control border-0 py-3">Đánh giá</button>
+              <button type="button" value="' . $row->id . '" id="detail" onclick="location.href=\'update-user-ratting/' . $row->id . '\';"  class="form-control border-0 py-3">Đánh giá</button>
           </tr>';
         }
       }
@@ -718,6 +718,44 @@ class UsersController extends Controller {
       }
     }
     $parent_rows = count($parents);
-    return view('user.rattingscore', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
+    return view('user.rattingscorestudent', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
+  }
+
+  public function updateUserRatings2(Request $request, $id) {
+    $trans_id = $id;
+    $jsonData = request()->all();
+    unset($jsonData['_token']);
+    unset($jsonData['_method']);
+    $result = [];
+    foreach ($jsonData as $key => $value) {
+      preg_match('/(\d+)$/', $key, $matches);
+      $id = $matches[0];
+      $result[$id] = [
+        "class_score" => $jsonData["class_score_" . $id],
+        "self_score" => $jsonData["self_score_" . $id],
+      ];
+    }
+    $total_self_score = 0;
+    $total_class_score = 0;
+    foreach ($result as $key => $value) {
+      $trans_detail = Transcript_details::find($key);
+      $trans_detail->class_score = $value['class_score'];
+      $trans_detail->self_score = $value['self_score'];
+      $trans_detail->updated_at = date('Y-m-d');
+      $trans_detail->save();
+      $trans_detail_db = DB::table('transcript_details')
+        ->join('criterias', 'transcript_details.criteria_id', '=', 'criterias.id')
+        ->select('transcript_details.*', 'criterias.field_level')
+        ->where('transcript_details.id', '=', $key)->get()[0];
+      if ($trans_detail_db->field_level == 1) {
+        $total_self_score += $trans_detail_db->self_score;
+        $total_class_score += $trans_detail_db->class_score;
+      }
+    }
+    $trans = Transcripts::find($trans_id);
+    $trans->total_self_score = $total_self_score;
+    $trans->total_class_score = $total_class_score;
+    $trans->save();
+    return redirect('/user/ratting-student');
   }
 }

@@ -59,12 +59,12 @@
                                         <td id="max_{{ $child_parent->id }}" style="padding-top: 25px">
                                             {{ $child_parent->max_score }}
                                         </td>
-                                        @if($child_parent->note == "Hệ thống đã đánh giá")
                                         <td><input id="self_{{ $child_parent->id }}" type="number" class="self_{{ $parent->id }} form-control border-0 py-3" name="self_score_{{ $child_parent->id }}" value="{{ $child_parent->self_score }}" onblur=" countPoint('self', {{ $child_parent->id }}, {{ $parent->id }}); countSumPoint('self', {{ $child_parent->id }}, {{ $parent->id }});" placeholder="0" readonly></td>
-                                        @else
-                                        <td><input id="self_{{ $child_parent->id }}" type="number" class="self_{{ $parent->id }} form-control border-0 py-3" name="self_score_{{ $child_parent->id }}" value="{{ $child_parent->self_score }}" onblur=" countPoint('self', {{ $child_parent->id }}, {{ $parent->id }}); countSumPoint('self', {{ $child_parent->id }}, {{ $parent->id }});" placeholder="0"></td>
-                                        @endif
+                                        @if($child_parent->note == "Hệ thống đã đánh giá")
                                         <td><input id="class_{{ $child_parent->id }}" type="number" class="class_{{ $parent->id }} form-control border-0 py-3" name="class_score_{{ $child_parent->id }}" value="{{ $child_parent->class_score }}" onblur=" countPoint('class', {{ $child_parent->id }}, {{ $parent->id }}); countSumPoint('class', {{ $child_parent->id }}, {{ $parent->id }});" placeholder="0" readonly></td>
+                                        @else
+                                        <td><input id="class_{{ $child_parent->id }}" type="number" class="class_{{ $parent->id }} form-control border-0 py-3" name="class_score_{{ $child_parent->id }}" value="{{ $child_parent->class_score }}" onblur=" countPoint('class', {{ $child_parent->id }}, {{ $parent->id }}); countSumPoint('class', {{ $child_parent->id }}, {{ $parent->id }});" placeholder="0" ></td>
+                                        @endif
                                         @if ($child_parent->note == '')
                                         <td style="padding-top: 25px">Sinh viên tự đánh giá</td>
                                         @else
@@ -80,12 +80,12 @@
                                         </td>
                                         <td id="max_{{ $child->id }}" style="padding-top: 25px">{{ $child->max_score }}
                                         </td>
-                                        @if($child->note == "Hệ thống đã đánh giá")
                                         <td><input type="number" id="self_{{ $child->id }}" class="self_{{ $child_parent->id }} form-control border-0 py-3" name="self_score_{{ $child->id }}" value="{{ $child->self_score }}" onblur=" countPoint('self', {{ $child->id }}, {{ $child_parent->id }}); countSumPoint('self', {{ $child_parent->id }}, {{ $parent->id }}, {{ $child->id }});" placeholder="0" readonly></td>
-                                        @else
-                                        <td><input type="number" id="self_{{ $child->id }}" class="self_{{ $child_parent->id }} form-control border-0 py-3" name="self_score_{{ $child->id }}" value="{{ $child->self_score }}" onblur=" countPoint('self', {{ $child->id }}, {{ $child_parent->id }}); countSumPoint('self', {{ $child_parent->id }}, {{ $parent->id }}, {{ $child->id }});" placeholder="0"></td>
-                                        @endif
+                                        @if($child->note == "Hệ thống đã đánh giá")
                                         <td><input type="number" id="class_{{ $child->id }}" class="class_{{ $child_parent->id }} form-control border-0 py-3" name="class_score_{{ $child->id }}" value="{{ $child->class_score }}" onblur=" countPoint('class', {{ $child->id }}, {{ $child_parent->id }}); countSumPoint('class', {{ $child_parent->id }}, {{ $parent->id }}, {{ $child->id }});" placeholder="0" readonly></td>
+                                        @else
+                                        <td><input type="number" id="class_{{ $child->id }}" class="class_{{ $child_parent->id }} form-control border-0 py-3" name="class_score_{{ $child->id }}" value="{{ $child->class_score }}" onblur=" countPoint('class', {{ $child->id }}, {{ $child_parent->id }}); countSumPoint('class', {{ $child_parent->id }}, {{ $parent->id }}, {{ $child->id }});" placeholder="0" ></td>
+                                        @endif
                                         @if ($child->note == '')
                                         <td style="padding-top: 25px">Sinh viên tự đánh giá
                                         </td>
