@@ -72,6 +72,16 @@ Route::get('/user/ratting-class', [
   'rattingClass',
 ]);
 
+Route::get('/user/ratting-student', [
+  UsersController::class,
+  'rattingStudent',
+]);
+
+Route::get('/admin/action-ratting-student', [
+  UsersController::class,
+  'actionRattingStudent',
+])->name('action_ratting_student');
+
 Route::put('/user/update-user-ratting/{id}', [
   UsersController::class,
   'updateUserRatings',
@@ -110,6 +120,11 @@ Route::get('/admin/update-criterias/{id}', [
 Route::put('/admin/update-criterias/update-criterias/{id}', [
   RatingController::class,
   'update',
+]);
+
+Route::get('/user/update-permissions/{id}', [
+  UsersController::class,
+  'updateRattingStudent',
 ]);
 
 Route::get('/admin/delete-criterias/{id}', [

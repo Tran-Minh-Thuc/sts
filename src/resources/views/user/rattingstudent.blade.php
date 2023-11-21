@@ -32,7 +32,7 @@
             fetch_customers_data();
             function fetch_customers_data(query = '', id = '') {
                 $.ajax({
-                    url:"{{ route('action_ratting_class') }}",
+                    url:"{{ route('action_ratting_student') }}",
                     method:"GET",
                     data:{query:query,id:id},
                     dataType:'json',
@@ -43,27 +43,7 @@
                     }
                 })
             }
-            $(document).on('click', '#detail', function() {
-                var id = $(this).val();
-                var query = '';
-                fetch_customers_data(query, id);
-            });
         });
-        function saveChange(id, classId){
-            value = document.getElementById(id).value;
-            $.ajax({
-                    url:"/teacher-update-trans",
-                    method:"GET",
-                    data:{value:value,id:id, classId:classId},
-                    dataType:'json',
-                    success:function(data){
-                        alert(data.table_data)
-                        $('tbody').html(data.table_data);
-                        $('thead').html(data.header);
-                        $('#title').html(data.title);
-                    }
-                })
-        }
     </script>
     @endif
 

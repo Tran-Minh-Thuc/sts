@@ -597,10 +597,127 @@ class UsersController extends Controller {
     }
   }
 
-  /**
-   * Inheric docs.
-   */
-  public function destroy(User $user) {
+  public function rattingStudent() {
+    // return session()->all();
+    if (!session('user_info')) {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
+    $msg = '';
+    return view('user.rattingstudent', compact('msg'));
   }
 
+    /**
+   * Inheric docs.
+   */
+  public function actionRattingStudent(Request $request) {
+    if ($request->ajax()) {
+      $class_id = session('user_info')->class_id;
+      $output = '';
+      $header = '';
+      $title = '';
+      $query = $request->get('query');
+      $trans_id = $request->get('id');
+      $data = DB::table('transcripts')
+        ->join('students', 'transcripts.student_id', '=', 'students.id')
+        ->select('transcripts.*', 'students.full_name', 'students.student_code')
+        ->where('students.class_id', '=', $class_id)
+        ->get();
+      ;
+      $class_name = DB::table('classes')
+        ->join('teachers', 'classes.teacher_id', '=', 'teachers.id')
+        ->select('classes.*', 'teachers.full_name', 'teachers.teacher_code')
+        ->where('classes.id', '=', $class_id)->get()[0]->name;
+      $title = "Danh sách sinh viên lớp " . $class_name;
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        $header = '
+        <tr>
+        <th>Họ và tên</th>
+        <th>Mã sinh viên</th>
+        <th>Tự đánh giá</th>
+        <th>Lớp đánh giá</th>
+        <th>Điểm tổng kết</th>
+        <th>Hành động</th>
+        </tr>';
+        foreach ($data as $key => $row) {
+          $output .= '
+          <tr>
+          <td style="padding-top: 25px">' . $row->full_name . '</td>
+          <td style="padding-top: 25px">' . $row->student_code . '</td>
+          <td style="padding-top: 25px">' . $row->total_self_score . '</td>
+          <td style="padding-top: 25px">' . $row->total_class_score . '</td>
+          <td style="padding-top: 25px">' . $row->total_score . '</td>
+          <td max-width: 200px">
+              <button type="button" value="' . $row->id . '" id="detail" onclick="location.href=\'update-permissions/' . $row->id . '\';"  class="form-control border-0 py-3">Đánh giá</button>
+          </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+        'header' => $header,
+        'title' => $title,
+      ];
+      echo json_encode($data);
+    }
+  }
+
+  public function updateRattingStudent(Request $request, $id) {
+    $msg = '';
+    if (!session('user_info')) {
+      return "You can not access this page ! <a href=\"..\login\">re-login</a>";
+    }
+    $user_transcripts = DB::table('transcripts')
+      ->join('semesters', 'semesters.id', '=', 'transcripts.semester_id')
+      ->where('transcripts.id', '=', $id)
+      ->select('transcripts.*', 'semesters.start_time', 'semesters.end_time')
+      ->get();
+
+    $trans = NULL;
+
+    foreach ($user_transcripts as $ut) {
+      $end_time = Carbon::parse($ut->start_time);
+      $day_diff = $end_time->diffInDays(Carbon::now());
+      if ($day_diff <= 15) {
+        $trans = $ut;
+        break;
+      }
+    }
+    if ($trans) {
+      $trans_detail = DB::table('transcript_details')
+        ->join('criterias', 'criterias.id', '=', 'transcript_details.criteria_id')
+        ->where('transcript_id', '=', $trans->id)
+        ->select('transcript_details.*', 'criterias.name as name', 'criterias.max_score as max_score', 'criterias.id as criteria_db_id', 'criterias.field_level as field_level', 'criterias.parent_criteria_id as parent_criteria_id')
+        ->get();
+    }
+    else {
+      $trans_detail = [];
+    }
+    if (empty($trans_detail)) {
+      $msg = "Hết thời hạn hoặc bạn không có quyền truy cập !";
+      return view('user.rattingscore', compact('msg'));
+    }
+    $parents = [];
+    $child_parents = [];
+    $childs = [];
+    foreach ($trans_detail as $td) {
+      if ($td->field_level == 1) {
+        $parents[] = $td;
+      }
+      elseif ($td->field_level == 2) {
+        $child_parents[] = $td;
+      }
+      else {
+        $childs[] = $td;
+      }
+    }
+    $parent_rows = count($parents);
+    return view('user.rattingscore', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
+  }
 }

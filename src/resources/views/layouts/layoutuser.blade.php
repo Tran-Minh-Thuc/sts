@@ -101,7 +101,7 @@
                     <a href="index.html">
                         <img src="{{ asset('images/logo-sgu.png') }}" style="max-height: 70px;" class="img-fluid" alt="First slide">
                     </a>
-                    <p class="mt-4 text-light">Đại Học Sài Gòn là một ngôi trường củ cặc</p>
+                    <p class="mt-4 text-light">Đại Học Sài Gòn</p>
                     <div class="d-flex hightech-link">
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i class="fab fa-facebook-f text-primary"></i></a>
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i class="fab fa-twitter text-primary"></i></a>
@@ -121,10 +121,10 @@
                 <div class="col-lg-3 col-md-6">
                     <a href="#" class="h3 text-secondary">Khoa Công Nghệ thông tin</a>
                     <div class="mt-4 d-flex flex-column help-link">
-                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa củ cặc</a>
-                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa củ cặc</a>
-                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa củ cặc</a>
-                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa củ cặc</a>
+                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa </a>
+                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa </a>
+                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa </a>
+                        <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Khoa </a>
 
                     </div>
                 </div>
