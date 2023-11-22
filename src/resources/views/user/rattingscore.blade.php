@@ -3,6 +3,9 @@
 @if ($msg)
 <div style="text-align: center">{{ $msg }}</div>
 @else
+@if (session('status'))
+      <?php echo session('status')?>
+@endif
 <div class="container">
     <div class="row">
         <div class="process">
@@ -35,7 +38,7 @@
             <div class="card">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                 <div style="padding-top: 25px;" class="text-center mx-auto pb-5  " style="max-width: 600px;   ">
-                    <h4>{{ $parent->name }} </h4>
+                    <h4>{{ $parent->name }} <a href="report/{{$parent->id}}"><i style="margin-left: 10px; color: black;" class="fas fa-exclamation-triangle"></i></a></h4>
                     <h4 id="max_{{ $parent->id }}" style="font-style: italic; color:gray"> Tối đa: {{ $parent->max_score }} điểm </h4>
                 </div>
                 <div class="card-content collapse show" id="menu1">

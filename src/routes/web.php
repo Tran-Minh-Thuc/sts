@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SemestersController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TeachersController;
@@ -49,6 +50,51 @@ Route::get('/admin/action-ratting-class', [
 Route::get('/login', [
   UsersController::class,
   'login',
+]);
+
+Route::get('/admin/reports', [
+  ReportsController::class,
+  'list',
+]);
+
+Route::get('/admin/action-reports', [
+  ReportsController::class,
+  'action',
+])->name('action_reports');
+
+Route::get('/user/report', [
+  ReportsController::class,
+  'create',
+]);
+
+Route::get('/user/report/{id}', [
+  ReportsController::class,
+  'create',
+]);
+
+Route::get('/admin/update-reports/{id}', [
+  ReportsController::class,
+  'edit',
+]);
+
+Route::get('/admin/update-status-reports/{id}', [
+  ReportsController::class,
+  'update',
+]);
+
+Route::post('/user/create-reports', [
+  ReportsController::class,
+  'store',
+]);
+
+Route::post('user/report/create-reports', [
+  ReportsController::class,
+  'store',
+]);
+
+Route::get('/admin/delete-reports/{id}', [
+  ReportsController::class,
+  'destroy',
 ]);
 
 Route::get('/logout', [

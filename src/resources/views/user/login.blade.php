@@ -14,6 +14,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/ico/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+@if (session('status'))
+      <?php echo session('status')?>
+@endif
     <meta name="robots" content="noindex, follow">
 </head>
 
@@ -57,7 +60,7 @@
                         <span class="txt1">
                             Forgot
                         </span>
-                        <a class="txt2" href="#">
+                        <a class="txt2" href="/user/report">
                             Username / Password?
                         </a>
                     </div>

@@ -71,6 +71,8 @@
         </li>
         <li class=" nav-item"><a href="transcripts"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Đánh giá</span></a>
         </li>
+        <li class=" nav-item"><a href="reports"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Báo cáo</span></a>
+        </li>
         <li class=" nav-item"><a href="action"><i class="la la-volume-up"></i><span class="menu-title" data-i18n="">Nhập liệu</span></a>
         </li>
       </ul>
