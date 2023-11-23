@@ -182,7 +182,7 @@ class StudentsController extends Controller {
    */
   public function update(Request $request, $id) {
     $request->validate([
-      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+      'file' => 'mimes:jpeg,png,jpg,gif,svg,ico,webp',
     ]);
     $students = Students::find($id);
     $students->student_code = $request->student_code;

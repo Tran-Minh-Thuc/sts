@@ -197,6 +197,7 @@ class ReportsController extends Controller {
               Mail::to($report->sender_email)->send(new MailNotify($mail));
               $report->status = 'Resolved';
               $report->save();
+              return redirect()->back();
             }
             $account_db->password = str_replace(['\'', '"', ',', ';', '<', '-'], '', $user[0]->date_of_birth);
           }
@@ -205,7 +206,7 @@ class ReportsController extends Controller {
             $mail = [];
             $mail['to'] = $report->sender_email;
             $mail['header'] = "Hoàn thành xử lý:" . $report->name;
-            $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "Mật khẩu: " . $account_db->password;
+            $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "\n Mật khẩu: " . $account_db->password;
             // $request->session()->put('mail', $mail);
             Mail::to($report->sender_email)->send(new MailNotify($mail));
             $report->status = 'Resolved';
@@ -216,13 +217,17 @@ class ReportsController extends Controller {
           $code = NULL;
           $permission = NULL;
           $user = DB::table('students')->where('student_code', '=', $report->sender_code)->get();
+          if ($user->isNotEmpty()) {
+          $code = $user[0]->student_code;
+          $permission = 3;
+          }
           if ($user->isEmpty()) {
             $user = DB::table('teachers')->where('teacher_code', '=', $report->sender_code)->get();
+            if ($user->isNotEmpty()) {
             $code = $user[0]->teacher_code;
             $permission = 2;
+            }
           }
-          $permission = 3;
-          $code = $user[0]->student_code;
           if ($user->isNotEmpty()) {
             if ($user[0]->email != $report->sender_email) {
               $mail = [];
@@ -233,8 +238,9 @@ class ReportsController extends Controller {
               Mail::to($report->sender_email)->send(new MailNotify($mail));
               $report->status = 'Resolved';
               $report->save();
+              return redirect()->back();
             }
-            if ($user[0]->account_id != NULL) {
+            elseif ($user[0]->account_id != NULL) {
               $account_db = Accounts::find($user[0]->account_id);
               $pw = str_replace(['\'', '"', ',', ';', '<', '-'], '', $user[0]->date_of_birth);
               $account_db->password = $pw;
@@ -245,7 +251,7 @@ class ReportsController extends Controller {
                 $mail = [];
                 $mail['to'] = $report->sender_email;
                 $mail['header'] = "Hoàn thành xử lý: " . $report->name;
-                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "Mật khẩu: " . $account_db->password;
+                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "\n Mật khẩu: " . $account_db->password;
                 // $request->session()->put('mail', $mail);
                 Mail::to($report->sender_email)->send(new MailNotify($mail));
                 $report->status = 'Resolved';
@@ -266,7 +272,7 @@ class ReportsController extends Controller {
                 $mail = [];
                 $mail['to'] = $report->sender_email;
                 $mail['header'] = "Hoàn thành xử lý: " . $report->name;
-                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . " Mật khẩu: " . $account_db->password;
+                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "\n Mật khẩu: " . $account_db->password;
                 // $request->session()->put('mail', $mail);
                 Mail::to($report->sender_email)->send(new MailNotify($mail));
                 $report->status = 'Resolved';
