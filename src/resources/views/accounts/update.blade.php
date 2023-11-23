@@ -54,8 +54,7 @@
                                                 <div class="form-group">
                                                     <label for="donationinput2" class="sr-only">Trạng thái</label>
                                                     <fieldset class="form-group">
-                                                        <select class="form-control" id="status"
-                                                            name="status ">
+                                                        <select class="form-control" id="status" name="status">
                                                                     <option value="1">Đang hoặt động</option>
                                                                     <option value="0">Ngưng hoặt động</option>
                                                         </select>

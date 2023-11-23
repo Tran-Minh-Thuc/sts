@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailNotify;
+use App\Models\Accounts;
 use App\Models\Reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Inheric docs.
@@ -107,7 +110,7 @@ class ReportsController extends Controller {
   /**
    * Inheric docs.
    */
-  public function create($id) {
+  public function create($id = NULL) {
     $id_user = NULL;
     $id_trans_lv_1 = NULL;
     $student = NULL;
@@ -176,12 +179,131 @@ class ReportsController extends Controller {
   public function update($id) {
     $report = Reports::find($id);
     if ($report->status == "Pending") {
-      $report->status = "In Progress";
+      if ($report->name == "Yêu cầu cấp tài khoản hoặc cấp lại mật khẩu") {
+        $account = DB::table('accounts')->where('user_name', '=', $report->sender_code)->get();
+        if ($account->isNotEmpty()) {
+          $account_db = Accounts::find($account[0]->id);
+          $user = DB::table('students')->where('account_id', '=', $account[0]->id)->get();
+          if ($user->isEmpty()) {
+            $user = DB::table('teachers')->where('account_id', '=', $account[0]->id)->get();
+          }
+          if ($user->isNotEmpty()) {
+            if ($user[0]->email != $report->sender_email) {
+              $mail = [];
+              $mail['to'] = $report->sender_email;
+              $mail['header'] = "Hoàn thành xử lý:" . $report->name;
+              $mail['body'] = "Địa chỉ email không tồn tại trong hệ thống ! Thông báo văn phòng khoa sớm nhất để được giải quyết !";
+              // $request->session()->put('mail', $mail);
+              Mail::to($report->sender_email)->send(new MailNotify($mail));
+              $report->status = 'Resolved';
+              $report->save();
+            }
+            $account_db->password = str_replace(['\'', '"', ',', ';', '<', '-'], '', $user[0]->date_of_birth);
+          }
+          $account_db->save();
+          if ($account_db->save()) {
+            $mail = [];
+            $mail['to'] = $report->sender_email;
+            $mail['header'] = "Hoàn thành xử lý:" . $report->name;
+            $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "Mật khẩu: " . $account_db->password;
+            // $request->session()->put('mail', $mail);
+            Mail::to($report->sender_email)->send(new MailNotify($mail));
+            $report->status = 'Resolved';
+            $report->save();
+          }
+        }
+        else {
+          $code = NULL;
+          $permission = NULL;
+          $user = DB::table('students')->where('student_code', '=', $report->sender_code)->get();
+          if ($user->isEmpty()) {
+            $user = DB::table('teachers')->where('teacher_code', '=', $report->sender_code)->get();
+            $code = $user[0]->teacher_code;
+            $permission = 2;
+          }
+          $permission = 3;
+          $code = $user[0]->student_code;
+          if ($user->isNotEmpty()) {
+            if ($user[0]->email != $report->sender_email) {
+              $mail = [];
+              $mail['to'] = $report->sender_email;
+              $mail['header'] = "Hoàn thành xử lý:" . $report->name;
+              $mail['body'] = "Địa chỉ email không tồn tại trong hệ thống ! Thông báo văn phòng khoa sớm nhất để được giải quyết !";
+              // $request->session()->put('mail', $mail);
+              Mail::to($report->sender_email)->send(new MailNotify($mail));
+              $report->status = 'Resolved';
+              $report->save();
+            }
+            if ($user[0]->account_id != NULL) {
+              $account_db = Accounts::find($user[0]->account_id);
+              $pw = str_replace(['\'', '"', ',', ';', '<', '-'], '', $user[0]->date_of_birth);
+              $account_db->password = $pw;
+              $account_db->user_name = $code;
+              $account_db->updated_at = date('Y-m-d');
+              $account_db->save();
+              if ($account_db->save()) {
+                $mail = [];
+                $mail['to'] = $report->sender_email;
+                $mail['header'] = "Hoàn thành xử lý: " . $report->name;
+                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . "Mật khẩu: " . $account_db->password;
+                // $request->session()->put('mail', $mail);
+                Mail::to($report->sender_email)->send(new MailNotify($mail));
+                $report->status = 'Resolved';
+                $report->save();
+              }
+            }
+            else {
+              $account_db = new Accounts();
+              $pw = str_replace(['\'', '"', ',', ';', '<', '-'], '', $user[0]->date_of_birth);
+              $account_db->password = $pw;
+              $account_db->permission_id = $permission;
+              $account_db->user_name = $code;
+              $account_db->status = 1;
+              $account_db->created_at = date('Y-m-d');
+              $account_db->updated_at = date('Y-m-d');
+              $account_db->save();
+              if ($account_db->save()) {
+                $mail = [];
+                $mail['to'] = $report->sender_email;
+                $mail['header'] = "Hoàn thành xử lý: " . $report->name;
+                $mail['body'] = "Tên tài khoản: " . $account_db->user_name . " Mật khẩu: " . $account_db->password;
+                // $request->session()->put('mail', $mail);
+                Mail::to($report->sender_email)->send(new MailNotify($mail));
+                $report->status = 'Resolved';
+                $report->save();
+              }
+            }
+          }
+          else {
+            $mail = [];
+            $mail['to'] = $report->sender_email;
+            $mail['header'] = "Không hoàn thành xử lý:" . $report->name;
+            $mail['body'] = "Liên hệ phòng đào tạo để được giải quyết sớm nhất !";
+            // $request->session()->put('mail', $mail);
+            Mail::to($report->sender_email)->send(new MailNotify($mail));
+            $report->status = 'Resolved';
+            $report->save();
+          }
+        }
+        // $report->status = "In Progress";
+      }
+      else {
+        $report->status = 'In Progress';
+        $report->save();
+      }
     }
-    elseif ($report->status == "In Progress") {
-      $report->status = "Resolved";
+    elseif ($report->status == 'In Progress') {
+      $report->status = 'Resolved';
+      $report->save();
+      if ($report->save()) {
+        $mail = [];
+        $mail['to'] = $report->sender_email;
+        $mail['header'] = "Hoàn thành xử lý:" . $report->name;
+        $mail['body'] = "Kiểm tra lại thay đổi !";
+        // $request->session()->put('mail', $mail);
+        Mail::to($report->sender_email)->send(new MailNotify($mail));
+      }
     }
-    $report->save();
     return redirect()->back();
   }
 

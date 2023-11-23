@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @file
+ * Inheric docs.
+ */
+?>
 @extends('layouts.layoutuser')
 @section('content')
 @if ($msg)

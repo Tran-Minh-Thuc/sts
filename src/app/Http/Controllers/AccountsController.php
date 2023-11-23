@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailNotify;
 use App\Models\Accounts;
 use App\Models\Permissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Inheric docs.
@@ -136,6 +138,21 @@ class AccountsController extends Controller {
     $account->status = $request->status;
     $account->updated_at = date('Y-m-d');
     $account->save();
+    if ($account->save()) {
+      $user = DB::table('students')->where('student_code', '=', $request->user_name)->get();
+      if ($user->isEmpty()) {
+        $user = DB::table('teachers')->where('teacher_code', '=', $request->user_name)->get();
+      }
+      if ($user->isNotEmpty()) {
+        $mail = [];
+        $mail['to'] = $user[0]->email;
+        $mail['header'] = "Tài khoản đã được cấp thành công !";
+        $mail['body'] = "Tên tài khoản: " . $request->user_name . "Mật khẩu: " . $request->password;
+        // $request->session()->put('mail', $mail);
+        Mail::to($user[0]->email)->send(new MailNotify($mail));
+      }
+
+    }
     return redirect('/admin/accounts');
   }
 

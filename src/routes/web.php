@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RatingController;
@@ -542,4 +543,14 @@ Route::get('/admin/action', [
 Route::post('/admin/import-excel', [
   ActionController::class,
   'importExcel',
+]);
+
+Route::get('/sendmail', [
+  MailController::class,
+  'sendMail',
+]);
+
+Route::post('/action-send-mail', [
+  MailController::class,
+  'actionSendMail',
 ]);

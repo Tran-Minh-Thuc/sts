@@ -9,14 +9,14 @@
                         <form action="create-reports" method="post">
                             @csrf
                             <div class="mb-4">
-                                @if($student->student_code)
+                                @if($student)
                                 <input type="number" class="form-control border-0 py-3" name="sender_code" value = "{{$student->student_code}}" placeholder="Mã số của bạn" required>
                                 @else
                                 <input type="number" class="form-control border-0 py-3" name="sender_code" placeholder="Mã số của bạn" required>
                                 @endif
                             </div>
                             <div class="mb-4">
-                                @if($student->email)
+                                @if($student)
                                 <input type="email" class="form-control border-0 py-3" name="sender_email" value = "{{$student->email}}" placeholder="Email của bạn" required>
                                 @else
                                 <input type="email" class="form-control border-0 py-3" name="sender_email" placeholder="Email của bạn" required>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailNotify;
 use App\Models\Accounts;
 use App\Models\Classes;
 use App\Models\Provinces;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Inheric docs.
@@ -111,7 +113,7 @@ class StudentsController extends Controller {
    */
   public function store(Request $request) {
     $request->validate([
-      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+      'file' => 'mimes:jpeg,png,jpg,gif,svg,ico,webp',
     ]);
     $students = new Students();
     $students->student_code = $request->student_code;
@@ -139,6 +141,15 @@ class StudentsController extends Controller {
       $account->save();
       $students->account_id = $account->id;
       $students->save();
+      if ($account->save()) {
+        $mail = [];
+        $mail['to'] = $request->email;
+        $mail['header'] = "Tài khoản đã được cấp thành công !";
+        $mk = str_replace(['\'', '"', ',', ';', '<', '-'], '', $request->date_of_birth);
+        $mail['body'] = "Tên tài khoản: " . $request->student_code . "Mật khẩu: " . $mk;
+        // $request->session()->put('mail', $mail);
+        Mail::to($request->email)->send(new MailNotify($mail));
+      }
       echo "<script>alert(\"Thêm tài khoản cho sinh viên ( {{$request->full_name}} ) thành công !\")</script>";
     }
     return redirect('/admin/students');

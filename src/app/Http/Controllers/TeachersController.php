@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailNotify;
 use App\Models\Accounts;
 use App\Models\Provinces;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Inheric docs.
@@ -139,7 +141,15 @@ class TeachersController extends Controller {
       $account->save();
       $teachers->account_id = $account->id;
       $teachers->save();
-
+      if ($account->save()) {
+        $mail = [];
+        $mail['to'] = $request->email;
+        $mk = str_replace(['\'', '"', ',', ';', '<', '-'], '', $request->date_of_birth);
+        $mail['header'] = "Tài khoản đã được cấp thành công !";
+        $mail['body'] = "Tên tài khoản: " . $request->teacher_code . "Mật khẩu: " . $mk;
+        // $request->session()->put('mail', $mail);
+        Mail::to($request->email)->send(new MailNotify($mail));
+      }
       echo "<script>alert(\"Thêm tài khoản cho giảng viên ( {{$request->full_name}} ) thành công !\")</script>";
     }
     return redirect('/admin/teachers');

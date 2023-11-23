@@ -6,7 +6,6 @@ use App\Models\Students;
 use App\Models\Teachers;
 use App\Models\Transcript_details;
 use App\Models\Transcripts;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -597,8 +596,11 @@ class UsersController extends Controller {
     }
   }
 
+  /**
+   * Inheric docs.
+   */
   public function rattingStudent() {
-    // return session()->all();
+    // Return session()->all();
     if (!session('user_info')) {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";
     }
@@ -606,7 +608,7 @@ class UsersController extends Controller {
     return view('user.rattingstudent', compact('msg'));
   }
 
-    /**
+  /**
    * Inheric docs.
    */
   public function actionRattingStudent(Request $request) {
@@ -668,6 +670,9 @@ class UsersController extends Controller {
     }
   }
 
+  /**
+   * Inheric docs.
+   */
   public function updateRattingStudent(Request $request, $id) {
     $msg = '';
     if (!session('user_info')) {
@@ -721,6 +726,9 @@ class UsersController extends Controller {
     return view('user.rattingscorestudent', compact('parents', 'child_parents', 'childs', 'msg', 'parent_rows', 'trans'));
   }
 
+  /**
+   * Inheric docs.
+   */
   public function updateUserRatings2(Request $request, $id) {
     $trans_id = $id;
     $jsonData = request()->all();
@@ -758,4 +766,5 @@ class UsersController extends Controller {
     $trans->save();
     return redirect('/user/ratting-student');
   }
+
 }
