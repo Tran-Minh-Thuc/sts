@@ -39,6 +39,52 @@ class NoticesController extends Controller {
   /**
    * Inheric docs.
    */
+  public function action(Request $request) {
+    if ($request->ajax()) {
+      $query = $request->get('query');
+      $output = '';
+      if ($query != '') {
+        $data = DB::table('notices')
+          ->where('name', 'LIKE', '%' . $query . '%')
+          ->get();
+      }
+      else {
+        $data = DB::table('notices')
+          ->get();
+      }
+      $total_row = $data->count();
+      if ($total_row > 0) {
+        foreach ($data as $row) {
+          $output .= '
+                <tr id="' . $row->id . '">
+                    <td>' . $row->name . '</td>
+                    <td>' . $row->created_at . '</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" href="/admin/update-notices/' . $row->id . '" class="btn btn-info">Chỉnh Sửa</a>
+                            <button type="button" value="' . $row->id . '" id="delete"  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </td>
+                </tr>';
+        }
+      }
+      else {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+      }
+      $data = [
+        'table_data' => $output,
+      ];
+      echo json_encode($data);
+    }
+  }
+
+  /**
+   * Inheric docs.
+   */
   public function create() {
     $semesters = Semesters::all()->toArray();
     if (session("permission") == 1) {
@@ -54,17 +100,21 @@ class NoticesController extends Controller {
    */
   public function store(Request $request) {
     $request->validate([
-      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+      'file' => 'mimes:jpeg,png,jpg,gif,svg,ico,webp',
     ]);
     $notices = new Notices();
-    $notices->semester_id = $request->semester_id;
+    $now = date('Y-m-d');
+    $semesters = DB::table('semesters')->get();
+    foreach ($semesters as $semester) {
+      if ($semester->start_time < $now && $semester->end_time > $now) {
+        $notices->semester_id = $semester->id;
+      }
+    }
     $notices->begin_time = $request->begin_time;
     $notices->end_time = $request->end_time;
     $notices->image = !empty($request->image) ? (string) base64_encode(file_get_contents($request->image)) : NULL;
-    $notices->location = $request->location;
     $notices->note = $request->note;
     $notices->name = $request->name;
-    $notices->type = $request->type;
     $notices->created_at = date('Y-m-d');
     $notices->updated_at = date('Y-m-d');
     $notices->save();
@@ -97,7 +147,7 @@ class NoticesController extends Controller {
    */
   public function update(Request $request, $id) {
     $request->validate([
-      'file' => 'required|mimes:jpeg,png,jpg,gif,svg,ico,webp',
+      'file' => 'mimes:jpeg,png,jpg,gif,svg,ico,webp',
     ]);
     $notices = Notices::find($id);
     $notices->semester_id = $request->semester_id;
@@ -106,10 +156,8 @@ class NoticesController extends Controller {
     if ($request->image) {
       $notices->image = (string) base64_encode(file_get_contents($request->image));
     }
-    $notices->location = $request->location;
     $notices->note = $request->note;
     $notices->name = $request->name;
-    $notices->type = $request->type;
     $notices->created_at = date('Y-m-d');
     $notices->updated_at = date('Y-m-d');
     $notices->save();

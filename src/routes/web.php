@@ -331,6 +331,11 @@ Route::get('/admin/notices', [
   'list',
 ]);
 
+Route::get('/admin/action-notices', [
+  NoticesController::class,
+  'action',
+])->name('action_notices');
+
 Route::get('/admin/create-notices', [
   NoticesController::class,
   'create',
