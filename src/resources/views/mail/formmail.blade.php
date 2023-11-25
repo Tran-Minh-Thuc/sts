@@ -8,7 +8,10 @@
 <body>
     <h3>{{$data['header']}}</h3>
     <br>
-    {{$data['body']}}
+    <?php 
+    echo $data['body']
+    ?>
+    {{-- {{$data['body']}} --}}
     <br>
     Trân trọng !
 </body>

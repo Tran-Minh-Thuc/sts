@@ -20,7 +20,7 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
-                                    <form action="update-notices/{{$notice['id']}}" method="post">
+                                    <form action="update-notices/{{$notice['id']}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
                                         <div class="form-body">

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MailNotify;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Models\Accounts;
 use App\Models\Classes;
 use App\Models\Provinces;
 use App\Models\Students;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 /**
  * Inheric docs.

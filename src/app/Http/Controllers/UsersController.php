@@ -204,8 +204,10 @@ class UsersController extends Controller {
    * Inheric docs.
    */
   public function news(Request $request) {
+    
     if (session('user_info')) {
-      return view('user.news');
+      $notices = DB::table('notices')->get();
+      return view('user.news', compact('notices'));
     }
     else {
       return "You can not access this page ! <a href=\"..\login\">re-login</a>";

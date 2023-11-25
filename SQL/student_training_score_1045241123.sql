@@ -390,8 +390,7 @@ CREATE TABLE `reports` (
   `status` enum('In Progress','Resolved','Pending') DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   `created_at` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Dumping data for table `reports`
 --
